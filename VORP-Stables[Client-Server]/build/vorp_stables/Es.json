@@ -1,0 +1,19 @@
+{
+
+    "PressToOpen": "Pulsa [~e~Enter~q~] para acceder al establo",
+
+    "TitleMenuStables": "Establos",
+    "SubTitleMenuStables": "Elija una opción",
+
+    "TitleMenuBuyHorses": "Comprar Caballos",
+    "SubTitleMenuBuyHorses": "Elija un caballo",
+
+    "TitleMenuHorses": "Gestionar Caballos",
+    "SubTitleMenuHorses": "Gestiona tus caballos",
+
+    "TitleMenuBuyCarts": "Comprar Carros",
+    "SubTitleMenuBuyCarts": "Elija un carro",
+
+    "TitleMenuCarts": "Gestionar Carros",
+    "SubTitleMenuCarts": "Gestiona tus carros"
+}

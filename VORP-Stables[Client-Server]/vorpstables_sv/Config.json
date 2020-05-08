@@ -1,0 +1,26 @@
+{
+
+  "defaultlang": "Es", // set your language
+
+  "Horses": [
+    {
+      "Troton de Putas": [ "Hash caballo Uno", "Hash caballo Uno" ],
+      "Rubi la xupa": [ "y xmau", "tambien" ]
+    }
+  ],
+
+
+  "Stables": [
+    {
+      "name": "Establo Saint Denis",
+      "BlipIcon": 1938782895,
+      "EnterStable": [ 2510.58, -1456.83, 46.31, 2.0 ],
+      "StableNPC": [ 2512.35, -1456.89, 45.2, 91.68 ],
+      "SpawnHorse": [ 2508.59, -1449.96, 46.0, 90.09 ],
+      "CamHorse": [ 2506.807, -1452.29, 48.61699, -34.77003, 0.0, -35.20742 ],
+      "CamHorseGear": [ 2508.876, -1451.953, 48.67999, -35.29771, 0.0, -0.4993192 ],
+      "SpawnCart": [ 2503.47, -1441.89, 46.31, 0.24 ],
+      "CamCart": [ 2506.428, -1437.7, 50.57832, -39.4497, 0.0, 120.535 ]
+    }
+  ]
+}
