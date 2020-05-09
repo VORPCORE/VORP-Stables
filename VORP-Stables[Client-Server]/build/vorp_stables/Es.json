@@ -15,5 +15,11 @@
     "SubTitleMenuBuyCarts": "Elija un carro",
 
     "TitleMenuCarts": "Gestionar Carros",
-    "SubTitleMenuCarts": "Gestiona tus carros"
+    "SubTitleMenuCarts": "Gestiona tus carros",
+
+    //Horses
+    "A_C_Horse_AmericanPaint_Greyovero": "Nombre del caballo",
+    "A_C_Horse_AmericanPaint_Overo": "Nombre del caballo",
+    "A_C_Horse_AmericanPaint_SplashedWhite": "Nombre del caballo"
+
 }

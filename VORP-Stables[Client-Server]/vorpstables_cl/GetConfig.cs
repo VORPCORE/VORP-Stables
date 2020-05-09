@@ -14,6 +14,7 @@ namespace vorpstables_cl
     {
         public static JObject Config = new JObject();
         public static Dictionary<string, string> Langs = new Dictionary<string, string>();
+        public static Dictionary<string, Dictionary<string, double>> HorseLists = new Dictionary<string, Dictionary<string, double>>();
 
         public GetConfig()
         {
@@ -31,6 +32,28 @@ namespace vorpstables_cl
                 Langs[l.Key] = l.Value.ToString();
             }
 
+
+            foreach (JObject categories in GetConfig.Config["Horses"].Children<JObject>())
+            {
+                foreach (JProperty cat in categories.Properties())
+                {
+                    Debug.WriteLine(cat.Name); //Titulo
+
+                    Dictionary<string, double> hlist = new Dictionary<string, double>();
+
+                    foreach (JObject horse in cat.Value.Children<JObject>())
+                    {
+
+                        foreach (JProperty h in horse.Properties())
+                        {
+                            hlist.Add(h.Name, double.Parse(h.Value.ToString()));
+                        }
+
+                    }
+
+                    HorseLists.Add(cat.Name, hlist);
+                }
+            }
 
             //Start When finish Loading
             InitStables.StartInit();

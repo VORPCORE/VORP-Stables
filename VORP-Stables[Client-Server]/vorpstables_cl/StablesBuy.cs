@@ -89,12 +89,18 @@ namespace vorpstables_cl
             menuStables.AddMenuItem(menuButtonBuyHorses);
             MenuController.BindMenuItem(menuStables, subMenuBuyHorses, menuButtonBuyHorses);
 
-            foreach (JObject categories in GetConfig.Config["Horses"].Children<JObject>())
+
+            foreach (var cat in GetConfig.HorseLists)
             {
-                foreach (JProperty cat in categories.Properties())
+                List<string> hlist = new List<string>();
+
+                foreach (var h in cat.Value)
                 {
-                    Debug.WriteLine(cat.Name); //Titulo
+                    hlist.Add(h.Key);
                 }
+
+                MenuListItem horseCategories = new MenuListItem(cat.Key, hlist, 0, "Horses");
+                subMenuBuyHorses.AddMenuItem(horseCategories);
             }
 
             #endregion
