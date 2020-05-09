@@ -1,6 +1,6 @@
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\build\vorp_stables\Config.json
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\build\vorp_stables\vorpstables_sv.net.dll
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\build\vorp_stables\vorpstables_sv.net.pdb
-E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.csprojAssemblyReference.cache
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.net.dll
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.net.pdb
+E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.csprojAssemblyReference.cache

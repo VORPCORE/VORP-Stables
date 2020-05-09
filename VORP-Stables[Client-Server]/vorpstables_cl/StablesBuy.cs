@@ -1,5 +1,6 @@
 ﻿using CitizenFX.Core;
 using MenuAPI;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,6 +88,15 @@ namespace vorpstables_cl
 
             menuStables.AddMenuItem(menuButtonBuyHorses);
             MenuController.BindMenuItem(menuStables, subMenuBuyHorses, menuButtonBuyHorses);
+
+            foreach (JObject categories in GetConfig.Config["Horses"].Children<JObject>())
+            {
+                foreach (JProperty cat in categories.Properties())
+                {
+                    Debug.WriteLine(cat.Name); //Titulo
+                }
+            }
+
             #endregion
 
             #region SubMenuHorses

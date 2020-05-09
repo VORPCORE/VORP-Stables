@@ -4,8 +4,191 @@
 
   "Horses": [
     {
-      "Troton de Putas": [ "Hash caballo Uno", "Hash caballo Uno" ],
-      "Rubi la xupa": [ "y xmau", "tambien" ]
+      "Paint Horse americano": [
+        {
+          "A_C_Horse_AmericanPaint_Greyovero":  100,
+          "A_C_Horse_AmericanPaint_Overo":  100,
+          "A_C_Horse_AmericanPaint_SplashedWhite":  100,
+          "A_C_Horse_AmericanPaint_Tobiano":  100
+        }
+      ],
+      "Trotón americano": [
+        {
+          "A_C_Horse_AmericanStandardbred_Black": 100,
+          "A_C_Horse_AmericanStandardbred_Buckskin": 100,
+          "A_C_Horse_AmericanStandardbred_PalominoDapple": 100,
+          "A_C_Horse_AmericanStandardbred_SilverTailBuckskin": 100
+        }
+      ],
+      "Andaluz": [
+        {
+          "A_C_Horse_Andalusian_DarkBay": 100,
+          "A_C_Horse_Andalusian_Perlino":  100,
+          "A_C_Horse_Andalusian_RoseGray":  100
+        }
+      ],
+      "Appaloosa": [
+        {
+          "A_C_Horse_Appaloosa_BlackSnowflake": 100,
+          "A_C_Horse_Appaloosa_Blanket": 100,
+          "A_C_Horse_Appaloosa_BrownLeopard": 100,
+          "A_C_Horse_Appaloosa_FewSpotted_PC": 100,
+          "A_C_Horse_Appaloosa_Leopard": 100,
+          "A_C_Horse_Appaloosa_LeopardBlanket": 100
+        }
+      ],
+      "Árabe": [
+        {
+          "A_C_Horse_Arabian_Black": 100,
+          "A_C_Horse_Arabian_Grey": 100,
+          "A_C_Horse_Arabian_RedChestnut": 100,
+          "A_C_Horse_Arabian_RedChestnut_PC": 100,
+          "A_C_Horse_Arabian_RoseGreyBay": 100,
+          "A_C_Horse_Arabian_WarpedBrindle_PC": 100,
+          "A_C_Horse_Arabian_White": 100
+        }
+      ],
+      "Ardenner": [
+        {
+          "A_C_Horse_Ardennes_BayRoan": 100,
+          "A_C_Horse_Ardennes_IronGreyRoan": 100,
+          "A_C_Horse_Ardennes_StrawberryRoan": 100
+        }
+      ],
+      "Belga": [
+        {
+          "A_C_Horse_Belgian_BlondChestnut": 100,
+          "A_C_Horse_Belgian_MealyChestnut": 100
+        }
+      ],
+      "Buell": [ { "A_C_Horse_Buell_WarVets": 100 } ],
+      "Sangre caliente holandés": [
+        {
+          "A_C_Horse_DutchWarmblood_ChocolateRoan": 100,
+          "A_C_Horse_DutchWarmblood_SealBrown": 100,
+          "A_C_Horse_DutchWarmblood_SootyBuckskin": 100
+        }
+      ],
+      "Mestizo húngaro": [
+        {
+          "A_C_Horse_HungarianHalfbred_DarkDappleGrey": 100,
+          "A_C_Horse_HungarianHalfbred_FlaxenChestnut": 100,
+          "A_C_Horse_HungarianHalfbred_LiverChestnut": 100,
+          "A_C_Horse_HungarianHalfbred_PiebaldTobiano": 100
+        }
+      ],
+      "Saddler de Kentucky": [
+        {
+          "A_C_Horse_KentuckySaddle_Black": 100,
+          "A_C_Horse_KentuckySaddle_ButterMilkBuckskin_PC": 100,
+          "A_C_Horse_KentuckySaddle_ChestnutPinto": 100,
+          "A_C_Horse_KentuckySaddle_Grey": 100,
+          "A_C_Horse_KentuckySaddle_SilverBay": 100
+        }
+      ],
+      "Kladruber": [
+        {
+          "A_C_Horse_Kladruber_Black": 100,
+          "A_C_Horse_Kladruber_Silver": 100,
+          "A_C_Horse_Kladruber_Cremello": 100,
+          "A_C_Horse_Kladruber_Grey": 100,
+          "A_C_Horse_Kladruber_DappleRoseGrey": 100,
+          "A_C_Horse_Kladruber_White": 100
+        }
+      ],
+      "Fox trotter de Missouri": [
+        {
+          "A_C_Horse_MissouriFoxTrotter_AmberChampagne": 100,
+          "A_C_Horse_MissouriFoxTrotter_SableChampagne": 100,
+          "A_C_Horse_MissouriFoxTrotter_SilverDapplePinto": 100
+        }
+      ],
+      "Morgan": [
+        {
+          "A_C_Horse_Morgan_Bay": 100,
+          "A_C_Horse_Morgan_BayRoan": 100,
+          "A_C_Horse_Morgan_FlaxenChestnut": 100,
+          "A_C_Horse_Morgan_LiverChestnut_PC": 100,
+          "A_C_Horse_Morgan_Palomino": 100
+        }
+      ],
+      "Penco viejo": [ { "A_C_Horse_MP_Mangy_Backup": 100 } ],
+      "Mustango": [
+        {
+          "A_C_Horse_Mustang_GoldenDun": 100,
+          "A_C_Horse_Mustang_GrulloDun": 100,
+          "A_C_Horse_Mustang_TigerStripedBay": 100,
+          "A_C_Horse_Mustang_WildBay": 100
+        }
+      ],
+      "Nokota": [
+        {
+          "A_C_Horse_Nokota_BlueRoan": 100,
+          "A_C_Horse_Nokota_ReverseDappleRoan": 100,
+          "A_C_Horse_Nokota_WhiteRoan": 100
+        }
+      ],
+      "Shire": [
+        {
+          "A_C_Horse_Shire_DarkBay": 100,
+          "A_C_Horse_Shire_LightGrey": 100,
+          "A_C_Horse_Shire_RavenBlack": 100
+        }
+      ],
+      "Suffolk Punch": [
+        {
+          "A_C_Horse_SuffolkPunch_RedChestnut": 100,
+          "A_C_Horse_SuffolkPunch_Sorrel": 100
+        }
+      ],
+      "De paso de Tennessee": [
+        {
+          "A_C_Horse_TennesseeWalker_BlackRabicano": 100,
+          "A_C_Horse_TennesseeWalker_Chestnut": 100,
+          "A_C_Horse_TennesseeWalker_DappleBay": 100,
+          "A_C_Horse_TennesseeWalker_FlaxenRoan": 100,
+          "A_C_Horse_TennesseeWalker_MahoganyBay": 100,
+          "A_C_Horse_TennesseeWalker_RedRoan": 100
+        }
+      ],
+      "Purasangre": [
+        {
+          "A_C_Horse_Thoroughbred_BlackChestnut": 100,
+          "A_C_Horse_Thoroughbred_BloodBay": 100,
+          "A_C_Horse_Thoroughbred_Brindle": 100,
+          "A_C_Horse_Thoroughbred_DappleGrey": 100,
+          "A_C_Horse_Thoroughbred_ReverseDappleBlack": 100
+        }
+      ],
+      "Turcomano": [
+        {
+          "A_C_Horse_Turkoman_DarkBay": 100,
+          "A_C_Horse_Turkoman_Gold": 100,
+          "A_C_Horse_Turkoman_Silver": 100
+        }
+      ],
+      "Criollo": [
+        {
+          "A_C_Horse_Criollo_Dun": 100,
+          "A_C_Horse_Criollo_MarbleSabino": 100,
+          "A_C_Horse_Criollo_BayFrameOvero": 100,
+          "A_C_Horse_Criollo_BayBrindle": 100,
+          "A_C_Horse_Criollo_SorrelOvero": 100,
+          "A_C_Horse_Criollo_BlueRoanOvero": 100
+        }
+      ],
+      "Bretón": [
+        {
+          "A_C_Horse_Breton_SteelGrey": 100,
+          "A_C_Horse_Breton_MealyDapple": 100,
+          "A_C_Horse_Breton_SealBrown": 100,
+          "A_C_Horse_Breton_GrulloDun": 100,
+          "A_C_Horse_Breton_Sorrel": 100,
+          "A_C_Horse_Breton_RedRoan": 100
+        }
+      ],
+      "Zebra (Mula pintada)": [ { "A_C_HorseMulePainted_01": 100 } ],
+      "Mula": [ { "A_C_HorseMule_01": 100 } ]
     }
   ],
 
