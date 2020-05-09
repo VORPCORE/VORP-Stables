@@ -98,9 +98,7 @@ namespace vorpstables_cl
                     await DrawTxt(GetConfig.Langs["PressToOpen"], 0.5f, 0.9f, 0.7f, 0.7f, 255, 255, 255, 255, true, true);
                     if (API.IsControlJustPressed(2, 0xC7B5340A))
                     {
-                        await Delay(50);
                         StablesBuy.MenuStables(i);
-                        await Delay(500);
                     }
                 }
 

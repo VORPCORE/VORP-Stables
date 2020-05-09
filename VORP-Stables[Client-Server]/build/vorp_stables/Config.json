@@ -1,4 +1,4 @@
-{
+Ôªø{
 
   "defaultlang": "Es", // set your language
 
@@ -12,7 +12,7 @@
           "A_C_Horse_AmericanPaint_Tobiano":  100
         }
       ],
-      "TrotÛn americano": [
+      "Trot√≥n americano": [
         {
           "A_C_Horse_AmericanStandardbred_Black": 100,
           "A_C_Horse_AmericanStandardbred_Buckskin": 100,
@@ -37,12 +37,11 @@
           "A_C_Horse_Appaloosa_LeopardBlanket": 100
         }
       ],
-      "¡rabe": [
+      "√Årabe": [
         {
           "A_C_Horse_Arabian_Black": 100,
           "A_C_Horse_Arabian_Grey": 100,
           "A_C_Horse_Arabian_RedChestnut": 100,
-          "A_C_Horse_Arabian_RedChestnut_PC": 100,
           "A_C_Horse_Arabian_RoseGreyBay": 100,
           "A_C_Horse_Arabian_WarpedBrindle_PC": 100,
           "A_C_Horse_Arabian_White": 100
@@ -61,15 +60,14 @@
           "A_C_Horse_Belgian_MealyChestnut": 100
         }
       ],
-      "Buell": [ { "A_C_Horse_Buell_WarVets": 100 } ],
-      "Sangre caliente holandÈs": [
+      "Sangre caliente holand√©s": [
         {
           "A_C_Horse_DutchWarmblood_ChocolateRoan": 100,
           "A_C_Horse_DutchWarmblood_SealBrown": 100,
           "A_C_Horse_DutchWarmblood_SootyBuckskin": 100
         }
       ],
-      "Mestizo h˙ngaro": [
+      "Mestizo h√∫ngaro": [
         {
           "A_C_Horse_HungarianHalfbred_DarkDappleGrey": 100,
           "A_C_Horse_HungarianHalfbred_FlaxenChestnut": 100,
@@ -148,7 +146,8 @@
           "A_C_Horse_TennesseeWalker_DappleBay": 100,
           "A_C_Horse_TennesseeWalker_FlaxenRoan": 100,
           "A_C_Horse_TennesseeWalker_MahoganyBay": 100,
-          "A_C_Horse_TennesseeWalker_RedRoan": 100
+          "A_C_Horse_TennesseeWalker_RedRoan": 100,
+          "A_C_Horse_TennesseeWalker_GoldPalomino_PC": 100
         }
       ],
       "Purasangre": [
@@ -177,7 +176,7 @@
           "A_C_Horse_Criollo_BlueRoanOvero": 100
         }
       ],
-      "BretÛn": [
+      "Bret√≥n": [
         {
           "A_C_Horse_Breton_SteelGrey": 100,
           "A_C_Horse_Breton_MealyDapple": 100,
@@ -199,7 +198,7 @@
       "BlipIcon": 1938782895,
       "EnterStable": [ 2510.58, -1456.83, 46.31, 2.0 ],
       "StableNPC": [ 2512.35, -1456.89, 45.2, 91.68 ],
-      "SpawnHorse": [ 2508.59, -1449.96, 46.0, 90.09 ],
+      "SpawnHorse": [ 2508.59, -1449.96, 45.5, 90.09 ],
       "CamHorse": [ 2506.807, -1452.29, 48.61699, -34.77003, 0.0, -35.20742 ],
       "CamHorseGear": [ 2508.876, -1451.953, 48.67999, -35.29771, 0.0, -0.4993192 ],
       "SpawnCart": [ 2503.47, -1441.89, 46.31, 0.24 ],

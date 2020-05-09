@@ -1,4 +1,5 @@
 ﻿using CitizenFX.Core;
+using CitizenFX.Core.Native;
 using MenuAPI;
 using Newtonsoft.Json.Linq;
 using System;
@@ -14,6 +15,9 @@ namespace vorpstables_cl
     {
         static int CamHorse;
         static int CamCart;
+
+        static int HorsePed;
+        static bool horseIsLoaded = true;
 
         public static async Task EnterBuyMode()
         {
@@ -66,14 +70,15 @@ namespace vorpstables_cl
         public static async Task ExitBuyHorseMode()
         {
             await ExitBuyMode();
-
+            DeletePed(ref HorsePed);
             SetCamActive(CamHorse, false);
             RenderScriptCams(false, true, 1000, true, true, 0);
             DestroyCam(CamHorse, true);
         }
 
-        public static void MenuStables(int stableId)
+        public static async Task MenuStables(int stableId)
         {
+            
             Menu menuStables = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
             MenuController.AddMenu(menuStables);
 
@@ -96,7 +101,8 @@ namespace vorpstables_cl
 
                 foreach (var h in cat.Value)
                 {
-                    hlist.Add(h.Key);
+                    Debug.WriteLine(h.Key);
+                    hlist.Add(GetConfig.Langs[h.Key]);
                 }
 
                 MenuListItem horseCategories = new MenuListItem(cat.Key, hlist, 0, "Horses");
@@ -154,6 +160,28 @@ namespace vorpstables_cl
             {
                 ExitBuyHorseMode();
             };
+
+
+            subMenuBuyHorses.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+                if (horseIsLoaded)
+                {
+                    await LoadHorsePreview(stableId, itemlist.Index, itemlist.ListIndex);
+                }
+            };
+
+            subMenuBuyHorses.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+                if (horseIsLoaded)
+                {
+                    await LoadHorsePreview(stableId, _itemIndex, _newIndex);
+                }
+            };
+
             #endregion
 
             #region EventsBuyCart
@@ -169,6 +197,30 @@ namespace vorpstables_cl
             #endregion
 
             menuStables.OpenMenu();
+        }
+
+        public static async Task LoadHorsePreview(int stID, int cat, int index)
+        {
+            horseIsLoaded = false;
+            DeletePed(ref HorsePed);
+            await Delay(100);
+            float x = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][0].ToString());
+            float y = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][1].ToString());
+            float z = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][2].ToString());
+            float heading = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][3].ToString());
+
+            uint hashPed = (uint)GetHashKey(GetConfig.HorseLists.ElementAt(cat).Value.ElementAt(index).Key);
+
+            await InitStables.LoadModel(hashPed);
+
+            HorsePed = CreatePed(hashPed, x, y, z, heading, false, true, true, true);
+            Function.Call((Hash)0x283978A15512B2FE, HorsePed, true);
+            SetEntityCanBeDamaged(HorsePed, false);
+            SetEntityInvincible(HorsePed, true);
+            FreezeEntityPosition(HorsePed, true);
+            SetModelAsNoLongerNeeded(hashPed);
+
+            horseIsLoaded = true;
         }
 
     }

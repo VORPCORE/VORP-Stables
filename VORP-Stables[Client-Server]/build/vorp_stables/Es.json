@@ -3,23 +3,140 @@
     "PressToOpen": "Pulsa [~e~Enter~q~] para acceder al establo",
 
     "TitleMenuStables": "Establos",
-    "SubTitleMenuStables": "Elija una opción",
+    "SubTitleMenuStables": "Elije una opción",
 
     "TitleMenuBuyHorses": "Comprar Caballos",
-    "SubTitleMenuBuyHorses": "Elija un caballo",
+    "SubTitleMenuBuyHorses": "Elije un caballo",
 
     "TitleMenuHorses": "Gestionar Caballos",
     "SubTitleMenuHorses": "Gestiona tus caballos",
 
     "TitleMenuBuyCarts": "Comprar Carros",
-    "SubTitleMenuBuyCarts": "Elija un carro",
+    "SubTitleMenuBuyCarts": "Elije un carro",
 
     "TitleMenuCarts": "Gestionar Carros",
     "SubTitleMenuCarts": "Gestiona tus carros",
 
     //Horses
-    "A_C_Horse_AmericanPaint_Greyovero": "Nombre del caballo",
-    "A_C_Horse_AmericanPaint_Overo": "Nombre del caballo",
-    "A_C_Horse_AmericanPaint_SplashedWhite": "Nombre del caballo"
+    "A_C_Horse_AmericanPaint_Greyovero": "Overo gris",
+    "A_C_Horse_AmericanPaint_Overo": "Overo",
+    "A_C_Horse_AmericanPaint_SplashedWhite": "Blanco con manchas",
+    "A_C_Horse_AmericanPaint_Tobiano": "Tobiano",
+
+    "A_C_Horse_AmericanStandardbred_Black": "Negro",
+    "A_C_Horse_AmericanStandardbred_Buckskin": "Isabelo",
+    "A_C_Horse_AmericanStandardbred_PalominoDapple": "Tordo palomino",
+    "A_C_Horse_AmericanStandardbred_SilverTailBuckskin": "Isabelo de cola plateada",
+
+    "A_C_Horse_Andalusian_DarkBay": "Bayo oscuro",
+    "A_C_Horse_Andalusian_Perlino": "Perlino",
+    "A_C_Horse_Andalusian_RoseGray": "Gris rosado",
+
+    "A_C_Horse_Appaloosa_BlackSnowflake": "Negro con copos de nieve",
+    "A_C_Horse_Appaloosa_Blanket": "Lomo manchado",
+    "A_C_Horse_Appaloosa_BrownLeopard": "Leopardo marrón",
+    "A_C_Horse_Appaloosa_FewSpotted_PC": "Moteado",
+    "A_C_Horse_Appaloosa_Leopard": "Leopardo",
+    "A_C_Horse_Appaloosa_LeopardBlanket": "Lomo manchado leopardo",
+
+    "A_C_Horse_Arabian_Black": "Negro",
+    "A_C_Horse_Arabian_Grey": "Gris",
+    "A_C_Horse_Arabian_RedChestnut": "Alazán rojo",
+    "A_C_Horse_Arabian_RoseGreyBay": "Bayo gris rosado",
+    "A_C_Horse_Arabian_WarpedBrindle_PC": "Atigrado",
+    "A_C_Horse_Arabian_White": "Blanco",
+
+    "A_C_Horse_Ardennes_BayRoan": "Ruano bayo",
+    "A_C_Horse_Ardennes_IronGreyRoan": "Ruano gris hierro",
+    "A_C_Horse_Ardennes_StrawberryRoan": "Ruano fresa",
+
+    "A_C_Horse_Belgian_BlondChestnut": "Alazán rubio",
+    "A_C_Horse_Belgian_MealyChestnut": "Alazán harinoso",
+
+    "A_C_Horse_DutchWarmblood_ChocolateRoan": "Ruano chocolate",
+    "A_C_Horse_DutchWarmblood_SealBrown": "Pardo oscuro",
+    "A_C_Horse_DutchWarmblood_SootyBuckskin": "Isabelo hollín",
+
+    "A_C_Horse_HungarianHalfbred_DarkDappleGrey": "Gris oscuro tordo",
+    "A_C_Horse_HungarianHalfbred_FlaxenChestnut": "Alazán platino",
+    "A_C_Horse_HungarianHalfbred_LiverChestnut": "Alazán rojo higado",
+    "A_C_Horse_HungarianHalfbred_PiebaldTobiano": "Tobiano piebald",
+
+    "A_C_Horse_KentuckySaddle_Black": "Negro",
+    "A_C_Horse_KentuckySaddle_ButterMilkBuckskin_PC": "Isabelo leche cortada",
+    "A_C_Horse_KentuckySaddle_ChestnutPinto": "Alazán pinto",
+    "A_C_Horse_KentuckySaddle_Grey": "Gris",
+    "A_C_Horse_KentuckySaddle_SilverBay": "Bayo plateado",
+
+    "A_C_Horse_Kladruber_Black": "Negro",
+    "A_C_Horse_Kladruber_Silver": "Plateado",
+    "A_C_Horse_Kladruber_Cremello": "Cremello",
+    "A_C_Horse_Kladruber_Grey": "Gris",
+    "A_C_Horse_Kladruber_DappleRoseGrey": "Gris tordo rosado",
+    "A_C_Horse_Kladruber_White": "Blanco",
+
+    "A_C_Horse_MissouriFoxTrotter_AmberChampagne": "Champán ámbar",
+    "A_C_Horse_MissouriFoxTrotter_SableChampagne": "Champán negro",
+    "A_C_Horse_MissouriFoxTrotter_SilverDapplePinto": "Pinto con manchas plateadas",
+
+    "A_C_Horse_Morgan_Bay": "Bayo",
+    "A_C_Horse_Morgan_BayRoan": "Ruano bayo",
+    "A_C_Horse_Morgan_FlaxenChestnut": "Alazán platino",
+    "A_C_Horse_Morgan_LiverChestnut_PC": "Alazán rojo higado",
+    "A_C_Horse_Morgan_Palomino": "Palomino",
+
+    "A_C_Horse_MP_Mangy_Backup": "Penco viejo",
+
+    "A_C_Horse_Mustang_GoldenDun": "Rucio dorado",
+    "A_C_Horse_Mustang_GrulloDun": "Rucio grullo",
+    "A_C_Horse_Mustang_TigerStripedBay": "Bayo atigrado",
+    "A_C_Horse_Mustang_WildBay": "Bayo salvaje",
+
+    "A_C_Horse_Nokota_BlueRoan": "Ruano azul",
+    "A_C_Horse_Nokota_ReverseDappleRoan": "Ruano tordo invertido",
+    "A_C_Horse_Nokota_WhiteRoan": "Ruano blanco",
+
+    "A_C_Horse_Shire_DarkBay": "Bayo oscuro",
+    "A_C_Horse_Shire_LightGrey": "Gris claro",
+    "A_C_Horse_Shire_RavenBlack": "Negro cuervo",
+
+    "A_C_Horse_SuffolkPunch_RedChestnut": "Alazán rojo",
+    "A_C_Horse_SuffolkPunch_Sorrel": "Cobrizo",
+
+    "A_C_Horse_TennesseeWalker_BlackRabicano": "Rabicano negro",
+    "A_C_Horse_TennesseeWalker_Chestnut": "Alazán",
+    "A_C_Horse_TennesseeWalker_DappleBay": "Bayo tordo",
+    "A_C_Horse_TennesseeWalker_FlaxenRoan": "Ruano platino",
+    "A_C_Horse_TennesseeWalker_MahoganyBay": "Bayo caoba",
+    "A_C_Horse_TennesseeWalker_RedRoan": "Ruano rojizo",
+    "A_C_Horse_TennesseeWalker_GoldPalomino_PC": "Palomino dorado",
+
+    "A_C_Horse_Thoroughbred_BlackChestnut": "Alazán negro",
+    "A_C_Horse_Thoroughbred_BloodBay": "Bayo sangre",
+    "A_C_Horse_Thoroughbred_Brindle": "Atigrado",
+    "A_C_Horse_Thoroughbred_DappleGrey": "Gris tordo",
+    "A_C_Horse_Thoroughbred_ReverseDappleBlack": "Negro tordo invertido",
+
+    "A_C_Horse_Turkoman_DarkBay": "Bayo oscuro",
+    "A_C_Horse_Turkoman_Gold": "Dorado",
+    "A_C_Horse_Turkoman_Silver": "Plateado",
+
+    "A_C_Horse_Criollo_Dun": "Rucio",
+    "A_C_Horse_Criollo_MarbleSabino": "Sabino mármol",
+    "A_C_Horse_Criollo_BayFrameOvero": "Overo bayo",
+    "A_C_Horse_Criollo_BayBrindle": "Bayo atigrado",
+    "A_C_Horse_Criollo_SorrelOvero": "Overo cobrizo",
+    "A_C_Horse_Criollo_BlueRoanOvero": "Overo ruano azul",
+
+    "A_C_Horse_Breton_SteelGrey": "Gris acero",
+    "A_C_Horse_Breton_MealyDapple": "Bayo tordo harinoso",
+    "A_C_Horse_Breton_SealBrown": "Pardo oscuro",
+    "A_C_Horse_Breton_GrulloDun": "Rucio grullo",
+    "A_C_Horse_Breton_Sorrel": "Cobrizo",
+    "A_C_Horse_Breton_RedRoan": "Ruano rojizo",
+
+    "A_C_HorseMulePainted_01": "Zebra",
+
+    "A_C_HorseMule_01": "Mula"
 
 }
