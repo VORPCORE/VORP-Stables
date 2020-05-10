@@ -188,9 +188,10 @@ namespace vorpstables_cl
 
                 if (_index == 0)
                 {
-                    if(HorseManagment.MyHorses.Count >= 5)
+                    if(HorseManagment.MyHorses.Count >= 0)
                     {
-                        
+                        MenuController.CloseAllMenus();
+                        TriggerEvent("vorp:Tip", "Tienes tu establo lleno, no puedes comprar hasta tener un hueco", 3000);
                     }
                 }
                 else
