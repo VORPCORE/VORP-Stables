@@ -56,9 +56,11 @@
   <ItemGroup>
     <Compile Include="ClearCaches.cs" />
     <Compile Include="GetConfig.cs" />
+    <Compile Include="Horse.cs" />
+    <Compile Include="HorseManagment.cs" />
     <Compile Include="InitStables.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StablesBuy.cs" />
+    <Compile Include="StablesShop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

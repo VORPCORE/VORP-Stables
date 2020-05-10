@@ -11,13 +11,16 @@ using static CitizenFX.Core.Native.API;
 
 namespace vorpstables_cl
 {
-    public class StablesBuy: BaseScript
+    public class StablesShop: BaseScript
     {
         static int CamHorse;
         static int CamCart;
 
         static int HorsePed;
         static bool horseIsLoaded = true;
+
+        static int lIndex;
+        static int iIndex;
 
         public static async Task EnterBuyMode()
         {
@@ -95,6 +98,20 @@ namespace vorpstables_cl
             MenuController.BindMenuItem(menuStables, subMenuBuyHorses, menuButtonBuyHorses);
 
 
+            Menu subMenuConfirmBuy = new Menu("Confirm Purcharse", "The cost of this Horse is 0$");
+            MenuController.AddSubmenu(subMenuBuyHorses, subMenuConfirmBuy);
+
+            MenuItem buttonConfirmYes = new MenuItem("Yes", "Confirm buy horse")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuConfirmBuy.AddMenuItem(buttonConfirmYes);
+            MenuItem buttonConfirmNo = new MenuItem("Cancel Order", "Go back!")
+            {
+                RightIcon = MenuItem.Icon.ARROW_LEFT
+            };
+            subMenuConfirmBuy.AddMenuItem(buttonConfirmNo);
+
             foreach (var cat in GetConfig.HorseLists)
             {
                 List<string> hlist = new List<string>();
@@ -107,7 +124,10 @@ namespace vorpstables_cl
 
                 MenuListItem horseCategories = new MenuListItem(cat.Key, hlist, 0, "Horses");
                 subMenuBuyHorses.AddMenuItem(horseCategories);
+                MenuController.BindMenuItem(subMenuBuyHorses, subMenuConfirmBuy, horseCategories);
             }
+
+   
 
             #endregion
 
@@ -154,6 +174,7 @@ namespace vorpstables_cl
             subMenuBuyHorses.OnMenuOpen += (_menu) =>
             {
                 BuyHorseMode(stableId);
+                LoadHorsePreview(stableId, 0, 0, HorsePed);
             };
 
             subMenuBuyHorses.OnMenuClose += (_menu) =>
@@ -161,6 +182,33 @@ namespace vorpstables_cl
                 ExitBuyHorseMode();
             };
 
+            subMenuConfirmBuy.OnItemSelect += (_menu, _item, _index) =>
+            {
+                Debug.WriteLine($"OnItemSelect: [{_menu}, {_item}, {_index}]");
+
+                if (_index == 0)
+                {
+                    if(HorseManagment.MyHorses.Count >= 5)
+                    {
+                        
+                    }
+                }
+                else
+                {
+                    subMenuConfirmBuy.CloseMenu();
+                }
+
+            };
+
+            subMenuBuyHorses.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                iIndex = _itemIndex;
+                lIndex = _listIndex;
+                subMenuConfirmBuy.MenuTitle = $"{GetConfig.HorseLists.ElementAt(_itemIndex).Key}";
+                subMenuConfirmBuy.MenuSubtitle = $"Cost of {GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key]} is {GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString()}$";
+                buttonConfirmYes.Label = $"buy for {GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString()}$";
+            };
 
             subMenuBuyHorses.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
             {
@@ -169,16 +217,16 @@ namespace vorpstables_cl
                 Debug.WriteLine(itemlist.ListIndex.ToString());
                 if (horseIsLoaded)
                 {
-                    await LoadHorsePreview(stableId, itemlist.Index, itemlist.ListIndex);
+                    await LoadHorsePreview(stableId, itemlist.Index, itemlist.ListIndex, HorsePed);
                 }
-            };
+            }; 
 
             subMenuBuyHorses.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
                 if (horseIsLoaded)
                 {
-                    await LoadHorsePreview(stableId, _itemIndex, _newIndex);
+                    await LoadHorsePreview(stableId, _itemIndex, _newIndex, HorsePed);
                 }
             };
 
@@ -199,11 +247,10 @@ namespace vorpstables_cl
             menuStables.OpenMenu();
         }
 
-        public static async Task LoadHorsePreview(int stID, int cat, int index)
+        public static async Task LoadHorsePreview(int stID, int cat, int index, int ped2Delete)
         {
             horseIsLoaded = false;
-            DeletePed(ref HorsePed);
-            await Delay(100);
+            DeletePed(ref ped2Delete);
             float x = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][0].ToString());
             float y = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][1].ToString());
             float z = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][2].ToString());
