@@ -17,6 +17,7 @@ namespace vorpstables_sv
         public static string ConfigString;
         public static Dictionary<string, string> Langs = new Dictionary<string, string>();
         public static string resourcePath = $"{API.GetResourcePath(API.GetCurrentResourceName())}";
+        public static List<dynamic> HorseDB = new List<dynamic>();
 
         public LoadConfig()
         {

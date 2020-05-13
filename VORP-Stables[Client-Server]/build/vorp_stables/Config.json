@@ -2,14 +2,16 @@
 
   "defaultlang": "Es", // set your language
 
+  "StableSlots": 5, // set max horses for each user
+
   "Horses": [
     {
       "Paint Horse americano": [
         {
-          "A_C_Horse_AmericanPaint_Greyovero":  100,
-          "A_C_Horse_AmericanPaint_Overo":  100,
-          "A_C_Horse_AmericanPaint_SplashedWhite":  100,
-          "A_C_Horse_AmericanPaint_Tobiano":  100
+          "A_C_Horse_AmericanPaint_Greyovero": 100,
+          "A_C_Horse_AmericanPaint_Overo": 100,
+          "A_C_Horse_AmericanPaint_SplashedWhite": 100,
+          "A_C_Horse_AmericanPaint_Tobiano": 100
         }
       ],
       "Trotón americano": [
@@ -23,8 +25,8 @@
       "Andaluz": [
         {
           "A_C_Horse_Andalusian_DarkBay": 100,
-          "A_C_Horse_Andalusian_Perlino":  100,
-          "A_C_Horse_Andalusian_RoseGray":  100
+          "A_C_Horse_Andalusian_Perlino": 100,
+          "A_C_Horse_Andalusian_RoseGray": 100
         }
       ],
       "Appaloosa": [

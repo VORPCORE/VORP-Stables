@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,36 +10,39 @@ namespace vorpstables_cl
     public class Horse
     {
         private string Name;
-        private uint HashModel;
+        private string HorseModel;
 
-        private double XP;
-        private int Health;
-        private int Stamina;
+        private int XP;
 
-        private uint saddle;
-        private uint blanket;
-        private uint mane;
-        private uint tail;
-        private uint bag;
-        private uint bedroll;
-        private uint stirups;
+        private JObject Status;
 
-        public Horse(string name, uint hashModel, double xP, int health, int stamina, uint saddle, uint blanket, uint mane, uint tail, uint bag, uint bedroll, uint stirups)
+        private JObject Gear;
+
+        private bool isDefault;
+
+        public Horse(string name, string horseModel, int xP, string status, string jsonGear, bool isdefault)
         {
             Name = name;
-            HashModel = hashModel;
+            HorseModel = horseModel;
             XP = xP;
-            Health = health;
-            Stamina = stamina;
-            this.saddle = saddle;
-            this.blanket = blanket;
-            this.mane = mane;
-            this.tail = tail;
-            this.bag = bag;
-            this.bedroll = bedroll;
-            this.stirups = stirups;
+            Status = JObject.Parse(status);
+            Gear = JObject.Parse(jsonGear);
+            isDefault = isdefault;
         }
 
         public Horse() { }
+
+        public string getHorseModel()
+        {
+            return HorseModel;
+        }
+        public string getHorseName()
+        {
+            return Name;
+        }
+        public JObject getGear()
+        {
+            return Gear;
+        }
     }
 }

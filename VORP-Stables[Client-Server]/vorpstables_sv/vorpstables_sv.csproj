@@ -53,6 +53,7 @@
     <Compile Include="InitStables_Server.cs" />
     <Compile Include="LoadConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StableDataManagment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Config.json">

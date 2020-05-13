@@ -11,7 +11,32 @@ namespace vorpstables_sv
     {
         public InitStables_Server()
         {
+            EventHandlers["vorpstables:LoadMyStables"] += new Action<Player>(LoadStablesDB);
+        }
 
+        public void LoadStablesDB([FromSource]Player source)
+        {
+            string sid = "steam:" + source.Identifiers["steam"];
+
+            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+            {
+                if (result.Count == 0)
+                {
+                    Debug.WriteLine($"{source.Name} has no horses");
+                }
+                else
+                {
+                    List<dynamic> stable = new List<dynamic>();
+                    foreach (var h in result)
+                    {
+                        stable.Add(h);
+                    }
+                    
+                    source.TriggerEvent("vorpstables:GetMyStables", stable);
+                    Debug.WriteLine($"Loaded {result.Count} horses of {source.Name}");
+                }
+
+            }));
         }
 
 

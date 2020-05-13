@@ -22,6 +22,12 @@ namespace vorpstables_cl
         static int lIndex;
         static int iIndex;
 
+
+        #region HorseDataCache
+        static string horsemodel;
+        static double horsecost;
+        #endregion
+
         public static async Task EnterBuyMode()
         {
             foreach (var v in GetActivePlayers())
@@ -98,15 +104,15 @@ namespace vorpstables_cl
             MenuController.BindMenuItem(menuStables, subMenuBuyHorses, menuButtonBuyHorses);
 
 
-            Menu subMenuConfirmBuy = new Menu("Confirm Purcharse", "The cost of this Horse is 0$");
+            Menu subMenuConfirmBuy = new Menu("Confirm Purcharse", "");
             MenuController.AddSubmenu(subMenuBuyHorses, subMenuConfirmBuy);
 
-            MenuItem buttonConfirmYes = new MenuItem("Yes", "Confirm buy horse")
+            MenuItem buttonConfirmYes = new MenuItem("", GetConfig.Langs["ConfirmBuyButtonDesc"])
             {
                 RightIcon = MenuItem.Icon.SADDLE
             };
             subMenuConfirmBuy.AddMenuItem(buttonConfirmYes);
-            MenuItem buttonConfirmNo = new MenuItem("Cancel Order", "Go back!")
+            MenuItem buttonConfirmNo = new MenuItem(GetConfig.Langs["CancelBuyButton"], GetConfig.Langs["CancelBuyButtonDesc"])
             {
                 RightIcon = MenuItem.Icon.ARROW_LEFT
             };
@@ -188,15 +194,26 @@ namespace vorpstables_cl
 
                 if (_index == 0)
                 {
-                    if(HorseManagment.MyHorses.Count >= 0)
+                    if(HorseManagment.MyHorses.Count >= int.Parse(GetConfig.Config["StableSlots"].ToString()))
                     {
                         MenuController.CloseAllMenus();
-                        TriggerEvent("vorp:Tip", "Tienes tu establo lleno, no puedes comprar hasta tener un hueco", 3000);
+                        TriggerEvent("vorp:Tip", GetConfig.Langs["StableIsFull"], 4000);
+                    }
+                    else
+                    {
+                        TriggerEvent("vorpinputs:getInput", GetConfig.Langs["InputNameButton"], GetConfig.Langs["InputNamePlaceholder"], new Action<dynamic>((cb) =>
+                        {
+                            Debug.WriteLine(cb);
+                            string horseName = cb;
+                            TriggerServerEvent("vorpstables:BuyNewHorse", horseName, subMenuConfirmBuy.MenuTitle, horsemodel, horsecost);
+                            MenuController.CloseAllMenus();
+                        }));
                     }
                 }
                 else
                 {
                     subMenuConfirmBuy.CloseMenu();
+
                 }
 
             };
@@ -207,8 +224,11 @@ namespace vorpstables_cl
                 iIndex = _itemIndex;
                 lIndex = _listIndex;
                 subMenuConfirmBuy.MenuTitle = $"{GetConfig.HorseLists.ElementAt(_itemIndex).Key}";
-                subMenuConfirmBuy.MenuSubtitle = $"Cost of {GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key]} is {GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString()}$";
-                buttonConfirmYes.Label = $"buy for {GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString()}$";
+                subMenuConfirmBuy.MenuSubtitle = string.Format(GetConfig.Langs["subTitleConfirmBuy"], GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key],  GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
+                buttonConfirmYes.Label = string.Format(GetConfig.Langs["ConfirmBuyButton"], GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
+
+                horsecost = GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value;
+                horsemodel = GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key;
             };
 
             subMenuBuyHorses.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -220,7 +240,7 @@ namespace vorpstables_cl
                 {
                     await LoadHorsePreview(stableId, itemlist.Index, itemlist.ListIndex, HorsePed);
                 }
-            }; 
+            };
 
             subMenuBuyHorses.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
             {
