@@ -18,6 +18,8 @@ namespace vorpstables_cl
         private void OnResourceStop(string resourceName)
         {
             if (GetCurrentResourceName() != resourceName) return;
+            int horseDef = HorseManagment.spawnedHorse.Item1;
+            DeletePed(ref horseDef);
 
             Debug.WriteLine($"{resourceName} cleared blips and NPC's.");
 
