@@ -14,12 +14,13 @@ namespace vorpstables_cl
         public static List<Horse> MyHorses = new List<Horse>();
         public static Tuple<int, Horse> spawnedHorse;
         public static int MPTagHorse = 0;
+        private int BrushPrompt;
 
         public HorseManagment()
         {
             EventHandlers["vorpstables:GetMyStables"] += new Action<List<dynamic>>(GetMyStables);
             TriggerServerEvent("vorpstables:LoadMyStables");
-
+            //SetupBrushPrompt();
             Tick += onCallHorse;
             //Tick += onTagHorse; FEATURE WHEN RemoveMpGamerTag Works
         }
@@ -41,6 +42,13 @@ namespace vorpstables_cl
                 await Delay(1000);
             }
 
+            if (API.GetEntityPlayerIsFreeAimingAt(API.PlayerId(), ref pedAiming) && API.IsDisabledControlJustPressed(0, 0x63A38F2C))
+            {
+                Function.Call((Hash)0x524B54361229154F, API.PlayerPedId(), API.GetHashKey("WORLD_HUMAN_HORSE_TEND_BRUSH_LINK"), 7000, true, 0, 0, false);
+                await Delay(7000);
+                API.ClearPedEnvDirt(pedAiming);
+            }
+
         }
 
         private async Task FleeHorse(int ped)
@@ -48,14 +56,25 @@ namespace vorpstables_cl
 
             if (ped == spawnedHorse.Item1)
             {
-                Debug.WriteLine("Is My Horse");
                 Vector3 pedCoords = API.GetEntityCoords(API.PlayerPedId(), true, true);
-                //Function.Call((Hash)0x94587F17E9C365D5, pedAiming, pedCoords.X + 10.0f, pedCoords.Y + 10.0f, pedCoords.Z, 1.0f, 10000, false, true);
+                //Function.Call((Hash)0x94587F17E9C365D5, pedAiming, pedCoords.X + 10.0f, pedCoords.Y + 10.0f, pedCoords.Z, 1.0f, 10000, false, true); FEATURE
                 Function.Call((Hash)0xA899B61C66F09134, ped, 0, 0);
                 API.TaskGoToCoordAnyMeans(ped, pedCoords.X + 20.0f, pedCoords.Y + 20.0f, pedCoords.Z, 3.0F, 0, true, 0, 1.0f);
                 await Delay(4000);
                 API.DeletePed(ref ped);
             }
+        }
+
+        public void SetupBrushPrompt()
+        {
+            BrushPrompt = Function.Call<int>((Hash)0x04F97DE45A519419);
+            long str = Function.Call<long>(Hash._CREATE_VAR_STRING, 10, "LITERAL_STRING", "Limpiar");
+            Function.Call((Hash)0x5DD02A8318420DD7, BrushPrompt, str);
+            Function.Call((Hash)0xB5352B7494A08258, BrushPrompt, 0x63A38F2C);
+            Function.Call((Hash)0x8A0FB4D03A630D21, BrushPrompt, true);
+            Function.Call((Hash)0x71215ACCFDE075EE, BrushPrompt, false);
+            Function.Call((Hash)0x94073D5CA3F16B7B, BrushPrompt, true);
+            Function.Call((Hash)0xF7AA2696A22AD8B9, BrushPrompt);
         }
 
         //FEATURE WHEN RemoveMpGamerTag Works
