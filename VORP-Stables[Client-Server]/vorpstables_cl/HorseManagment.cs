@@ -27,16 +27,36 @@ namespace vorpstables_cl
         [Tick]
         private async Task onCallHorse()
         {
-            await Delay(0);
+            int pedAiming = new int();
 
             if (API.IsControlJustPressed(0, 0x24978A28))
             {
                 CallHorse();
-                await Delay(10000); // Anti Flood
+                await Delay(5000); // Anti Flood
+            }
+
+            if(API.GetEntityPlayerIsFreeAimingAt(API.PlayerId(), ref pedAiming) && API.IsDisabledControlJustPressed(0, 0x4216AF06))
+            {
+                FleeHorse(pedAiming);
+                await Delay(1000);
             }
 
         }
 
+        private async Task FleeHorse(int ped)
+        {
+
+            if (ped == spawnedHorse.Item1)
+            {
+                Debug.WriteLine("Is My Horse");
+                Vector3 pedCoords = API.GetEntityCoords(API.PlayerPedId(), true, true);
+                //Function.Call((Hash)0x94587F17E9C365D5, pedAiming, pedCoords.X + 10.0f, pedCoords.Y + 10.0f, pedCoords.Z, 1.0f, 10000, false, true);
+                Function.Call((Hash)0xA899B61C66F09134, ped, 0, 0);
+                API.TaskGoToCoordAnyMeans(ped, pedCoords.X + 20.0f, pedCoords.Y + 20.0f, pedCoords.Z, 3.0F, 0, true, 0, 1.0f);
+                await Delay(4000);
+                API.DeletePed(ref ped);
+            }
+        }
 
         //FEATURE WHEN RemoveMpGamerTag Works
         //[Tick]
@@ -191,6 +211,16 @@ namespace vorpstables_cl
             }
         }
 
+        public static void SetDefaultHorseDB(int id)
+        {
+            TriggerServerEvent("vorpstables:SetDefaultHorse", id);
+        }
+
+        public static void DeleteDefaultHorse(int ped)
+        {
+            API.DeletePed(ref ped);
+        }
+
         private float getHorseDistance(int horsePed)
         {
             Vector3 playerCoords = API.GetEntityCoords(API.PlayerPedId(), true, true);
@@ -202,6 +232,8 @@ namespace vorpstables_cl
         {
             Debug.WriteLine("Establos " + stableDB.Count.ToString());
 
+            MyHorses.Clear();
+
             foreach (dynamic horses in stableDB)
             {
                 if (horses.type == "horse")
@@ -210,11 +242,13 @@ namespace vorpstables_cl
 
                     bool isdefault = Convert.ToBoolean(horses.isDefault);
 
-                    MyHorses.Add(new Horse(horses.name, horses.modelname, horses.xp, horses.status, horses.gear, isdefault));
+                    Horse _h = new Horse(horses.id, horses.name, horses.modelname, horses.xp, horses.status, horses.gear, isdefault);
+
+                    MyHorses.Add(_h);
 
                     if (isdefault)
                     {
-                        spawnedHorse = new Tuple<int, Horse>(-1, new Horse(horses.name, horses.modelname, horses.xp, horses.status, horses.gear, isdefault));
+                        spawnedHorse = new Tuple<int, Horse>(-1, _h);
                     }
 
                 }

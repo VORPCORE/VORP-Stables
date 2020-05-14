@@ -9,6 +9,7 @@ namespace vorpstables_cl
 {
     public class Horse
     {
+        private int ID;
         private string Name;
         private string HorseModel;
 
@@ -20,8 +21,9 @@ namespace vorpstables_cl
 
         private bool isDefault;
 
-        public Horse(string name, string horseModel, int xP, string status, string jsonGear, bool isdefault)
+        public Horse(int id, string name, string horseModel, int xP, string status, string jsonGear, bool isdefault)
         {
+            this.ID = id;
             Name = name;
             HorseModel = horseModel;
             XP = xP;
@@ -43,6 +45,34 @@ namespace vorpstables_cl
         public JObject getGear()
         {
             return Gear;
+        }
+
+        public bool IsDefault()
+        {
+            return this.isDefault;
+        }
+        public void setDefault(bool def)
+        {
+            if (!def)
+            {
+                this.isDefault = false;
+            }
+            else
+            {
+                for (int i = 0; i < HorseManagment.MyHorses.Count; i++)
+                {
+                    if (HorseManagment.MyHorses[i].ID != this.ID)
+                    {
+                        HorseManagment.MyHorses[i].setDefault(false);
+                    }
+
+                }
+                this.isDefault = true;
+                HorseManagment.DeleteDefaultHorse(HorseManagment.spawnedHorse.Item1);
+                HorseManagment.spawnedHorse = new Tuple<int, Horse>(0, this);
+                HorseManagment.SetDefaultHorseDB(this.ID);
+            }
+
         }
     }
 }

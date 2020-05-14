@@ -26,6 +26,8 @@ namespace vorpstables_cl
         #region HorseDataCache
         static string horsemodel;
         static double horsecost;
+
+        static int indexHorseSelected;
         #endregion
 
         public static async Task EnterBuyMode()
@@ -133,7 +135,7 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuBuyHorses, subMenuConfirmBuy, horseCategories);
             }
 
-   
+
 
             #endregion
 
@@ -148,6 +150,42 @@ namespace vorpstables_cl
 
             menuStables.AddMenuItem(menuButtonHorses);
             MenuController.BindMenuItem(menuStables, subMenuHorses, menuButtonHorses);
+
+            Menu subMenuManagmentHorse = new Menu("Horse Name", "");
+            MenuController.AddSubmenu(subMenuHorses, subMenuManagmentHorse);
+
+            MenuItem buttonBuyComplements = new MenuItem(GetConfig.Langs["SubMenuBuyComplements"], GetConfig.Langs["SubMenuBuyComplements"])
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuManagmentHorse.AddMenuItem(buttonBuyComplements);
+
+            MenuItem buttonSetDefaultHorse = new MenuItem(GetConfig.Langs["ButtonSetDefaultHorse"], GetConfig.Langs["ButtonSetDefaultHorse"])
+            {
+                RightIcon = MenuItem.Icon.TICK
+            };
+            subMenuManagmentHorse.AddMenuItem(buttonSetDefaultHorse);
+
+            foreach (var mh in HorseManagment.MyHorses)
+            {
+                var Icon = MenuItem.Icon.SADDLE;
+
+                if (mh.IsDefault())
+                { 
+                    Icon = MenuItem.Icon.TICK; 
+                }
+
+                MenuItem buttonMyHorses = new MenuItem(mh.getHorseName(), GetConfig.Langs[mh.getHorseModel()])
+                {
+
+                    RightIcon = Icon
+
+                };
+                subMenuHorses.AddMenuItem(buttonMyHorses);
+                MenuController.BindMenuItem(subMenuHorses, subMenuManagmentHorse, buttonMyHorses);
+
+            }
+
             #endregion
 
             #region SubMenuBuyCarts
@@ -188,7 +226,7 @@ namespace vorpstables_cl
                 ExitBuyHorseMode();
             };
 
-            subMenuConfirmBuy.OnItemSelect += (_menu, _item, _index) =>
+            subMenuConfirmBuy.OnItemSelect += async (_menu, _item, _index) =>
             {
                 Debug.WriteLine($"OnItemSelect: [{_menu}, {_item}, {_index}]");
 
@@ -206,6 +244,7 @@ namespace vorpstables_cl
                             Debug.WriteLine(cb);
                             string horseName = cb;
                             TriggerServerEvent("vorpstables:BuyNewHorse", horseName, subMenuConfirmBuy.MenuTitle, horsemodel, horsecost);
+
                             MenuController.CloseAllMenus();
                         }));
                     }
@@ -263,6 +302,37 @@ namespace vorpstables_cl
             {
 
             };
+            #endregion
+
+            #region EventsManagHorses
+            subMenuHorses.OnItemSelect += (_menu, _item, _index) =>
+            {
+                indexHorseSelected = _index;
+                Debug.WriteLine(HorseManagment.MyHorses[_index].getHorseName());
+                if (HorseManagment.MyHorses[_index].IsDefault())
+                {
+                    buttonSetDefaultHorse.Enabled = false;
+                }
+                else{
+                    buttonSetDefaultHorse.Enabled = true;
+                }
+            };
+
+            subMenuManagmentHorse.OnItemSelect += (_menu, _item, _index) =>
+            {
+
+                switch (_index)
+                {
+                    case 0:
+                        
+                        break;
+                    case 1:
+                        HorseManagment.MyHorses[indexHorseSelected].setDefault(true);
+                        MenuController.CloseAllMenus();
+                        break;
+                }
+            };
+
             #endregion
 
             menuStables.OpenMenu();

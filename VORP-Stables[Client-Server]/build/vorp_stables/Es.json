@@ -33,6 +33,9 @@
   "NoDefaultHorses": "No tienes ningun caballo asignado por defecto",
   "HorseIsOcuppied": "Tu caballo esta siendo usado por otra persona",
 
+  "SubMenuBuyComplements": "Comprar Complementos",
+  "ButtonSetDefaultHorse": "Convertir en principal",
+
   //Horses
   "A_C_Horse_AmericanPaint_Greyovero": "Overo gris",
   "A_C_Horse_AmericanPaint_Overo": "Overo",
