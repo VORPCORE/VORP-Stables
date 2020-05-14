@@ -12,6 +12,7 @@ namespace vorpstables_cl
     public class HorseManagment : BaseScript
     {
         public static List<Horse> MyHorses = new List<Horse>();
+        public static List<uint> MyComps = new List<uint>();
         public static Tuple<int, Horse> spawnedHorse;
         public static int MPTagHorse = 0;
         private int BrushPrompt;
@@ -19,10 +20,20 @@ namespace vorpstables_cl
         public HorseManagment()
         {
             EventHandlers["vorpstables:GetMyStables"] += new Action<List<dynamic>>(GetMyStables);
+            EventHandlers["vorpstables:GetMyComplements"] += new Action<string>(GetMyComplements);
             TriggerServerEvent("vorpstables:LoadMyStables");
             //SetupBrushPrompt();
             Tick += onCallHorse;
             //Tick += onTagHorse; FEATURE WHEN RemoveMpGamerTag Works
+        }
+
+        private void GetMyComplements(string comps)
+        {
+            JArray jComps = JArray.Parse(comps);
+            foreach(var jc in jComps)
+            {
+                MyComps.Add(ConvertValue(jc.ToString()));
+            }
         }
 
         [Tick]

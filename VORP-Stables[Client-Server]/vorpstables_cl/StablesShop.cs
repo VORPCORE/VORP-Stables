@@ -24,6 +24,7 @@ namespace vorpstables_cl
         static int lIndex;
         static int iIndex;
 
+        static List<Menu> CompsMenus = new List<Menu>();
 
         #region HorseDataCache
         static string horsemodel;
@@ -158,7 +159,6 @@ namespace vorpstables_cl
 
                 foreach (var h in cat.Value)
                 {
-                    Debug.WriteLine(h.Key);
                     hlist.Add(GetConfig.Langs[h.Key]);
                 }
 
@@ -222,6 +222,96 @@ namespace vorpstables_cl
             MenuController.AddSubmenu(subMenuManagmentHorse, subMenuComplementsHorse);
 
             MenuController.BindMenuItem(subMenuManagmentHorse, subMenuComplementsHorse, buttonBuyComplements);
+
+
+            //Menu Confirmar
+            Menu subMenuConfirmBuyComp = new Menu("Confirm Purcharse", "");
+            MenuController.AddSubmenu(subMenuManagmentHorse, subMenuConfirmBuyComp);
+
+            MenuItem buttonConfirmCompYes = new MenuItem("", GetConfig.Langs["ConfirmBuyButtonDesc"])
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuConfirmBuyComp.AddMenuItem(buttonConfirmCompYes);
+            MenuItem buttonConfirmCompNo = new MenuItem(GetConfig.Langs["CancelBuyButton"], GetConfig.Langs["CancelBuyButtonDesc"])
+            {
+                RightIcon = MenuItem.Icon.ARROW_LEFT
+            };
+            subMenuConfirmBuyComp.AddMenuItem(buttonConfirmCompNo);
+
+            //for (int i = 0; i < GetConfig.CompsLists.Count(); i++)
+            //{
+            //    var comtype = GetConfig.CompsLists.ElementAt(i);
+            //    CompsMenus.Add(new Menu(comtype.Key, ""));
+            //    MenuController.AddSubmenu(subMenuComplementsHorse, CompsMenus[i]);
+
+            //    MenuItem buttonBuyComplementsCat = new MenuItem(comtype.Key, "")
+            //    {
+            //        RightIcon = MenuItem.Icon.SADDLE
+            //    };
+            //    subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCat);
+            //    MenuController.BindMenuItem(subMenuComplementsHorse, CompsMenus[i], buttonBuyComplementsCat);
+
+            //    List<MenuListItem> menuList = new List<MenuListItem>();
+
+            //    for (int a = 0; a < comtype.Value.Count(); a++)
+            //    {
+            //        var cat = comtype.Value.ElementAt(a);
+            //        List<string> clist = new List<string>();
+
+            //        for (int c = 0; c < cat.Value.Count(); c++)
+            //        {
+            //            clist.Add($"# {(c + 1).ToString()}");
+            //        }
+
+            //        menuList.Add(new MenuListItem(cat.Key, clist, 0, comtype.Key + " - " + cat.Key));
+            //        CompsMenus[i].AddMenuItem(menuList[a]);
+            //        MenuController.BindMenuItem(subMenuManagmentHorse, subMenuConfirmBuyComp, menuList[a]);
+            //    }
+
+            //}
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            Menu subMenuCatComplementsHorse = new Menu(, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorse);
+
+            MenuItem buttonBuyComplementsCat = new MenuItem(, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCat);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorse, buttonBuyComplementsCat);
+
+            //foreach (var comtype in GetConfig.CompsLists)
+            //{
+
+            //    Menu subMenuCatComplementsHorse = new Menu(comtype.Key, "");
+            //    MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorse);
+
+            //    MenuItem buttonBuyComplementsCat = new MenuItem(comtype.Key, "")
+            //    {
+            //        RightIcon = MenuItem.Icon.SADDLE
+            //    };
+            //    subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCat);
+            //    MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorse, buttonBuyComplementsCat);
+
+            //    foreach (var cat in comtype.Value)
+            //    {
+            //        List<string> clist = new List<string>();
+
+            //        for (int i = 0; i < cat.Value.Count(); i++)
+            //        {
+            //            clist.Add($"# {(i + 1).ToString()}");
+            //        }
+
+            //        MenuListItem compCategories = new MenuListItem(cat.Key, clist, 0, comtype.Key + " - " + cat.Key);
+            //        subMenuCatComplementsHorse.AddMenuItem(compCategories);
+            //        MenuController.BindMenuItem(subMenuManagmentHorse, subMenuConfirmBuyComp, compCategories);
+            //    }
+
+            //    CompsMenus.Add(subMenuCatComplementsHorse);
+
+            //}
 
             #endregion
 
@@ -383,6 +473,18 @@ namespace vorpstables_cl
                 }
             };
 
+            #endregion
+
+            #region EventsBuyComplementsHorses
+
+            //CompsMenus[0].OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            //{
+            //    Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            //};
+            //CompsMenus[1].OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            //{
+            //    Debug.WriteLine($"OnListItemSelect Menu 2: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            //};
             #endregion
 
             menuStables.OpenMenu();

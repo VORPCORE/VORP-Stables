@@ -37,6 +37,20 @@ namespace vorpstables_sv
                 }
 
             }));
+
+            Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+            {
+                if (result.Count == 0)
+                {
+                    Debug.WriteLine($"{source.Name} has no complements");
+                }
+                else
+                {
+                    string complements = result[0].complements;
+                    source.TriggerEvent("vorpstables:GetMyComplements", complements);
+                }
+
+            }));
         }
 
 
