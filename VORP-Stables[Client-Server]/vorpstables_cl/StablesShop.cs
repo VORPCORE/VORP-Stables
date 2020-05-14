@@ -14,10 +14,12 @@ namespace vorpstables_cl
     public class StablesShop: BaseScript
     {
         static int CamHorse;
+        static int CamMyHorse;
         static int CamCart;
 
         static int HorsePed;
         static bool horseIsLoaded = true;
+        static bool MyhorseIsLoaded = false;
 
         static int lIndex;
         static int iIndex;
@@ -78,6 +80,24 @@ namespace vorpstables_cl
             RenderScriptCams(true, true, 1000, true, true, 0);
         }
 
+        public static async Task MyHorseMode(int stableId, int myHorseId)
+        {
+            await EnterBuyMode();
+
+            float Camerax = float.Parse(GetConfig.Config["Stables"][stableId]["CamHorseGear"][0].ToString());
+            float Cameray = float.Parse(GetConfig.Config["Stables"][stableId]["CamHorseGear"][1].ToString());
+            float Cameraz = float.Parse(GetConfig.Config["Stables"][stableId]["CamHorseGear"][2].ToString());
+            float CameraRotx = float.Parse(GetConfig.Config["Stables"][stableId]["CamHorseGear"][3].ToString());
+            float CameraRoty = float.Parse(GetConfig.Config["Stables"][stableId]["CamHorseGear"][4].ToString());
+            float CameraRotz = float.Parse(GetConfig.Config["Stables"][stableId]["CamHorseGear"][5].ToString());
+
+            await LoadMyHorsePreview(stableId, myHorseId);
+
+            CamMyHorse = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Camerax, Cameray, Cameraz, CameraRotx, CameraRoty, CameraRotz, 70.00f, false, 0);
+            SetCamActive(CamMyHorse, true);
+            RenderScriptCams(true, true, 1000, true, true, 0);
+        }
+
         public static async Task ExitBuyHorseMode()
         {
             await ExitBuyMode();
@@ -85,6 +105,18 @@ namespace vorpstables_cl
             SetCamActive(CamHorse, false);
             RenderScriptCams(false, true, 1000, true, true, 0);
             DestroyCam(CamHorse, true);
+        }
+
+        public static async Task ExitMyHorseMode()
+        {
+            if (!MyhorseIsLoaded)
+            {
+                await ExitBuyMode();
+                DeletePed(ref HorsePed);
+                SetCamActive(CamMyHorse, false);
+                RenderScriptCams(false, true, 1000, true, true, 0);
+                DestroyCam(CamMyHorse, true);
+            }
         }
 
         public static async Task MenuStables(int stableId)
@@ -185,6 +217,11 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuHorses, subMenuManagmentHorse, buttonMyHorses);
 
             }
+
+            Menu subMenuComplementsHorse = new Menu(GetConfig.Langs["SubMenuBuyComplements"], "");
+            MenuController.AddSubmenu(subMenuManagmentHorse, subMenuComplementsHorse);
+
+            MenuController.BindMenuItem(subMenuManagmentHorse, subMenuComplementsHorse, buttonBuyComplements);
 
             #endregion
 
@@ -305,10 +342,23 @@ namespace vorpstables_cl
             #endregion
 
             #region EventsManagHorses
+
+            subMenuManagmentHorse.OnMenuClose += (_menu) =>
+            {
+                ExitMyHorseMode();
+            };
+
+            subMenuComplementsHorse.OnMenuClose += (_menu) =>
+            {
+                MyhorseIsLoaded = false;
+            };
+
             subMenuHorses.OnItemSelect += (_menu, _item, _index) =>
             {
                 indexHorseSelected = _index;
-                Debug.WriteLine(HorseManagment.MyHorses[_index].getHorseName());
+                MyHorseMode(stableId, _index);
+                subMenuManagmentHorse.MenuTitle = HorseManagment.MyHorses[_index].getHorseName();
+
                 if (HorseManagment.MyHorses[_index].IsDefault())
                 {
                     buttonSetDefaultHorse.Enabled = false;
@@ -324,7 +374,7 @@ namespace vorpstables_cl
                 switch (_index)
                 {
                     case 0:
-                        
+                        MyhorseIsLoaded = true;
                         break;
                     case 1:
                         HorseManagment.MyHorses[indexHorseSelected].setDefault(true);
@@ -359,6 +409,29 @@ namespace vorpstables_cl
             SetModelAsNoLongerNeeded(hashPed);
 
             horseIsLoaded = true;
+        }
+
+        public static async Task LoadMyHorsePreview(int stID, int index)
+        {
+            if (!MyhorseIsLoaded) {
+                float x = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][0].ToString());
+                float y = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][1].ToString());
+                float z = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][2].ToString());
+                float heading = float.Parse(GetConfig.Config["Stables"][stID]["SpawnHorse"][3].ToString());
+
+                uint hashPed = (uint)GetHashKey(HorseManagment.MyHorses[index].getHorseModel());
+
+                await InitStables.LoadModel(hashPed);
+
+                HorsePed = CreatePed(hashPed, x, y, z, heading, false, true, true, true);
+                Function.Call((Hash)0x283978A15512B2FE, HorsePed, true);
+                SetEntityCanBeDamaged(HorsePed, false);
+                SetEntityInvincible(HorsePed, true);
+                FreezeEntityPosition(HorsePed, true);
+                SetModelAsNoLongerNeeded(hashPed);
+            }
+
+
         }
 
     }

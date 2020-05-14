@@ -48,6 +48,12 @@ namespace vorpstables_cl
                 await Delay(7000);
                 API.ClearPedEnvDirt(pedAiming);
             }
+            //Recordar Borrar
+            if (API.IsControlJustPressed(0, 0xF3830D8E))
+            {
+                Function.Call((Hash)0x524B54361229154F, API.PlayerPedId(), API.GetHashKey("PROP_HUMAN_PIANO"), 25000, true, 0, 0, false);
+                await Delay(25000); // Anti Flood
+            }
 
         }
 
