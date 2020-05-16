@@ -33,6 +33,12 @@ namespace vorpstables_cl
         static int indexHorseSelected;
         #endregion
 
+        #region HorseCompsCache
+        static int indexCategory;
+        static int indexSubCategory;
+
+        #endregion
+
         public static async Task EnterBuyMode()
         {
             foreach (var v in GetActivePlayers())
@@ -239,79 +245,232 @@ namespace vorpstables_cl
             };
             subMenuConfirmBuyComp.AddMenuItem(buttonConfirmCompNo);
 
-            //for (int i = 0; i < GetConfig.CompsLists.Count(); i++)
-            //{
-            //    var comtype = GetConfig.CompsLists.ElementAt(i);
-            //    CompsMenus.Add(new Menu(comtype.Key, ""));
-            //    MenuController.AddSubmenu(subMenuComplementsHorse, CompsMenus[i]);
 
-            //    MenuItem buttonBuyComplementsCat = new MenuItem(comtype.Key, "")
-            //    {
-            //        RightIcon = MenuItem.Icon.SADDLE
-            //    };
-            //    subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCat);
-            //    MenuController.BindMenuItem(subMenuComplementsHorse, CompsMenus[i], buttonBuyComplementsCat);
 
-            //    List<MenuListItem> menuList = new List<MenuListItem>();
 
-            //    for (int a = 0; a < comtype.Value.Count(); a++)
-            //    {
-            //        var cat = comtype.Value.ElementAt(a);
-            //        List<string> clist = new List<string>();
-
-            //        for (int c = 0; c < cat.Value.Count(); c++)
-            //        {
-            //            clist.Add($"# {(c + 1).ToString()}");
-            //        }
-
-            //        menuList.Add(new MenuListItem(cat.Key, clist, 0, comtype.Key + " - " + cat.Key));
-            //        CompsMenus[i].AddMenuItem(menuList[a]);
-            //        MenuController.BindMenuItem(subMenuManagmentHorse, subMenuConfirmBuyComp, menuList[a]);
-            //    }
-
-            //}
 
             // Repetir por cada categoria mañana cuando te levantes el pene
-            Menu subMenuCatComplementsHorse = new Menu(, "");
-            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorse);
+            var compMantas = GetConfig.CompsLists.ElementAt(0);
+            Menu subMenuCatComplementsHorseMantas = new Menu(compMantas.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseMantas);
 
-            MenuItem buttonBuyComplementsCat = new MenuItem(, "")
+            MenuItem buttonBuyComplementsCatMantas = new MenuItem(compMantas.Key, "")
             {
                 RightIcon = MenuItem.Icon.SADDLE
             };
-            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCat);
-            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorse, buttonBuyComplementsCat);
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatMantas);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseMantas, buttonBuyComplementsCatMantas);
 
-            //foreach (var comtype in GetConfig.CompsLists)
-            //{
+            foreach (var cat in compMantas.Value)
+            {
+                List<string> clist = new List<string>();
 
-            //    Menu subMenuCatComplementsHorse = new Menu(comtype.Key, "");
-            //    MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorse);
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
 
-            //    MenuItem buttonBuyComplementsCat = new MenuItem(comtype.Key, "")
-            //    {
-            //        RightIcon = MenuItem.Icon.SADDLE
-            //    };
-            //    subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCat);
-            //    MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorse, buttonBuyComplementsCat);
+                MenuListItem compCategoriesMantas = new MenuListItem(cat.Key, clist, 0, compMantas.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseMantas.AddMenuItem(compCategoriesMantas);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesMantas);
+            }
 
-            //    foreach (var cat in comtype.Value)
-            //    {
-            //        List<string> clist = new List<string>();
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compCuernos = GetConfig.CompsLists.ElementAt(1);
+            Menu subMenuCatComplementsHorseCuernos = new Menu(compCuernos.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseCuernos);
 
-            //        for (int i = 0; i < cat.Value.Count(); i++)
-            //        {
-            //            clist.Add($"# {(i + 1).ToString()}");
-            //        }
+            MenuItem buttonBuyComplementsCatCuernos = new MenuItem(compCuernos.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatCuernos);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseCuernos, buttonBuyComplementsCatCuernos);
 
-            //        MenuListItem compCategories = new MenuListItem(cat.Key, clist, 0, comtype.Key + " - " + cat.Key);
-            //        subMenuCatComplementsHorse.AddMenuItem(compCategories);
-            //        MenuController.BindMenuItem(subMenuManagmentHorse, subMenuConfirmBuyComp, compCategories);
-            //    }
+            foreach (var cat in compCuernos.Value)
+            {
+                List<string> clist = new List<string>();
 
-            //    CompsMenus.Add(subMenuCatComplementsHorse);
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
 
-            //}
+                MenuListItem compCategoriesCuernos = new MenuListItem(cat.Key, clist, 0, compCuernos.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseCuernos.AddMenuItem(compCategoriesCuernos);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesCuernos);
+            }
+
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compAlforjas = GetConfig.CompsLists.ElementAt(2);
+            Menu subMenuCatComplementsHorseAlforjas = new Menu(compAlforjas.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseAlforjas);
+
+            MenuItem buttonBuyComplementsCatAlforjas = new MenuItem(compAlforjas.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatAlforjas);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseAlforjas, buttonBuyComplementsCatAlforjas);
+
+            foreach (var cat in compAlforjas.Value)
+            {
+                List<string> clist = new List<string>();
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                MenuListItem compCategoriesAlforjas = new MenuListItem(cat.Key, clist, 0, compAlforjas.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseAlforjas.AddMenuItem(compCategoriesAlforjas);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesAlforjas);
+            }
+
+
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compColas = GetConfig.CompsLists.ElementAt(3);
+            Menu subMenuCatComplementsHorseColas = new Menu(compColas.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseColas);
+
+            MenuItem buttonBuyComplementsCatColas = new MenuItem(compColas.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatColas);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseColas, buttonBuyComplementsCatColas);
+
+            foreach (var cat in compColas.Value)
+            {
+                List<string> clist = new List<string>();
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                MenuListItem compCategoriesColas = new MenuListItem(cat.Key, clist, 0, compColas.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseColas.AddMenuItem(compCategoriesColas);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesColas);
+            }
+
+
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compCrines = GetConfig.CompsLists.ElementAt(4);
+            Menu subMenuCatComplementsHorseCrines = new Menu(compCrines.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseCrines);
+
+            MenuItem buttonBuyComplementsCatCrines = new MenuItem(compCrines.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatCrines);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseCrines, buttonBuyComplementsCatCrines);
+
+            foreach (var cat in compCrines.Value)
+            {
+                List<string> clist = new List<string>();
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                MenuListItem compCategoriesCrines = new MenuListItem(cat.Key, clist, 0, compCrines.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseCrines.AddMenuItem(compCategoriesCrines);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesCrines);
+            }
+
+
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compMonturas = GetConfig.CompsLists.ElementAt(4);
+            Menu subMenuCatComplementsHorseMonturas = new Menu(compMonturas.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseMonturas);
+
+            MenuItem buttonBuyComplementsCatMonturas = new MenuItem(compMonturas.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatMonturas);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseMonturas, buttonBuyComplementsCatMonturas);
+
+            foreach (var cat in compMonturas.Value)
+            {
+                List<string> clist = new List<string>();
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                MenuListItem compCategoriesMonturas = new MenuListItem(cat.Key, clist, 0, compMonturas.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseMonturas.AddMenuItem(compCategoriesMonturas);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesMonturas);
+            }
+
+
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compEstribos = GetConfig.CompsLists.ElementAt(5);
+            Menu subMenuCatComplementsHorseEstribos = new Menu(compEstribos.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseEstribos);
+
+            MenuItem buttonBuyComplementsCatEstribos = new MenuItem(compEstribos.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatEstribos);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorseEstribos, buttonBuyComplementsCatEstribos);
+
+            foreach (var cat in compEstribos.Value)
+            {
+                List<string> clist = new List<string>();
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                MenuListItem compCategoriesEstribos = new MenuListItem(cat.Key, clist, 0, compEstribos.Key + " - " + cat.Key);
+                subMenuCatComplementsHorseEstribos.AddMenuItem(compCategoriesEstribos);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesEstribos);
+            }
+
+
+
+            // Repetir por cada categoria mañana cuando te levantes el pene
+            var compPetates = GetConfig.CompsLists.ElementAt(6);
+            Menu subMenuCatComplementsHorsePetates = new Menu(compPetates.Key, "");
+            MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorsePetates);
+
+            MenuItem buttonBuyComplementsCatPetates = new MenuItem(compPetates.Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuComplementsHorse.AddMenuItem(buttonBuyComplementsCatPetates);
+            MenuController.BindMenuItem(subMenuComplementsHorse, subMenuCatComplementsHorsePetates, buttonBuyComplementsCatPetates);
+
+            foreach (var cat in compPetates.Value)
+            {
+                List<string> clist = new List<string>();
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                MenuListItem compCategoriesPetates = new MenuListItem(cat.Key, clist, 0, compPetates.Key + " - " + cat.Key);
+                subMenuCatComplementsHorsePetates.AddMenuItem(compCategoriesPetates);
+                MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesPetates);
+            }
+
+
+
+  
 
             #endregion
 
@@ -477,14 +636,186 @@ namespace vorpstables_cl
 
             #region EventsBuyComplementsHorses
 
-            //CompsMenus[0].OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
-            //{
-            //    Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
-            //};
-            //CompsMenus[1].OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
-            //{
-            //    Debug.WriteLine($"OnListItemSelect Menu 2: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
-            //};
+            subMenuComplementsHorse.OnItemSelect += (_menu, _item, _index) =>
+            {
+                indexCategory = _index;
+                Debug.WriteLine(_index.ToString());
+            };
+
+            subMenuCatComplementsHorseMantas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseMantas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseMantas.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+            subMenuCatComplementsHorseCuernos.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseCuernos.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseCuernos.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+
+            subMenuCatComplementsHorseAlforjas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseAlforjas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseAlforjas.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+
+            subMenuCatComplementsHorseColas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseColas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseColas.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+
+            subMenuCatComplementsHorseCrines.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseCrines.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseCrines.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+            subMenuCatComplementsHorseMonturas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseMonturas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseMonturas.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+
+
+            subMenuCatComplementsHorseEstribos.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorseEstribos.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorseEstribos.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
+
+            subMenuCatComplementsHorsePetates.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+            };
+
+            subMenuCatComplementsHorsePetates.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                MenuListItem itemlist = (MenuListItem)_newItem;
+                Debug.WriteLine(itemlist.ListIndex.ToString());
+
+                await LoadHorseCompsPreview(indexCategory, itemlist.Index, itemlist.ListIndex);
+            };
+
+            subMenuCatComplementsHorsePetates.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+
+                await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
+            };
+
             #endregion
 
             menuStables.OpenMenu();
@@ -511,6 +842,13 @@ namespace vorpstables_cl
             SetModelAsNoLongerNeeded(hashPed);
 
             horseIsLoaded = true;
+        }
+
+        public static async Task LoadHorseCompsPreview(int cat, int subcat, int index)
+        {
+            uint hcomp = GetConfig.CompsLists.ElementAt(cat).Value.ElementAt(subcat).Value[index];
+
+            Function.Call((Hash)0xD3A7B003ED343FD9, HorsePed, hcomp, true, true, true);
         }
 
         public static async Task LoadMyHorsePreview(int stID, int index)
