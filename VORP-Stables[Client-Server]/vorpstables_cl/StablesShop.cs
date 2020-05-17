@@ -35,7 +35,8 @@ namespace vorpstables_cl
 
         #region HorseCompsCache
         static int indexCategory;
-        static int indexSubCategory;
+        static int indexCategoryComp;
+        static int indexComp;
 
         #endregion
 
@@ -387,7 +388,7 @@ namespace vorpstables_cl
 
 
             // Repetir por cada categoria mañana cuando te levantes el pene
-            var compMonturas = GetConfig.CompsLists.ElementAt(4);
+            var compMonturas = GetConfig.CompsLists.ElementAt(5);
             Menu subMenuCatComplementsHorseMonturas = new Menu(compMonturas.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseMonturas);
 
@@ -415,7 +416,7 @@ namespace vorpstables_cl
 
 
             // Repetir por cada categoria mañana cuando te levantes el pene
-            var compEstribos = GetConfig.CompsLists.ElementAt(5);
+            var compEstribos = GetConfig.CompsLists.ElementAt(6);
             Menu subMenuCatComplementsHorseEstribos = new Menu(compEstribos.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseEstribos);
 
@@ -443,7 +444,7 @@ namespace vorpstables_cl
 
 
             // Repetir por cada categoria mañana cuando te levantes el pene
-            var compPetates = GetConfig.CompsLists.ElementAt(6);
+            var compPetates = GetConfig.CompsLists.ElementAt(7);
             Menu subMenuCatComplementsHorsePetates = new Menu(compPetates.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorsePetates);
 
@@ -795,9 +796,23 @@ namespace vorpstables_cl
             };
 
 
+
             subMenuCatComplementsHorsePetates.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorsePetates.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -816,9 +831,72 @@ namespace vorpstables_cl
                 await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
             };
 
+
+
+            subMenuConfirmBuyComp.OnItemSelect += (_menu, _item, _index) =>
+            {
+
+                BuyComp();
+
+                Debug.WriteLine($"Key: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Key} | Price: {GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value.ToString()} | UintID: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value[indexComp].ToString()}");
+            };
+
             #endregion
 
             menuStables.OpenMenu();
+        }
+
+        public static async Task BuyComp()
+        {
+            JObject newGear = HorseManagment.MyHorses[indexHorseSelected].getGear();
+            uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value[indexComp];
+            switch (indexCategory)
+            {
+                case 0:
+                    newGear["blankets"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 1:
+                    newGear["horn"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 2:
+                    newGear["bag"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 3:
+                    newGear["tail"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 4:
+                    newGear["mane"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 5:
+                    newGear["saddle"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 6:
+                    newGear["stirrups"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+                case 7:
+                    newGear["bedroll"] = hashItem;
+                    Debug.WriteLine(newGear.ToString());
+                    break;
+            }
+
+            if (HorseManagment.MyComps.Contains(hashItem))
+            {
+                TriggerServerEvent("vorpstables:UpdateComp", newGear.ToString(), HorseManagment.MyHorses[indexHorseSelected].getHorseId());
+            }
+            else
+            {
+                HorseManagment.MyComps.Add(hashItem);
+                string array = Newtonsoft.Json.JsonConvert.SerializeObject(HorseManagment.MyComps.ToArray());
+                TriggerServerEvent("vorpstables:BuyNewComp", array, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value, newGear.ToString(), HorseManagment.MyHorses[indexHorseSelected].getHorseId());
+            }
+
         }
 
         public static async Task LoadHorsePreview(int stID, int cat, int index, int ped2Delete)

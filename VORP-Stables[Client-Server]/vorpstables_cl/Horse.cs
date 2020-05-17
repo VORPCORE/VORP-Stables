@@ -34,6 +34,11 @@ namespace vorpstables_cl
 
         public Horse() { }
 
+        public int getHorseId()
+        {
+            return ID;
+        }
+
         public string getHorseModel()
         {
             return HorseModel;

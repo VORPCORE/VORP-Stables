@@ -35,6 +35,10 @@
 
   "SubMenuBuyComplements": "Comprar Complementos",
   "ButtonSetDefaultHorse": "Convertir en principal",
+  "PriceComplements": "Precio: ",
+  "BuyButtonComplements": "Si, Comprar - {0} por {1}$",
+  "YouBuyedThisComp": "Ya lo tenias comprado",
+  "SetThisComp": "Poner {0} a este caballo",
 
   //Horses
   "A_C_Horse_AmericanPaint_Greyovero": "Overo gris",
