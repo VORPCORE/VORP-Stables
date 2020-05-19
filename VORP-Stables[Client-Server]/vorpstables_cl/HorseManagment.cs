@@ -57,8 +57,8 @@ namespace vorpstables_cl
                 {
                 
                     int indexHorse = MyHorses.IndexOf(spawnedHorse.Item2);
-                    spawnedHorse.Item2.setHorseDead(60000);
-                    MyHorses[indexHorse].setHorseDead(60000);
+                    spawnedHorse.Item2.setHorseDead(int.Parse(GetConfig.Config["SecondsToRespawn"].ToString()));
+                    MyHorses[indexHorse].setHorseDead(int.Parse(GetConfig.Config["SecondsToRespawn"].ToString()));
                     TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["HorseDead"], spawnedHorse.Item2.getHorseName(), spawnedHorse.Item2.getHorseDeadTime() / 1000), 5000);
                     int pedHorse = spawnedHorse.Item1;
                     API.DeletePed(ref pedHorse);
