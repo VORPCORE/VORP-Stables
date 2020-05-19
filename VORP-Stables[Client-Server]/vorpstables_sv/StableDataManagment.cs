@@ -55,7 +55,7 @@ namespace vorpstables_sv
                         }
 
                     }));
-                    source.TriggerEvent("vorp:Tip", LoadConfig.Langs["SuccessfulBuy"], 4000);
+                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["SuccessfulBuy"], cost), 4000);
                     ReLoadStables(source);
                 }
                 else
@@ -104,7 +104,6 @@ namespace vorpstables_sv
                     string complements = result[0].complements;
                     source.TriggerEvent("vorpstables:GetMyComplements", complements);
                 }
-
             }));
         }
 

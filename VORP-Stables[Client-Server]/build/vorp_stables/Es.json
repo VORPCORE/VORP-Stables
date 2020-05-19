@@ -28,7 +28,7 @@
   "InputNameButton": "Comprar Caballo",
   "InputNamePlaceholder": "Escribe el nombre para tu caballo",
 
-  "SuccessfulBuy": "Has comprado un {0} {1} por {2}$",
+  "SuccessfulBuy": "Has comprado el complemento por {0}$",
   "NoMoney": "No tienes suficiente dinero",
   "NoDefaultHorses": "No tienes ningun caballo asignado por defecto",
   "HorseIsOcuppied": "Tu caballo esta siendo usado por otra persona",
@@ -39,6 +39,9 @@
   "BuyButtonComplements": "Si, Comprar - {0} por {1}$",
   "YouBuyedThisComp": "Ya lo tenias comprado",
   "SetThisComp": "Poner {0} a este caballo",
+
+  "HorseIsDead": "{0} ha muerto recientemente, necesitas esperar {1} segundos",
+  "HorseDead": "{0} ha muerto, deberas esperar {1} segundos para volver a llamarlo",
 
   //Horses
   "A_C_Horse_AmericanPaint_Greyovero": "Overo gris",

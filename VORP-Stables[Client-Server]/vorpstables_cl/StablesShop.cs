@@ -646,6 +646,19 @@ namespace vorpstables_cl
             subMenuCatComplementsHorseMantas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseMantas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -664,9 +677,24 @@ namespace vorpstables_cl
                 await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
             };
 
+
+
             subMenuCatComplementsHorseCuernos.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseCuernos.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -686,9 +714,23 @@ namespace vorpstables_cl
             };
 
 
+
             subMenuCatComplementsHorseAlforjas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseAlforjas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -711,6 +753,19 @@ namespace vorpstables_cl
             subMenuCatComplementsHorseColas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseColas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -733,6 +788,19 @@ namespace vorpstables_cl
             subMenuCatComplementsHorseCrines.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseCrines.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -751,9 +819,23 @@ namespace vorpstables_cl
                 await LoadHorseCompsPreview(indexCategory, _itemIndex, _newIndex);
             };
 
+
             subMenuCatComplementsHorseMonturas.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseMonturas.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -773,10 +855,22 @@ namespace vorpstables_cl
             };
 
 
-
             subMenuCatComplementsHorseEstribos.OnListItemSelect += (_menu, _listItem, _listIndex, _itemIndex) =>
             {
                 Debug.WriteLine($"OnListItemSelect: [{_menu}, {_listItem}, {_listIndex}, {_itemIndex}]");
+                uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value[_listIndex];
+                if (HorseManagment.MyComps.Contains(hashItem))
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["YouBuyedThisComp"];
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["SetThisComp"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key);
+                }
+                else
+                {
+                    subMenuConfirmBuyComp.MenuSubtitle = GetConfig.Langs["PriceComplements"] + GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString() + "$";
+                    buttonConfirmCompYes.Label = string.Format(GetConfig.Langs["BuyButtonComplements"], GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Key, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(_itemIndex).Value.ToString());
+                }
+                indexCategoryComp = _itemIndex;
+                indexComp = _listIndex;
             };
 
             subMenuCatComplementsHorseEstribos.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
@@ -835,9 +929,7 @@ namespace vorpstables_cl
 
             subMenuConfirmBuyComp.OnItemSelect += (_menu, _item, _index) =>
             {
-
                 BuyComp();
-
                 Debug.WriteLine($"Key: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Key} | Price: {GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value.ToString()} | UintID: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value[indexComp].ToString()}");
             };
 
@@ -889,6 +981,7 @@ namespace vorpstables_cl
             if (HorseManagment.MyComps.Contains(hashItem))
             {
                 TriggerServerEvent("vorpstables:UpdateComp", newGear.ToString(), HorseManagment.MyHorses[indexHorseSelected].getHorseId());
+                
             }
             else
             {
@@ -897,6 +990,8 @@ namespace vorpstables_cl
                 TriggerServerEvent("vorpstables:BuyNewComp", array, GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value, newGear.ToString(), HorseManagment.MyHorses[indexHorseSelected].getHorseId());
             }
 
+            ExitMyHorseMode();
+            MenuController.CloseAllMenus();
         }
 
         public static async Task LoadHorsePreview(int stID, int cat, int index, int ped2Delete)
@@ -922,11 +1017,16 @@ namespace vorpstables_cl
             horseIsLoaded = true;
         }
 
+        static uint lastcomp = 0;
         public static async Task LoadHorseCompsPreview(int cat, int subcat, int index)
         {
+            Function.Call((Hash)0xD710A5007C2AC539, HorsePed, lastcomp, 1);
+
             uint hcomp = GetConfig.CompsLists.ElementAt(cat).Value.ElementAt(subcat).Value[index];
 
             Function.Call((Hash)0xD3A7B003ED343FD9, HorsePed, hcomp, true, true, true);
+
+            lastcomp = hcomp;
         }
 
         public static async Task LoadMyHorsePreview(int stID, int index)

@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using CitizenFX.Core;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace vorpstables_cl
@@ -19,9 +21,15 @@ namespace vorpstables_cl
 
         private JObject Gear;
 
+        private bool isDead;
+
         private bool isDefault;
 
-        public Horse(int id, string name, string horseModel, int xP, string status, string jsonGear, bool isdefault)
+
+        /*Timer*/
+        private int deadTimeRest;
+
+        public Horse(int id, string name, string horseModel, int xP, string status, string jsonGear, bool isdefault, bool isdead)
         {
             this.ID = id;
             Name = name;
@@ -30,9 +38,24 @@ namespace vorpstables_cl
             Status = JObject.Parse(status);
             Gear = JObject.Parse(jsonGear);
             isDefault = isdefault;
+            isDead = isdead;
         }
 
-        public Horse() { }
+        public Horse()
+        { 
+            
+        }
+
+        public int getHorseDeadTime()
+        {
+            
+            return deadTimeRest;
+        }
+
+        public void setHorseDead(int time)
+        {
+            deadTimeRest = time;
+        }
 
         public int getHorseId()
         {
@@ -79,5 +102,6 @@ namespace vorpstables_cl
             }
 
         }
+
     }
 }

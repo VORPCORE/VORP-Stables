@@ -24,7 +24,51 @@ namespace vorpstables_cl
             TriggerServerEvent("vorpstables:LoadMyStables");
             //SetupBrushPrompt();
             Tick += onCallHorse;
+            Tick += onHorseDead;
+            Tick += timeToRespawn;
             //Tick += onTagHorse; FEATURE WHEN RemoveMpGamerTag Works
+        }
+
+        [Tick]
+        private async Task timeToRespawn()
+        {
+
+            for (int h = 0; h < MyHorses.Count(); h++)
+            {
+                if (MyHorses[h].getHorseDeadTime() > 0)
+                {
+                    MyHorses[h].setHorseDead(MyHorses[h].getHorseDeadTime() - 100);
+                }
+            }
+            await Delay(1);
+        }
+
+        [Tick]
+        private async Task onHorseDead()
+        {
+
+            if (spawnedHorse == null || spawnedHorse.Item1 == -1) 
+            {
+
+            }
+            else 
+            {
+                if (API.IsEntityDead(spawnedHorse.Item1) && spawnedHorse.Item2.getHorseDeadTime() == 0 && API.DoesEntityExist(spawnedHorse.Item1))
+                {
+                
+                    int indexHorse = MyHorses.IndexOf(spawnedHorse.Item2);
+                    spawnedHorse.Item2.setHorseDead(60000);
+                    MyHorses[indexHorse].setHorseDead(60000);
+                    TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["HorseDead"], spawnedHorse.Item2.getHorseName(), spawnedHorse.Item2.getHorseDeadTime() / 1000), 5000);
+                    int pedHorse = spawnedHorse.Item1;
+                    API.DeletePed(ref pedHorse);
+
+                }
+            }
+            
+
+         
+
         }
 
         private void GetMyComplements(string comps)
@@ -153,7 +197,15 @@ namespace vorpstables_cl
                 }
                 else
                 {
-                    await SpawnHorseDefault();
+                    if (spawnedHorse.Item2.getHorseDeadTime() > 0)
+                    {
+                        TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["HorseIsDead"], spawnedHorse.Item2.getHorseName(), spawnedHorse.Item2.getHorseDeadTime() / 1000), 5000);
+                    }
+                    else
+                    {
+                        await SpawnHorseDefault();
+                    }
+                    
                 }
             }
             else
@@ -164,6 +216,10 @@ namespace vorpstables_cl
 
         private async Task SpawnHorseDefault()
         {
+
+
+
+
             Horse def = spawnedHorse.Item2;
 
             uint hashHorse = (uint)API.GetHashKey(def.getHorseModel());
@@ -273,7 +329,7 @@ namespace vorpstables_cl
 
                     bool isdefault = Convert.ToBoolean(horses.isDefault);
 
-                    Horse _h = new Horse(horses.id, horses.name, horses.modelname, horses.xp, horses.status, horses.gear, isdefault);
+                    Horse _h = new Horse(horses.id, horses.name, horses.modelname, horses.xp, horses.status, horses.gear, isdefault, false);
 
                     MyHorses.Add(_h);
 
