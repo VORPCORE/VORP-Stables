@@ -11,4 +11,4 @@
 * Copy and paste ```vorp_stables``` folder to ```resources/vorp_stables```
 * Add ```ensure vorp_stables``` to your ```server.cfg``` file
 * To change the language go to ```resources/vorp_stables``` and change the default language
-Now you are ready!
+* Now you are ready!
