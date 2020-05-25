@@ -1,6 +1,6 @@
 {
 
-  "PressToOpen": "Pulsa [~e~Enter~q~] para acceder al establo",
+  "PressToOpen": "Pulsa [~e~Espacio~q~] para acceder al establo",
 
   "TitleMenuStables": "Establos",
   "SubTitleMenuStables": "Elije una opción",
@@ -28,7 +28,8 @@
   "InputNameButton": "Comprar Caballo",
   "InputNamePlaceholder": "Escribe el nombre para tu caballo",
 
-  "SuccessfulBuy": "Has comprado el complemento por {0}$",
+  "SuccessfulBuyComp": "Has comprado el complemento por {0}$",
+  "SuccessfulBuyHorse": "Has comprado a {0} por {1}$",
   "NoMoney": "No tienes suficiente dinero",
   "NoDefaultHorses": "No tienes ningun caballo asignado por defecto",
   "HorseIsOcuppied": "Tu caballo esta siendo usado por otra persona",

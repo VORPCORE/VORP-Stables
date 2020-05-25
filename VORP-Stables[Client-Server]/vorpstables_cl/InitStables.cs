@@ -20,7 +20,7 @@ namespace vorpstables_cl
 
         public static async Task StartInit()
         {
-
+            await Delay(10000);
             foreach (var stable in GetConfig.Config["Stables"])
             {
                 //Creación de Blips
@@ -54,7 +54,7 @@ namespace vorpstables_cl
                 API.FreezeEntityPosition(_PedShop, true);
                 StableNpc.Add(_PedShop);
 
-                await Delay(100);
+                await Delay(200);
             }
         }
 
@@ -93,12 +93,13 @@ namespace vorpstables_cl
                 float z = float.Parse(GetConfig.Config["Stables"][i]["EnterStable"][2].ToString());
                 float radius = float.Parse(GetConfig.Config["Stables"][i]["EnterStable"][3].ToString());
 
-                if (API.GetDistanceBetweenCoords(pCoords.X, pCoords.Y, pCoords.Z, x, y, z, false) <= radius)
+                if (API.GetDistanceBetweenCoords(pCoords.X, pCoords.Y, pCoords.Z, x, y, z, false) <= radius && !MenuAPI.MenuController.IsAnyMenuOpen())
                 {
                     await DrawTxt(GetConfig.Langs["PressToOpen"], 0.5f, 0.9f, 0.7f, 0.7f, 255, 255, 255, 255, true, true);
-                    if (API.IsControlJustPressed(2, 0xC7B5340A))
+                    if (API.IsControlJustPressed(2, 0xD9D0E1C0))
                     {
-                        StablesShop.MenuStables(i);
+                        await StablesShop.MenuStables(i);
+                        await Delay(1000);
                     }
                 }
 

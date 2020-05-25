@@ -13,43 +13,33 @@ namespace vorpstables_cl
 {
     public class StablesShop: BaseScript
     {
-        static int CamHorse;
-        static int CamMyHorse;
-        static int CamCart;
+        public static int CamHorse;
+        public static int CamMyHorse;
+        public static int CamCart;
 
-        static int HorsePed;
-        static bool horseIsLoaded = true;
-        static bool MyhorseIsLoaded = false;
+        public static int HorsePed;
+        public static bool horseIsLoaded = true;
+        public static bool MyhorseIsLoaded = false;
 
-        static int lIndex;
-        static int iIndex;
-
-        static List<Menu> CompsMenus = new List<Menu>();
+        public static int lIndex;
+        public static int iIndex;
 
         #region HorseDataCache
-        static string horsemodel;
-        static double horsecost;
+        public static string horsemodel;
+        public static double horsecost;
 
-        static int indexHorseSelected;
+        public static int indexHorseSelected;
         #endregion
 
         #region HorseCompsCache
-        static int indexCategory;
-        static int indexCategoryComp;
-        static int indexComp;
-
+        public static int indexCategory;
+        public static int indexCategoryComp;
+        public static int indexComp;
         #endregion
 
         public static async Task EnterBuyMode()
         {
-            foreach (var v in GetActivePlayers())
-            {
-                int id = v + 1;
-                int player = GetPlayerFromServerId(id);
-                SetEntityAlpha(GetPlayerPed(player), 0, false);
-                SetEntityNoCollisionEntity(PlayerPedId(), GetPlayerPed(player), false);
-                Debug.WriteLine(id.ToString());
-            }
+            TriggerEvent("vorp:setInstancePlayer", true);
             int pId = PlayerPedId();
 
             FreezeEntityPosition(pId, true);
@@ -58,14 +48,7 @@ namespace vorpstables_cl
 
         public static async Task ExitBuyMode()
         {
-            foreach (var v in GetActivePlayers())
-            {
-                int id = v + 1;
-                int player = GetPlayerFromServerId(id);
-                SetEntityAlpha(GetPlayerPed(player), 255, false);
-                SetEntityNoCollisionEntity(PlayerPedId(), GetPlayerPed(player), true);
-                Debug.WriteLine(id.ToString());
-            }
+            TriggerEvent("vorp:setInstancePlayer", false);
             int pId = PlayerPedId();
 
             FreezeEntityPosition(pId, false);
@@ -130,9 +113,13 @@ namespace vorpstables_cl
         public static async Task MenuStables(int stableId)
         {
             
+            MenuController.Menus.Clear();
+
             Menu menuStables = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
             MenuController.AddMenu(menuStables);
+            MenuController.MenuToggleKey = (Control)0;
 
+            Debug.WriteLine($"{MenuController.MainMenu.MenuTitle}");
             #region SubMenuBuyHorses
             Menu subMenuBuyHorses = new Menu(GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
             MenuController.AddSubmenu(menuStables, subMenuBuyHorses);
@@ -210,8 +197,8 @@ namespace vorpstables_cl
                 var Icon = MenuItem.Icon.SADDLE;
 
                 if (mh.IsDefault())
-                { 
-                    Icon = MenuItem.Icon.TICK; 
+                {
+                    Icon = MenuItem.Icon.TICK;
                 }
 
                 MenuItem buttonMyHorses = new MenuItem(mh.getHorseName(), GetConfig.Langs[mh.getHorseModel()])
@@ -471,7 +458,7 @@ namespace vorpstables_cl
 
 
 
-  
+
 
             #endregion
 
@@ -519,7 +506,7 @@ namespace vorpstables_cl
 
                 if (_index == 0)
                 {
-                    if(HorseManagment.MyHorses.Count >= int.Parse(GetConfig.Config["StableSlots"].ToString()))
+                    if (HorseManagment.MyHorses.Count >= int.Parse(GetConfig.Config["StableSlots"].ToString()))
                     {
                         MenuController.CloseAllMenus();
                         TriggerEvent("vorp:Tip", GetConfig.Langs["StableIsFull"], 4000);
@@ -550,7 +537,7 @@ namespace vorpstables_cl
                 iIndex = _itemIndex;
                 lIndex = _listIndex;
                 subMenuConfirmBuy.MenuTitle = $"{GetConfig.HorseLists.ElementAt(_itemIndex).Key}";
-                subMenuConfirmBuy.MenuSubtitle = string.Format(GetConfig.Langs["subTitleConfirmBuy"], GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key],  GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
+                subMenuConfirmBuy.MenuSubtitle = string.Format(GetConfig.Langs["subTitleConfirmBuy"], GetConfig.Langs[GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Key], GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
                 buttonConfirmYes.Label = string.Format(GetConfig.Langs["ConfirmBuyButton"], GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value.ToString());
 
                 horsecost = GetConfig.HorseLists.ElementAt(_itemIndex).Value.ElementAt(_listIndex).Value;
@@ -613,7 +600,8 @@ namespace vorpstables_cl
                 {
                     buttonSetDefaultHorse.Enabled = false;
                 }
-                else{
+                else
+                {
                     buttonSetDefaultHorse.Enabled = true;
                 }
             };
@@ -926,7 +914,6 @@ namespace vorpstables_cl
             };
 
 
-
             subMenuConfirmBuyComp.OnItemSelect += (_menu, _item, _index) =>
             {
                 BuyComp();
@@ -934,7 +921,6 @@ namespace vorpstables_cl
             };
 
             #endregion
-
             menuStables.OpenMenu();
         }
 

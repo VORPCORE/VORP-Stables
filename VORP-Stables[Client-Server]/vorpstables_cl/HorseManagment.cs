@@ -22,7 +22,6 @@ namespace vorpstables_cl
             EventHandlers["vorpstables:GetMyStables"] += new Action<List<dynamic>>(GetMyStables);
             EventHandlers["vorpstables:GetMyComplements"] += new Action<string>(GetMyComplements);
             TriggerServerEvent("vorpstables:LoadMyStables");
-            //SetupBrushPrompt();
             Tick += onCallHorse;
             Tick += onHorseDead;
             Tick += timeToRespawn;
@@ -55,14 +54,12 @@ namespace vorpstables_cl
             {
                 if (API.IsEntityDead(spawnedHorse.Item1) && spawnedHorse.Item2.getHorseDeadTime() == 0 && API.DoesEntityExist(spawnedHorse.Item1))
                 {
-                
                     int indexHorse = MyHorses.IndexOf(spawnedHorse.Item2);
                     spawnedHorse.Item2.setHorseDead(int.Parse(GetConfig.Config["SecondsToRespawn"].ToString()));
                     MyHorses[indexHorse].setHorseDead(int.Parse(GetConfig.Config["SecondsToRespawn"].ToString()));
                     TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["HorseDead"], spawnedHorse.Item2.getHorseName(), spawnedHorse.Item2.getHorseDeadTime() / 1000), 5000);
                     int pedHorse = spawnedHorse.Item1;
                     API.DeletePed(ref pedHorse);
-
                 }
             }
             
@@ -84,7 +81,7 @@ namespace vorpstables_cl
         [Tick]
         private async Task onCallHorse()
         {
-            int pedAiming = new int();
+            int pedAiming = 0;
 
             if (API.IsControlJustPressed(0, 0x24978A28))
             {
@@ -119,18 +116,6 @@ namespace vorpstables_cl
                 await Delay(4000);
                 API.DeletePed(ref ped);
             }
-        }
-
-        public void SetupBrushPrompt()
-        {
-            BrushPrompt = Function.Call<int>((Hash)0x04F97DE45A519419);
-            long str = Function.Call<long>(Hash._CREATE_VAR_STRING, 10, "LITERAL_STRING", "Limpiar");
-            Function.Call((Hash)0x5DD02A8318420DD7, BrushPrompt, str);
-            Function.Call((Hash)0xB5352B7494A08258, BrushPrompt, 0x63A38F2C);
-            Function.Call((Hash)0x8A0FB4D03A630D21, BrushPrompt, true);
-            Function.Call((Hash)0x71215ACCFDE075EE, BrushPrompt, false);
-            Function.Call((Hash)0x94073D5CA3F16B7B, BrushPrompt, true);
-            Function.Call((Hash)0xF7AA2696A22AD8B9, BrushPrompt);
         }
 
         //FEATURE WHEN RemoveMpGamerTag Works
@@ -217,9 +202,6 @@ namespace vorpstables_cl
         private async Task SpawnHorseDefault()
         {
 
-
-
-
             Horse def = spawnedHorse.Item2;
 
             uint hashHorse = (uint)API.GetHashKey(def.getHorseModel());
@@ -229,16 +211,19 @@ namespace vorpstables_cl
 
 
             Vector3 spawnPos = Vector3.Zero;
+            Vector3 spawnPos2 = Vector3.Zero;
             float spawnHeading = 0.0F;
             int unk1 = 0;
 
-            API.GetNthClosestVehicleNodeWithHeading(playerPos.X, playerPos.Y, playerPos.Z, 25, ref spawnPos, ref spawnHeading, ref unk1, 0, 0f, 0f);
+            //API.GetNthClosestVehicleNodeWithHeading(playerPos.X, playerPos.Y, playerPos.Z, 25, ref spawnPos, ref spawnHeading, ref unk1, 0, 0f, 0f);
+
+            API.GetClosestRoad(playerPos.X, playerPos.Y, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
 
             int spawnedh = API.CreatePed(hashHorse, spawnPos.X, spawnPos.Y, spawnPos.Z, spawnHeading, true, true, false, false);
 
             Function.Call((Hash)0x283978A15512B2FE, spawnedh, true);
             Function.Call((Hash)0x23F74C2FDA6E7C61, -1230993421, spawnedh);
-            Function.Call((Hash)0x6A071245EB0D1882, spawnedh, pPID, -1, 5.0F, 2.0F, 0F, 0);
+            Function.Call((Hash)0x6A071245EB0D1882, spawnedh, pPID, 4000, 5.0F, 2.0F, 0F, 0);
             Function.Call((Hash)0x98EFA132A4117BE1, spawnedh, def.getHorseName());
             Function.Call((Hash)0x4A48B6E03BABB4AC, spawnedh, def.getHorseName());
 
@@ -279,6 +264,8 @@ namespace vorpstables_cl
 
             spawnedHorse = new Tuple<int, Horse>(spawnedh, def);
 
+            Function.Call((Hash)0x931B241409216C1F, API.PlayerPedId(), spawnedh, 1); //Brush
+
             API.SetModelAsNoLongerNeeded(hashHorse);
         }
 
@@ -292,8 +279,8 @@ namespace vorpstables_cl
             }
             else
             {
-                int interesante = int.Parse(s);
-                result = (uint)interesante;
+                int eresante = int.Parse(s);
+                result = (uint)eresante;
                 return result;
             }
         }

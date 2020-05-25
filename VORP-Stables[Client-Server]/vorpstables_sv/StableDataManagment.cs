@@ -55,7 +55,7 @@ namespace vorpstables_sv
                         }
 
                     }));
-                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["SuccessfulBuy"], cost), 4000);
+                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["SuccessfulBuyComp"], cost), 4000);
                     ReLoadStables(source);
                 }
                 else
@@ -130,7 +130,7 @@ namespace vorpstables_sv
                 {
                     TriggerEvent("vorp:removeMoney", _source, 0, cost);
                     Exports["ghmattimysql"].execute("INSERT INTO stables (`identifier`, `name`, `type`, `modelname`) VALUES (?, ?, ?, ?)", new object[] { sid, name, "horse", model });
-                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["SuccessfulBuy"], race, LoadConfig.Langs[model], cost.ToString()), 4000);
+                    source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
                     Delay(2200);
                     InitStables_Server IS = new InitStables_Server();
                     IS.LoadStablesDB(source);
