@@ -4,7 +4,7 @@
 
   "StableSlots": 5, // set max horses for each user
 
-  "SecondsToRespawn": 120, // set max horses for each user
+  "SecondsToRespawn": 120, // set horse respawn time
 
   "Complements": [
     {
