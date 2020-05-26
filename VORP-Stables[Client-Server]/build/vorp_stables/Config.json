@@ -1,4 +1,4 @@
-﻿{
+{ // To change the language completely, eliminate the Config.json file and rename the Config_En.json (In this case to change it to English) to Config.json, the file Config_En.json already has the default language set to En
 
   "defaultlang": "Es", // set your language
 
