@@ -292,7 +292,7 @@
         }
       ],
       "Zebra (Mula pintada)": [ { "A_C_HorseMulePainted_01": 100 } ],
-      "Mula": [ { "A_C_HorseMule_01": 100 } ]
+      "Mula": [ { "A_C_HorseMule_01": 100 } ],
       "Burro": [ { "A_C_Donkey_01": 100 } ]
     }
   ],
