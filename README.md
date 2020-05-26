@@ -10,5 +10,5 @@
 * [Download the lastest version of VORP Stables](https://github.com/VORPCORE/VORP-Stables/releases)
 * Copy and paste ```vorp_stables``` folder to ```resources/vorp_stables```
 * Add ```ensure vorp_stables``` to your ```server.cfg``` file
-* To change the language go to ```resources/vorp_stables``` and change the default language
+* To change the language go to ```resources/vorp_stables```, eliminate the ```Config.json file``` and rename the ```Config_En.json``` to ```Config.json``` 
 * Now you are ready!
