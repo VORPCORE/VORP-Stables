@@ -1,0 +1,170 @@
+{
+
+  "PressToOpen": "Press [~e~Space~q~] to access the stable",
+
+  "TitleMenuStables": "Stables",
+  "SubTitleMenuStables": "Choose an option",
+
+  "TitleMenuBuyHorses": "Horse Dealer",
+  "SubTitleMenuBuyHorses": "Choose a horse",
+
+  "TitleMenuHorses": "Horse Management",
+  "SubTitleMenuHorses": "Manage your horses",
+
+  "TitleMenuBuyCarts": "Carriage Dealer",
+  "SubTitleMenuBuyCarts": "Choose a carriage",
+
+  "TitleMenuCarts": "Carriage Management",
+  "SubTitleMenuCarts": "Manage your carriages",
+
+  "subTitleConfirmBuy": "The price of {0} is {1}$",
+  "ConfirmBuyButton": "Buy for {0}$",
+  "ConfirmBuyButtonDesc": "Buy horse",
+  "CancelBuyButton": "Cancel purchase",
+  "CancelBuyButtonDesc": "Go back",
+
+  "StableIsFull": "You have your stable full, you can not buy it until you have a free slot",
+
+  "InputNameButton": "Buy Horse",
+  "InputNamePlaceholder": "Choose the name for your horse",
+
+  "SuccessfulBuyComp": "You have bought the complement for {0}$",
+  "SuccessfulBuyHorse": "You have bought {0} for {1}$",
+  "NoMoney": "You do not have enought money",
+  "NoDefaultHorses": "You do not have any default horse",
+  "HorseIsOcuppied": "Your horse is being used by someone else",
+
+  "SubMenuBuyComplements": "Complements Dealer",
+  "ButtonSetDefaultHorse": "Make it ypur main horse",
+  "PriceComplements": "Price: ",
+  "BuyButtonComplements": "Yes, Buy - {0} for {1}$",
+  "YouBuyedThisComp": "You already bought it",
+  "SetThisComp": "Equip {0} to this horse",
+
+  "HorseIsDead": "{0} has died recently, you need to wait {1} seconds",
+  "HorseDead": "{0} has died, you will need to wait {1} seconds to call it back",
+
+  //Horses
+  "A_C_Horse_AmericanPaint_Greyovero": "Greyovero",
+  "A_C_Horse_AmericanPaint_Overo": "Overo",
+  "A_C_Horse_AmericanPaint_SplashedWhite": "Splashed White",
+  "A_C_Horse_AmericanPaint_Tobiano": "Tobiano",
+
+  "A_C_Horse_AmericanStandardbred_Black": "Black",
+  "A_C_Horse_AmericanStandardbred_Buckskin": "Buckskin",
+  "A_C_Horse_AmericanStandardbred_PalominoDapple": "Palomino Dapple",
+  "A_C_Horse_AmericanStandardbred_SilverTailBuckskin": "Silver Tail Buckskin",
+
+  "A_C_Horse_Andalusian_DarkBay": "Dark Bay",
+  "A_C_Horse_Andalusian_Perlino": "Perlino",
+  "A_C_Horse_Andalusian_RoseGray": "Rose Gray",
+
+  "A_C_Horse_Appaloosa_BlackSnowflake": "Black Snowflake",
+  "A_C_Horse_Appaloosa_Blanket": "Blanket",
+  "A_C_Horse_Appaloosa_BrownLeopard": "Brown Leopard",
+  "A_C_Horse_Appaloosa_FewSpotted_PC": "Few Spotted",
+  "A_C_Horse_Appaloosa_Leopard": "Leopardo",
+  "A_C_Horse_Appaloosa_LeopardBlanket": "Leopard Blanket",
+
+  "A_C_Horse_Arabian_Black": "Black",
+  "A_C_Horse_Arabian_Grey": "Grey",
+  "A_C_Horse_Arabian_RedChestnut": "Red Chestnut",
+  "A_C_Horse_Arabian_RoseGreyBay": "Rose Grey Bay",
+  "A_C_Horse_Arabian_WarpedBrindle_PC": "Warped Brindle",
+  "A_C_Horse_Arabian_White": "White",
+
+  "A_C_Horse_Ardennes_BayRoan": "Bay Roan",
+  "A_C_Horse_Ardennes_IronGreyRoan": "Iron Grey Roan",
+  "A_C_Horse_Ardennes_StrawberryRoan": "Strawberry Roan",
+
+  "A_C_Horse_Belgian_BlondChestnut": "Blond Chestnut",
+  "A_C_Horse_Belgian_MealyChestnut": "Mealy Chestnut",
+
+  "A_C_Horse_DutchWarmblood_ChocolateRoan": "Chocolate Roan",
+  "A_C_Horse_DutchWarmblood_SealBrown": "Seal Brown",
+  "A_C_Horse_DutchWarmblood_SootyBuckskin": "Sooty Buckskin",
+
+  "A_C_Horse_HungarianHalfbred_DarkDappleGrey": "Dark Dapple Grey",
+  "A_C_Horse_HungarianHalfbred_FlaxenChestnut": "Flaxen Chestnut",
+  "A_C_Horse_HungarianHalfbred_LiverChestnut": "Liver Chestnut",
+  "A_C_Horse_HungarianHalfbred_PiebaldTobiano": "Piebald Tobiano",
+
+  "A_C_Horse_KentuckySaddle_Black": "Black",
+  "A_C_Horse_KentuckySaddle_ButterMilkBuckskin_PC": "Butter Milk Buckskin",
+  "A_C_Horse_KentuckySaddle_ChestnutPinto": "Chestnut Pinto",
+  "A_C_Horse_KentuckySaddle_Grey": "Grey",
+  "A_C_Horse_KentuckySaddle_SilverBay": "Silver Bay",
+
+  "A_C_Horse_Kladruber_Black": "Black",
+  "A_C_Horse_Kladruber_Silver": "Silver",
+  "A_C_Horse_Kladruber_Cremello": "Cremello",
+  "A_C_Horse_Kladruber_Grey": "Grey",
+  "A_C_Horse_Kladruber_DappleRoseGrey": "Dapple Rose Grey",
+  "A_C_Horse_Kladruber_White": "White",
+
+  "A_C_Horse_MissouriFoxTrotter_AmberChampagne": "Amber Champagne",
+  "A_C_Horse_MissouriFoxTrotter_SableChampagne": "Sable Champagne",
+  "A_C_Horse_MissouriFoxTrotter_SilverDapplePinto": "Silver Dapple Pinto",
+
+  "A_C_Horse_Morgan_Bay": "Bay",
+  "A_C_Horse_Morgan_BayRoan": "Bay Roan",
+  "A_C_Horse_Morgan_FlaxenChestnut": "Flaxen Chestnut",
+  "A_C_Horse_Morgan_LiverChestnut_PC": "Liver Chestnut",
+  "A_C_Horse_Morgan_Palomino": "Palomino",
+
+  "A_C_Horse_MP_Mangy_Backup": "Old Penco",
+
+  "A_C_Horse_Mustang_GoldenDun": "Golden Dun",
+  "A_C_Horse_Mustang_GrulloDun": "Grullo Dun",
+  "A_C_Horse_Mustang_TigerStripedBay": "Tiger Striped Bay",
+  "A_C_Horse_Mustang_WildBay": "Wild Bay",
+
+  "A_C_Horse_Nokota_BlueRoan": "Blue Roan",
+  "A_C_Horse_Nokota_ReverseDappleRoan": "Reverse Dapple Roan",
+  "A_C_Horse_Nokota_WhiteRoan": "White Roan",
+
+  "A_C_Horse_Shire_DarkBay": "Dark Bay",
+  "A_C_Horse_Shire_LightGrey": "Light Grey",
+  "A_C_Horse_Shire_RavenBlack": "Raven Black",
+
+  "A_C_Horse_SuffolkPunch_RedChestnut": "Red Chestnut",
+  "A_C_Horse_SuffolkPunch_Sorrel": "Sorrel",
+
+  "A_C_Horse_TennesseeWalker_BlackRabicano": "Black Rabicano",
+  "A_C_Horse_TennesseeWalker_Chestnut": "Chestnut",
+  "A_C_Horse_TennesseeWalker_DappleBay": "Dapple Bay",
+  "A_C_Horse_TennesseeWalker_FlaxenRoan": "Flaxen Roan",
+  "A_C_Horse_TennesseeWalker_MahoganyBay": "Mahogany Bay",
+  "A_C_Horse_TennesseeWalker_RedRoan": "Red Roan",
+  "A_C_Horse_TennesseeWalker_GoldPalomino_PC": "Gold Palomino",
+
+  "A_C_Horse_Thoroughbred_BlackChestnut": "Black Chestnut",
+  "A_C_Horse_Thoroughbred_BloodBay": "Blood Bay",
+  "A_C_Horse_Thoroughbred_Brindle": "Brindle",
+  "A_C_Horse_Thoroughbred_DappleGrey": "Dapple Grey",
+  "A_C_Horse_Thoroughbred_ReverseDappleBlack": "Reverse Dapple Black",
+
+  "A_C_Horse_Turkoman_DarkBay": "Dark Bay",
+  "A_C_Horse_Turkoman_Gold": "Gold",
+  "A_C_Horse_Turkoman_Silver": "Silver",
+
+  "A_C_Horse_Criollo_Dun": "Dun",
+  "A_C_Horse_Criollo_MarbleSabino": "Marble Sabino",
+  "A_C_Horse_Criollo_BayFrameOvero": "Bay Frame Overo",
+  "A_C_Horse_Criollo_BayBrindle": "Bay Brindle",
+  "A_C_Horse_Criollo_SorrelOvero": "Sorrel Overo",
+  "A_C_Horse_Criollo_BlueRoanOvero": "Blue Roan Overo",
+
+  "A_C_Horse_Breton_SteelGrey": "Steel Grey",
+  "A_C_Horse_Breton_MealyDapple": "Mealy Dapple",
+  "A_C_Horse_Breton_SealBrown": "Seal Brown",
+  "A_C_Horse_Breton_GrulloDun": "Grullo Dun",
+  "A_C_Horse_Breton_Sorrel": "Sorrel",
+  "A_C_Horse_Breton_RedRoan": "Red Roan",
+
+  "A_C_HorseMulePainted_01": "Zebra",
+
+  "A_C_HorseMule_01": "Mule",
+  
+  "A_C_Donkey_01": "Donkey"
+}

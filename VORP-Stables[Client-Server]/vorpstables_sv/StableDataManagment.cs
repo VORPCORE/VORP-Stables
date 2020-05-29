@@ -133,7 +133,7 @@ namespace vorpstables_sv
                     source.TriggerEvent("vorp:Tip", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
                     Delay(2200);
                     InitStables_Server IS = new InitStables_Server();
-                    IS.LoadStablesDB(source);
+                    ReLoadStables(source);
                 }
                 else
                 {

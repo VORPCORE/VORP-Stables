@@ -96,7 +96,6 @@ namespace vorpstables_cl
 
                 }
                 this.isDefault = true;
-                HorseManagment.DeleteDefaultHorse(HorseManagment.spawnedHorse.Item1);
                 HorseManagment.spawnedHorse = new Tuple<int, Horse>(0, this);
                 HorseManagment.SetDefaultHorseDB(this.ID);
             }

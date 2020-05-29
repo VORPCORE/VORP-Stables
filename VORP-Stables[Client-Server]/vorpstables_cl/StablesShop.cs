@@ -112,7 +112,10 @@ namespace vorpstables_cl
 
         public static async Task MenuStables(int stableId)
         {
-            
+            if (HorseManagment.spawnedHorse != null)
+            {
+                HorseManagment.DeleteDefaultHorse(HorseManagment.spawnedHorse.Item1);
+            }
             MenuController.Menus.Clear();
 
             Menu menuStables = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
@@ -217,8 +220,6 @@ namespace vorpstables_cl
 
             MenuController.BindMenuItem(subMenuManagmentHorse, subMenuComplementsHorse, buttonBuyComplements);
 
-
-            //Menu Confirmar
             Menu subMenuConfirmBuyComp = new Menu("Confirm Purcharse", "");
             MenuController.AddSubmenu(subMenuManagmentHorse, subMenuConfirmBuyComp);
 
@@ -233,11 +234,6 @@ namespace vorpstables_cl
             };
             subMenuConfirmBuyComp.AddMenuItem(buttonConfirmCompNo);
 
-
-
-
-
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compMantas = GetConfig.CompsLists.ElementAt(0);
             Menu subMenuCatComplementsHorseMantas = new Menu(compMantas.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseMantas);
@@ -263,7 +259,6 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesMantas);
             }
 
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compCuernos = GetConfig.CompsLists.ElementAt(1);
             Menu subMenuCatComplementsHorseCuernos = new Menu(compCuernos.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseCuernos);
@@ -289,8 +284,6 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesCuernos);
             }
 
-
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compAlforjas = GetConfig.CompsLists.ElementAt(2);
             Menu subMenuCatComplementsHorseAlforjas = new Menu(compAlforjas.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseAlforjas);
@@ -317,8 +310,6 @@ namespace vorpstables_cl
             }
 
 
-
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compColas = GetConfig.CompsLists.ElementAt(3);
             Menu subMenuCatComplementsHorseColas = new Menu(compColas.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseColas);
@@ -344,9 +335,6 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesColas);
             }
 
-
-
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compCrines = GetConfig.CompsLists.ElementAt(4);
             Menu subMenuCatComplementsHorseCrines = new Menu(compCrines.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseCrines);
@@ -455,9 +443,6 @@ namespace vorpstables_cl
                 subMenuCatComplementsHorsePetates.AddMenuItem(compCategoriesPetates);
                 MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesPetates);
             }
-
-
-
 
 
             #endregion
@@ -608,7 +593,6 @@ namespace vorpstables_cl
 
             subMenuManagmentHorse.OnItemSelect += (_menu, _item, _index) =>
             {
-
                 switch (_index)
                 {
                     case 0:

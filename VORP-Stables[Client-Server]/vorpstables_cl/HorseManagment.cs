@@ -264,7 +264,7 @@ namespace vorpstables_cl
 
             spawnedHorse = new Tuple<int, Horse>(spawnedh, def);
 
-            Function.Call((Hash)0x931B241409216C1F, API.PlayerPedId(), spawnedh, 1); //Brush
+            //Function.Call((Hash)0x931B241409216C1F, API.PlayerPedId(), spawnedh, 0); //Brush
 
             API.SetModelAsNoLongerNeeded(hashHorse);
         }
