@@ -23,22 +23,22 @@
   "CancelBuyButton": "Cancelar Compra",
   "CancelBuyButtonDesc": "Volver atras",
 
-  "StableIsFull": "Tienes tu establo lleno, no puedes comprar hasta tener un hueco",
+  "StableIsFull": "Tu establo está lleno, no puedes comprarlo hasta tener un hueco libre",
 
   "InputNameButton": "Comprar Caballo",
-  "InputNamePlaceholder": "Escribe el nombre para tu caballo",
+  "InputNamePlaceholder": "Escribe el nombre de tu caballo",
 
   "SuccessfulBuyComp": "Has comprado el complemento por {0}$",
   "SuccessfulBuyHorse": "Has comprado a {0} por {1}$",
   "NoMoney": "No tienes suficiente dinero",
   "NoDefaultHorses": "No tienes ningun caballo asignado por defecto",
-  "HorseIsOcuppied": "Tu caballo esta siendo usado por otra persona",
+  "HorseIsOcuppied": "Tu caballo está siendo usado por otra persona",
 
   "SubMenuBuyComplements": "Comprar Complementos",
   "ButtonSetDefaultHorse": "Convertir en principal",
   "PriceComplements": "Precio: ",
-  "BuyButtonComplements": "Si, Comprar - {0} por {1}$",
-  "YouBuyedThisComp": "Ya lo tenias comprado",
+  "BuyButtonComplements": "Sí, Comprar - {0} por {1}$",
+  "YouBuyedThisComp": "Ya lo tenías comprado",
   "SetThisComp": "Poner {0} a este caballo",
 
   "HorseIsDead": "{0} ha muerto recientemente, necesitas esperar {1} segundos",
@@ -162,8 +162,9 @@
   "A_C_Horse_Breton_Sorrel": "Cobrizo",
   "A_C_Horse_Breton_RedRoan": "Ruano rojizo",
 
-  "A_C_HorseMulePainted_01": "Zebra",
+  "A_C_HorseMulePainted_01": "Cebra",
 
-  "A_C_HorseMule_01": "Mula"
-
+  "A_C_HorseMule_01": "Mula",
+  
+  "A_C_Donkey_01": "Burro"
 }
