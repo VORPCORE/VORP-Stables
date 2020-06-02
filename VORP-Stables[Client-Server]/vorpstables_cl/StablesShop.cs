@@ -900,8 +900,11 @@ namespace vorpstables_cl
 
             subMenuConfirmBuyComp.OnItemSelect += (_menu, _item, _index) =>
             {
-                BuyComp();
-                Debug.WriteLine($"Key: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Key} | Price: {GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value.ToString()} | UintID: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value[indexComp].ToString()}");
+                if(_index == 0)
+                {
+                    BuyComp();
+                    Debug.WriteLine($"Key: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Key} | Price: {GetConfig.CompsPrices.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value.ToString()} | UintID: {GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value[indexComp].ToString()}");
+                }
             };
 
             #endregion

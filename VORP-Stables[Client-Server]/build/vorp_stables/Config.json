@@ -1,10 +1,10 @@
-{ // To change the language completely, eliminate the Config.json file and rename the Config_En.json (In this case to change it to English) to Config.json, the file Config_En.json already has the default language set to En
+﻿{
 
   "defaultlang": "Es", // set your language
 
   "StableSlots": 5, // set max horses for each user
 
-  "SecondsToRespawn": 120, // set horse respawn time
+  "SecondsToRespawn": 120, // set max horses for each user
 
   "Complements": [
     {
@@ -292,8 +292,7 @@
         }
       ],
       "Zebra (Mula pintada)": [ { "A_C_HorseMulePainted_01": 100 } ],
-      "Mula": [ { "A_C_HorseMule_01": 100 } ],
-      "Burro": [ { "A_C_Donkey_01": 100 } ]
+      "Mula": [ { "A_C_HorseMule_01": 100 } ]
     }
   ],
 
@@ -302,7 +301,7 @@
     {
       "name": "Establo Saint Denis",
       "BlipIcon": 1938782895,
-      "EnterStable": [ 2510.58, -1456.83, 46.31, 2.0 ], // The last value (2.0) is the radius in which the enter button appears
+      "EnterStable": [ 2510.58, -1456.83, 46.31, 2.0 ],
       "StableNPC": [ 2512.35, -1456.89, 45.2, 91.68 ],
       "SpawnHorse": [ 2508.59, -1449.96, 45.5, 90.09 ],
       "CamHorse": [ 2506.807, -1452.29, 48.61699, -34.77003, 0.0, -35.20742 ],
