@@ -23,7 +23,7 @@
   "CancelBuyButton": "Cancel purchase",
   "CancelBuyButtonDesc": "Go back",
 
-  "StableIsFull": "You have your stable full, you can not buy it until you have a free slot",
+  "StableIsFull": "Your stable is full, you can not buy it until you have a free slot",
 
   "InputNameButton": "Buy Horse",
   "InputNamePlaceholder": "Choose the name for your horse",
@@ -35,7 +35,7 @@
   "HorseIsOcuppied": "Your horse is being used by someone else",
 
   "SubMenuBuyComplements": "Complements Dealer",
-  "ButtonSetDefaultHorse": "Make it ypur main horse",
+  "ButtonSetDefaultHorse": "Make it your main horse",
   "PriceComplements": "Price: ",
   "BuyButtonComplements": "Yes, Buy - {0} for {1}$",
   "YouBuyedThisComp": "You already bought it",
