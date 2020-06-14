@@ -30,7 +30,7 @@
 
   "SuccessfulBuyComp": "You have bought the complement for {0}$",
   "SuccessfulBuyHorse": "You have bought {0} for {1}$",
-  "NoMoney": "You do not have enought money",
+  "NoMoney": "You do not have enough money",
   "NoDefaultHorses": "You do not have any default horse",
   "HorseIsOcuppied": "Your horse is being used by someone else",
 
