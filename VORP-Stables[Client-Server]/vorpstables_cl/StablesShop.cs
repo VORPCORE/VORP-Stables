@@ -918,7 +918,7 @@ namespace vorpstables_cl
             switch (indexCategory)
             {
                 case 0:
-                    newGear["blankets"] = hashItem;
+                    newGear["blanket"] = hashItem;
                     Debug.WriteLine(newGear.ToString());
                     break;
                 case 1:
