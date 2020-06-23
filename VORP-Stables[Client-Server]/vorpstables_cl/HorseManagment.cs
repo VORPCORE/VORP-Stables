@@ -12,8 +12,10 @@ namespace vorpstables_cl
     public class HorseManagment : BaseScript
     {
         public static List<Horse> MyHorses = new List<Horse>();
+        public static List<Cart> MyCarts = new List<Cart>();
         public static List<uint> MyComps = new List<uint>();
         public static Tuple<int, Horse> spawnedHorse;
+        public static Tuple<int, Cart> spawnedCart;
         public static int MPTagHorse = 0;
         private int BrushPrompt;
 
@@ -68,6 +70,11 @@ namespace vorpstables_cl
 
         }
 
+        public static void SetDefaultCartDB(int id)
+        {
+            TriggerServerEvent("vorpstables:SetDefaultCart", id);
+        }
+
         private void GetMyComplements(string comps)
         {
             MyComps.Clear();
@@ -89,7 +96,13 @@ namespace vorpstables_cl
                 await Delay(5000); // Anti Flood
             }
 
-            if(API.GetEntityPlayerIsFreeAimingAt(API.PlayerId(), ref pedAiming) && API.IsDisabledControlJustPressed(0, 0x4216AF06))
+            if (API.IsControlJustPressed(0, 0xF3830D8E))
+            {
+                CallCart();
+                await Delay(5000); // Anti Flood
+            }
+
+            if (API.GetEntityPlayerIsFreeAimingAt(API.PlayerId(), ref pedAiming) && API.IsDisabledControlJustPressed(0, 0x4216AF06))
             {
                 FleeHorse(pedAiming);
                 await Delay(1000);
@@ -199,6 +212,58 @@ namespace vorpstables_cl
             }
         }
 
+        private async Task CallCart()
+        {
+            if (spawnedCart != null)
+            {
+                if (API.DoesEntityExist(spawnedCart.Item1) && spawnedCart.Item1 != -1) // if spawned
+                {
+                    Debug.WriteLine(Function.Call<bool>((Hash)0xE052C1B1CAA4ECE4, spawnedCart.Item1, -1).ToString());
+
+                    if (Function.Call<bool>((Hash)0xE052C1B1CAA4ECE4, spawnedCart.Item1, -1))
+                    {
+                        if (getHorseDistance(spawnedCart.Item1) < 30.0f)
+                        {
+                            int pPID = API.PlayerPedId();
+                            API.NetworkRequestControlOfEntity(spawnedCart.Item1);
+                            API.SetEntityAsMissionEntity(spawnedCart.Item1, true, true);
+
+                            Function.Call((Hash)0x6A071245EB0D1882, spawnedCart.Item1, pPID, -1, 5.0F, 2.0F, 0F, 0);
+                        }
+                        else
+                        {
+                            API.NetworkRequestControlOfEntity(spawnedCart.Item1);
+                            API.SetEntityAsMissionEntity(spawnedCart.Item1, true, true);
+                            int hped = spawnedCart.Item1;
+                            API.DeleteVehicle(ref hped);
+                            await SpawnCartDefault();
+                        }
+                    }
+                    else
+                    {
+                        TriggerEvent("vorp:Tip", GetConfig.Langs["HorseIsOcuppied"], 2000);
+                    }
+
+                }
+                else
+                {
+                    if (spawnedCart.Item2.getHorseDeadTime() > 0)
+                    {
+                        TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["HorseIsDead"], spawnedCart.Item2.getHorseName(), spawnedCart.Item2.getHorseDeadTime() / 1000), 5000);
+                    }
+                    else
+                    {
+                        await SpawnCartDefault();
+                    }
+
+                }
+            }
+            else
+            {
+                TriggerEvent("vorp:Tip", GetConfig.Langs["NoDefaultHorses"], 2000);
+            }
+        }
+
         private async Task SpawnHorseDefault()
         {
 
@@ -269,6 +334,55 @@ namespace vorpstables_cl
             API.SetModelAsNoLongerNeeded(hashHorse);
         }
 
+        private async Task SpawnCartDefault()
+        {
+
+            Cart def = spawnedCart.Item2;
+
+            uint hashCart = (uint)API.GetHashKey(def.getHorseModel());
+            await InitStables.LoadModel(hashCart);
+            int pPID = API.PlayerPedId();
+            Vector3 playerPos = API.GetEntityCoords(pPID, true, true);
+
+
+            Vector3 spawnPos = Vector3.Zero;
+            Vector3 spawnPos2 = Vector3.Zero;
+            float spawnHeading = 0.0F;
+            int unk1 = 0;
+
+            API.GetClosestRoad(playerPos.X, playerPos.Y, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
+
+            int spawnedh = Function.Call<int>((Hash)0xAF35D0D2583051B0, hashCart, spawnPos.X, spawnPos.Y, spawnPos.Z, spawnHeading, true, true, false, true);
+
+            SET_PED_DEFAULT_OUTFIT(spawnedh);
+
+            //Function.Call((Hash)0x283978A15512B2FE, spawnedh, true);
+
+            int attachedPed = Function.Call<int>((Hash)0x56D713888A566481, spawnedh);
+            await Delay(1000);
+            Debug.WriteLine(attachedPed.ToString());
+
+            Function.Call((Hash)0x23F74C2FDA6E7C61, -1236452613, spawnedh);
+            Function.Call((Hash)0x6A071245EB0D1882, spawnedh, pPID, 4000, 5.0F, 2.0F, 0F, 0);
+            Function.Call((Hash)0x98EFA132A4117BE1, spawnedh, def.getHorseName());
+            Function.Call((Hash)0x4A48B6E03BABB4AC, spawnedh, def.getHorseName());
+
+            uint hashP = (uint)API.GetHashKey("PLAYER");
+            Function.Call((Hash)0xADB3F206518799E8, spawnedh, hashP);
+            Function.Call((Hash)0xCC97B29285B1DC3B, spawnedh, 1);
+
+            spawnedCart = new Tuple<int, Cart>(spawnedh, def);
+
+            //Function.Call((Hash)0x931B241409216C1F, API.PlayerPedId(), spawnedh, 0); //Brush
+
+            API.SetModelAsNoLongerNeeded(hashCart);
+        }
+
+        public int SET_PED_DEFAULT_OUTFIT(int coach)
+        {
+            return Function.Call<int>((Hash)0xAF35D0D2583051B0, coach, true);
+        }
+
         public uint ConvertValue(string s)
         {
             uint result;
@@ -307,6 +421,7 @@ namespace vorpstables_cl
             Debug.WriteLine("Establos " + stableDB.Count.ToString());
 
             MyHorses.Clear();
+            MyCarts.Clear();
 
             foreach (dynamic horses in stableDB)
             {
@@ -325,6 +440,21 @@ namespace vorpstables_cl
                         spawnedHorse = new Tuple<int, Horse>(-1, _h);
                     }
 
+                }
+                else
+                {
+                    Debug.WriteLine(horses.name);
+
+                    bool isdefault = Convert.ToBoolean(horses.isDefault);
+
+                    Cart _h = new Cart(horses.id, horses.name, horses.modelname, horses.xp, horses.status, horses.gear, isdefault, false);
+
+                    MyCarts.Add(_h);
+
+                    if (isdefault)
+                    {
+                        spawnedCart = new Tuple<int, Cart>(-1, _h);
+                    }
                 }
             }
         }

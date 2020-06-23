@@ -16,6 +16,7 @@ namespace vorpstables_cl
         public static JObject Config = new JObject();
         public static Dictionary<string, string> Langs = new Dictionary<string, string>();
         public static Dictionary<string, Dictionary<string, double>> HorseLists = new Dictionary<string, Dictionary<string, double>>();
+        public static Dictionary<string, double> CartLists = new Dictionary<string, double>();
         public static Dictionary<string, Dictionary<string, List<uint>>> CompsLists = new Dictionary<string, Dictionary<string, List<uint>>>();
         public static Dictionary<string, Dictionary<string, double>> CompsPrices = new Dictionary<string, Dictionary<string, double>>();
 
@@ -56,6 +57,15 @@ namespace vorpstables_cl
                 }
             }
 
+            foreach (JObject carts in GetConfig.Config["Carts"].Children<JObject>())
+            {
+               
+                foreach (JProperty cart in carts.Properties())
+                {
+                    Debug.WriteLine("Carts: " + cart.Name);
+                    CartLists.Add(cart.Name, cart.Value.ToObject<double>());
+                }
+            }
 
             foreach (JObject catComponents in GetConfig.Config["Complements"].Children<JObject>())
             {

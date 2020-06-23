@@ -18,17 +18,23 @@ namespace vorpstables_cl
         public static int CamCart;
 
         public static int HorsePed;
+        public static int CartPed;
         public static bool horseIsLoaded = true;
+        public static bool cartIsLoaded = true;
         public static bool MyhorseIsLoaded = false;
+        public static bool MycartIsLoaded = false;
 
         public static int lIndex;
         public static int iIndex;
+
+        public static int cIndex;
 
         #region HorseDataCache
         public static string horsemodel;
         public static double horsecost;
 
         public static int indexHorseSelected;
+        public static int indexCartSelected;
         #endregion
 
         #region HorseCompsCache
@@ -71,6 +77,22 @@ namespace vorpstables_cl
             RenderScriptCams(true, true, 1000, true, true, 0);
         }
 
+        public static async Task BuyCartMode(int stableId)
+        {
+            await EnterBuyMode();
+
+            float Camerax = float.Parse(GetConfig.Config["Stables"][stableId]["CamCart"][0].ToString());
+            float Cameray = float.Parse(GetConfig.Config["Stables"][stableId]["CamCart"][1].ToString());
+            float Cameraz = float.Parse(GetConfig.Config["Stables"][stableId]["CamCart"][2].ToString());
+            float CameraRotx = float.Parse(GetConfig.Config["Stables"][stableId]["CamCart"][3].ToString());
+            float CameraRoty = float.Parse(GetConfig.Config["Stables"][stableId]["CamCart"][4].ToString());
+            float CameraRotz = float.Parse(GetConfig.Config["Stables"][stableId]["CamCart"][5].ToString());
+
+            CamHorse = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Camerax, Cameray, Cameraz, CameraRotx, CameraRoty, CameraRotz, 50.00f, false, 0);
+            SetCamActive(CamHorse, true);
+            RenderScriptCams(true, true, 1000, true, true, 0);
+        }
+
         public static async Task MyHorseMode(int stableId, int myHorseId)
         {
             await EnterBuyMode();
@@ -104,6 +126,18 @@ namespace vorpstables_cl
             {
                 await ExitBuyMode();
                 DeletePed(ref HorsePed);
+                SetCamActive(CamMyHorse, false);
+                RenderScriptCams(false, true, 1000, true, true, 0);
+                DestroyCam(CamMyHorse, true);
+            }
+        }
+
+        public static async Task ExitMyCartMode()
+        {
+            if (!MycartIsLoaded)
+            {
+                await ExitBuyMode();
+                DeleteVehicle(ref CartPed);
                 SetCamActive(CamMyHorse, false);
                 RenderScriptCams(false, true, 1000, true, true, 0);
                 DestroyCam(CamMyHorse, true);
@@ -360,9 +394,6 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesCrines);
             }
 
-
-
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compMonturas = GetConfig.CompsLists.ElementAt(5);
             Menu subMenuCatComplementsHorseMonturas = new Menu(compMonturas.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseMonturas);
@@ -388,9 +419,6 @@ namespace vorpstables_cl
                 MenuController.BindMenuItem(subMenuComplementsHorse, subMenuConfirmBuyComp, compCategoriesMonturas);
             }
 
-
-
-            // Repetir por cada categoria mañana cuando te levantes el pene
             var compEstribos = GetConfig.CompsLists.ElementAt(6);
             Menu subMenuCatComplementsHorseEstribos = new Menu(compEstribos.Key, "");
             MenuController.AddSubmenu(subMenuComplementsHorse, subMenuCatComplementsHorseEstribos);
@@ -458,6 +486,82 @@ namespace vorpstables_cl
 
             menuStables.AddMenuItem(menuButtonBuyCarts);
             MenuController.BindMenuItem(menuStables, subMenuBuyCarts, menuButtonBuyCarts);
+
+            Menu subMenuCartConfirmBuy = new Menu("Confirm Purcharse", "");
+            MenuController.AddSubmenu(subMenuBuyHorses, subMenuCartConfirmBuy);
+
+            MenuItem buttonCartConfirmYes = new MenuItem("", GetConfig.Langs["ConfirmBuyButtonDesc"])
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            subMenuCartConfirmBuy.AddMenuItem(buttonCartConfirmYes);
+            MenuItem buttonCartConfirmNo = new MenuItem(GetConfig.Langs["CancelBuyButton"], GetConfig.Langs["CancelBuyButtonDesc"])
+            {
+                RightIcon = MenuItem.Icon.ARROW_LEFT
+            };
+            subMenuCartConfirmBuy.AddMenuItem(buttonCartConfirmNo);
+
+            foreach (var cat in GetConfig.CartLists)
+            {
+                MenuItem _menuButton = new MenuItem(string.Format(GetConfig.Langs["ButtonCart"], GetConfig.Langs[cat.Key], cat.Value.ToString()), cat.Value.ToString())
+                {
+                    RightIcon = MenuItem.Icon.ARROW_RIGHT
+                };
+                subMenuBuyCarts.AddMenuItem(_menuButton);
+                MenuController.BindMenuItem(subMenuBuyCarts, subMenuCartConfirmBuy, _menuButton);
+            }
+
+            subMenuBuyCarts.OnIndexChange += async (_menu, _oldItem, _newItem, _oldIndex, _newIndex) =>
+            {
+                Debug.WriteLine($"OnIndexChange: [{_menu}, {_oldItem}, {_newItem}, {_oldIndex}, {_newIndex}]");
+                if (cartIsLoaded)
+                {
+                    await LoadCartPreview(stableId, _newIndex, CartPed);
+                }
+            };
+
+            subMenuBuyCarts.OnItemSelect += (_menu, _item, _index) =>
+            {
+                buttonCartConfirmYes.Label = string.Format(GetConfig.Langs["ConfirmBuyButton"], GetConfig.CartLists.ElementAt(_index).Value.ToString());
+                cIndex = _index;
+            };
+
+            subMenuCartConfirmBuy.OnItemSelect += (_menu, _item, _index) =>
+            {
+                if (_index == 0)
+                {
+                    if (HorseManagment.MyCarts.Count >= int.Parse(GetConfig.Config["StableSlots"].ToString()))
+                    {
+                        MenuController.CloseAllMenus();
+                        TriggerEvent("vorp:Tip", GetConfig.Langs["StableIsFull"], 4000);
+                    }
+                    else
+                    {
+                        TriggerEvent("vorpinputs:getInput", GetConfig.Langs["InputCartNameButton"], GetConfig.Langs["InputCartNamePlaceholder"], new Action<dynamic>((cb) =>
+                        {
+                            Debug.WriteLine(cb);
+                            string cartName = cb;
+                            TriggerServerEvent("vorpstables:BuyNewCart", cartName, GetConfig.CartLists.ElementAt(cIndex).Key, GetConfig.CartLists.ElementAt(cIndex).Value);
+                            MenuController.CloseAllMenus();
+                        }));
+                    }
+                }
+                else
+                {
+                    subMenuCartConfirmBuy.CloseMenu();
+                }
+            };
+
+            subMenuBuyCarts.OnMenuOpen += (_menu) =>
+            {
+                BuyCartMode(stableId);
+                LoadHorsePreview(stableId, 0, 0, HorsePed);
+            };
+
+            subMenuBuyCarts.OnMenuClose += (_menu) =>
+            {
+                ExitMyCartMode();
+            };
             #endregion
 
             #region SubMenuCarts
@@ -471,6 +575,53 @@ namespace vorpstables_cl
 
             menuStables.AddMenuItem(menuButtonCarts);
             MenuController.BindMenuItem(menuStables, subMenuCarts, menuButtonCarts);
+
+            Menu subMenuManagmentCarts = new Menu("Carts Name", "");
+            MenuController.AddSubmenu(subMenuCarts, subMenuManagmentCarts);
+
+            MenuItem buttonSetDefaultCarts = new MenuItem(GetConfig.Langs["ButtonSetDefaultHorse"], GetConfig.Langs["ButtonSetDefaultHorse"])
+            {
+                RightIcon = MenuItem.Icon.TICK
+            };
+            subMenuManagmentCarts.AddMenuItem(buttonSetDefaultCarts);
+
+            foreach (var mh in HorseManagment.MyCarts)
+            {
+                var Icon = MenuItem.Icon.SADDLE;
+
+                if (mh.IsDefault())
+                {
+                    Icon = MenuItem.Icon.TICK;
+                }
+
+                MenuItem buttonMyCarts = new MenuItem(mh.getHorseName(), GetConfig.Langs[mh.getHorseModel()])
+                {
+
+                    RightIcon = Icon
+
+                };
+                subMenuCarts.AddMenuItem(buttonMyCarts);
+                MenuController.BindMenuItem(subMenuCarts, subMenuManagmentCarts, buttonMyCarts);
+
+            }
+
+            subMenuCarts.OnItemSelect += (_menu, _item, _index) =>
+            {
+                indexCartSelected = _index;
+                subMenuManagmentCarts.MenuTitle = HorseManagment.MyCarts[_index].getHorseName();
+            };
+
+            subMenuManagmentCarts.OnItemSelect += (_menu, _item, _index) =>
+            {
+                switch (_index)
+                {
+                    case 0:
+                        HorseManagment.MyCarts[indexCartSelected].setDefault(true);
+                        MenuController.CloseAllMenus();
+                        break;
+                }
+            };
+
             #endregion
 
             #region EventsBuyHorse
@@ -549,18 +700,6 @@ namespace vorpstables_cl
                 }
             };
 
-            #endregion
-
-            #region EventsBuyCart
-            subMenuBuyCarts.OnMenuOpen += (_menu) =>
-            {
-
-            };
-
-            subMenuBuyCarts.OnMenuClose += (_menu) =>
-            {
-
-            };
             #endregion
 
             #region EventsManagHorses
@@ -988,6 +1127,28 @@ namespace vorpstables_cl
             SetModelAsNoLongerNeeded(hashPed);
 
             horseIsLoaded = true;
+        }
+
+        public static async Task LoadCartPreview(int stID, int index, int veh2Delete)
+        {
+            cartIsLoaded = false;
+            DeleteVehicle(ref veh2Delete);
+            float x = float.Parse(GetConfig.Config["Stables"][stID]["SpawnCart"][0].ToString());
+            float y = float.Parse(GetConfig.Config["Stables"][stID]["SpawnCart"][1].ToString());
+            float z = float.Parse(GetConfig.Config["Stables"][stID]["SpawnCart"][2].ToString());
+            float heading = float.Parse(GetConfig.Config["Stables"][stID]["SpawnCart"][3].ToString());
+            uint hashVeh = (uint)GetHashKey(GetConfig.CartLists.ElementAt(index).Key);
+
+            await InitStables.LoadModel(hashVeh);
+
+            CartPed = CreateVehicle(hashVeh, x, y, z, heading, false, true, true, true);
+            Function.Call((Hash)0xAF35D0D2583051B0, CartPed, true);
+            SetEntityCanBeDamaged(CartPed, false);
+            SetEntityInvincible(CartPed, true);
+            FreezeEntityPosition(CartPed, true);
+            SetModelAsNoLongerNeeded(hashVeh);
+
+            cartIsLoaded = true;
         }
 
         static uint lastcomp = 0;

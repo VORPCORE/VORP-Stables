@@ -23,10 +23,15 @@
   "CancelBuyButton": "Cancelar Compra",
   "CancelBuyButtonDesc": "Volver atras",
 
+  "ButtonCart": "{0} por {1}$",
+
   "StableIsFull": "Tu establo está lleno, no puedes comprarlo hasta tener un hueco libre",
 
   "InputNameButton": "Comprar Caballo",
   "InputNamePlaceholder": "Escribe el nombre de tu caballo",
+
+  "InputCartNameButton": "Comprar Caballo",
+  "InputCartNamePlaceholder": "Escribe el nombre de tu caballo",
 
   "SuccessfulBuyComp": "Has comprado el complemento por {0}$",
   "SuccessfulBuyHorse": "Has comprado a {0} por {1}$",
@@ -165,6 +170,56 @@
   "A_C_HorseMulePainted_01": "Cebra",
 
   "A_C_HorseMule_01": "Mula",
-  
-  "A_C_Donkey_01": "Burro"
+
+  "A_C_Donkey_01": "Burro",
+
+  // Carts
+  "huntercart01": "Carro de caza",
+  "ArmySupplyWagon": "Carro de suministros de la armada",
+  "buggy01": "Calesa 1",
+  "buggy02": "Calesa 2",
+  "buggy03": "Calesa 3",
+  "cart01": "Carreta 1",
+  "cart02": "Carreta 2",
+  "cart03": "Carreta 3",
+  "cart04": "Carreta 4",
+  "cart05": "Carreta 5",
+  "cart06": "Carreta 6",
+  "cart07": "Carreta 7",
+  "cart08": "Carreta 8",
+  "chuckwagon000x": "Carro 1",
+  "chuckwagon002x": "Carro 2",
+  "gatchuck": "Carro 3",
+  "utilliwag": "Carro 4",
+  "wagon02x": "Carro 5",
+  "wagon03x": "Carro 6",
+  "wagon04x": "Carro 7",
+  "wagon05x": "Carro 8",
+  "wagon06x": "Carro 9",
+  "coach2": "Carroza 1",
+  "coach3": "Carroza 2",
+  "coach4": "Carroza 3",
+  "coach5": "Carroza 4",
+  "coach6": "Carroza 5",
+  "coal_wagon": "Carro para carbón",
+  "logwagon": "Carro para troncos 1",
+  "logwagon2": "Carro para troncos 2",
+  "oilWagon01x": "Carro para aceite 1",
+  "oilWagon02x": "Carro para aceite 2",
+  "stagecoach001x": "Carro de transporte 1",
+  "stagecoach002x": "Carro de transporte 2",
+  "stagecoach003x": "Carro de transporte 3",
+  "stagecoach004x": "Carro de transporte 4",
+  "stagecoach005x": "Carro de transporte 5",
+  "stagecoach006x": "Carro de transporte 6",
+  "supplywagon": "Carro de suministros 1",
+  "supplywagon2": "Carro de suministros 2",
+  "wagonarmoured01x": "Carro blindado",
+  "wagonCircus01x": "Carro del circo 1",
+  "wagonCircus02x": "Carro del circo 2",
+  "wagondairy01x": "Carro del lechero",
+  "wagondoc01x": "Carro del doctor",
+  "wagonPrison01x": "Carro de prisioneros",
+  "wagontraveller01x": "Carro de viaje",
+  "wagonwork01x": "Carro del panadero"
 }

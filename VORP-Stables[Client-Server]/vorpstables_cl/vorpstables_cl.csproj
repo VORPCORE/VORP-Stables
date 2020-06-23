@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="ClearCaches.cs" />
     <Compile Include="GetConfig.cs" />
+    <Compile Include="Cart.cs" />
     <Compile Include="Horse.cs" />
     <Compile Include="HorseManagment.cs" />
     <Compile Include="InitStables.cs" />
