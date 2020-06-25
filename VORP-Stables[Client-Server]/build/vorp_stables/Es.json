@@ -37,7 +37,9 @@
   "SuccessfulBuyHorse": "Has comprado a {0} por {1}$",
   "NoMoney": "No tienes suficiente dinero",
   "NoDefaultHorses": "No tienes ningun caballo asignado por defecto",
+  "NoDefaultCarts": "No tienes ningun carro asignado por defecto",
   "HorseIsOcuppied": "Tu caballo está siendo usado por otra persona",
+  "CartIsOcuppied": "Tu carro está siendo usado por otra persona",
 
   "SubMenuBuyComplements": "Comprar Complementos",
   "ButtonSetDefaultHorse": "Convertir en principal",
@@ -48,6 +50,8 @@
 
   "HorseIsDead": "{0} ha muerto recientemente, necesitas esperar {1} segundos",
   "HorseDead": "{0} ha muerto, deberas esperar {1} segundos para volver a llamarlo",
+  "CartIsDead": "{0} ha muerto recientemente, necesitas esperar {1} segundos",
+  "CartDead": "{0} ha muerto, deberas esperar {1} segundos para volver a llamarlo",
 
   //Horses
   "A_C_Horse_AmericanPaint_Greyovero": "Overo gris",
