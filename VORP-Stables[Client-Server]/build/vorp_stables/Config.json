@@ -342,7 +342,7 @@
           "A_C_Horse_Breton_RedRoan": 100
         }
       ],
-      "Zebra (Mula pintada)": [ { "A_C_HorseMulePainted_01": 100 } ],
+      "Cebra (Mula pintada)": [ { "A_C_HorseMulePainted_01": 100 } ],
       "Mula": [ { "A_C_HorseMule_01": 100 } ]
     }
   ],
