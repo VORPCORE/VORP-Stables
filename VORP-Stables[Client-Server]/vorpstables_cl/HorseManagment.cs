@@ -131,34 +131,26 @@ namespace vorpstables_cl
             }
         }
 
-        //FEATURE WHEN RemoveMpGamerTag Works
-        //[Tick]
-        //private async Task onTagHorse()
-        //{
-        //    await Delay(1000);
-        //    if (spawnedHorse != null && API.DoesEntityExist(spawnedHorse.Item1))
-        //    {
-        //        if (getHorseDistance(spawnedHorse.Item1) < 15.0f && Function.Call<bool>((Hash)0xAAB0FE202E9FC9F0, spawnedHorse.Item1, -1))
-        //        {
-        //            if (API.IsMpGamerTagActive(MPTagHorse))
-        //            {
-        //                //Nada
-        //            }
-        //            else
-        //            {
-        //                MPTagHorse = Function.Call<int>((Hash)0x53CB4B502E1C57EA, spawnedHorse.Item1, spawnedHorse.Item2.getHorseName(), true, true);
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (API.IsMpGamerTagActive(MPTagHorse))
-        //            {
-        //                Function.Call((Hash)0x839BFD7D7E49FE09, MPTagHorse);
-        //            }
-        //        }
-        //    }
+        [Tick]
+        private async Task onTagHorse()
+        {
+            await Delay(1000);
+            if (spawnedHorse != null && API.DoesEntityExist(spawnedHorse.Item1))
+            {
+                if (getHorseDistance(spawnedHorse.Item1) < 15.0f && Function.Call<bool>((Hash)0xAAB0FE202E9FC9F0, spawnedHorse.Item1, -1))
+                {
+                    Function.Call((Hash)0x93171DDDAB274EB8, MPTagHorse, 2);
+                }
+                else
+                {
+                    if (API.IsMpGamerTagActive(MPTagHorse))
+                    {
+                        Function.Call((Hash)0x93171DDDAB274EB8, MPTagHorse, 0);
+                    }
+                }
+            }
 
-        //}
+        }
 
         private async Task CallHorse()
         {
@@ -241,7 +233,7 @@ namespace vorpstables_cl
                     }
                     else
                     {
-                        TriggerEvent("vorp:Tip", GetConfig.Langs["HorseIsOcuppied"], 2000);
+                        TriggerEvent("vorp:Tip", GetConfig.Langs["CartIsOcuppied"], 2000);
                     }
 
                 }
@@ -249,7 +241,7 @@ namespace vorpstables_cl
                 {
                     if (spawnedCart.Item2.getHorseDeadTime() > 0)
                     {
-                        TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["HorseIsDead"], spawnedCart.Item2.getHorseName(), spawnedCart.Item2.getHorseDeadTime() / 1000), 5000);
+                        TriggerEvent("vorp:Tip", string.Format(GetConfig.Langs["CartIsDead"], spawnedCart.Item2.getHorseName(), spawnedCart.Item2.getHorseDeadTime() / 1000), 5000);
                     }
                     else
                     {
@@ -260,7 +252,7 @@ namespace vorpstables_cl
             }
             else
             {
-                TriggerEvent("vorp:Tip", GetConfig.Langs["NoDefaultHorses"], 2000);
+                TriggerEvent("vorp:Tip", GetConfig.Langs["NoDefaultCarts"], 2000);
             }
         }
 
@@ -282,7 +274,7 @@ namespace vorpstables_cl
 
             //API.GetNthClosestVehicleNodeWithHeading(playerPos.X, playerPos.Y, playerPos.Z, 25, ref spawnPos, ref spawnHeading, ref unk1, 0, 0f, 0f);
 
-            API.GetClosestRoad(playerPos.X, playerPos.Y, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
+            API.GetClosestRoad(playerPos.X + 10.0f, playerPos.Y + 10.0f, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
 
             int spawnedh = API.CreatePed(hashHorse, spawnPos.X, spawnPos.Y, spawnPos.Z, spawnHeading, true, true, false, false);
 
@@ -350,7 +342,7 @@ namespace vorpstables_cl
             float spawnHeading = 0.0F;
             int unk1 = 0;
 
-            API.GetClosestRoad(playerPos.X, playerPos.Y, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
+            API.GetClosestRoad(playerPos.X + 10.0f, playerPos.Y + 10.0f, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
 
             int spawnedh = Function.Call<int>((Hash)0xAF35D0D2583051B0, hashCart, spawnPos.X, spawnPos.Y, spawnPos.Z, spawnHeading, true, true, false, true);
 
