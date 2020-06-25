@@ -32,7 +32,9 @@
   "SuccessfulBuyHorse": "You have bought {0} for {1}$",
   "NoMoney": "You do not have enough money",
   "NoDefaultHorses": "You do not have any default horse",
+  "NoDefaultCarts": "You do not have any default carriage",
   "HorseIsOcuppied": "Your horse is being used by someone else",
+  "CartIsOcuppied": "Your carriage is being used by someone else",
 
   "SubMenuBuyComplements": "Complements Dealer",
   "ButtonSetDefaultHorse": "Make it your main horse",
@@ -43,6 +45,9 @@
 
   "HorseIsDead": "{0} has died recently, you need to wait {1} seconds",
   "HorseDead": "{0} has died, you will need to wait {1} seconds to call it back",
+  "CartIsDead": "{0} has died recently, you need to wait {1} seconds",
+  "CartDead": "{0} has died, you will need to wait {1} seconds to call it back",
+
 
   //Horses
   "A_C_Horse_AmericanPaint_Greyovero": "Greyovero",
@@ -166,5 +171,55 @@
 
   "A_C_HorseMule_01": "Mule",
   
-  "A_C_Donkey_01": "Donkey"
+  "A_C_Donkey_01": "Donkey",
+  
+  // Carts
+  "huntercart01": "Hunting cart",
+  "ArmySupplyWagon": "Army Supply Wagon",
+  "buggy01": "Buggy 1",
+  "buggy02": "Buggy 2",
+  "buggy03": "Buggy 3",
+  "cart01": "Cart 1",
+  "cart02": "Cart 2",
+  "cart03": "Cart 3",
+  "cart04": "Cart 4",
+  "cart05": "Cart 5",
+  "cart06": "Cart 6",
+  "cart07": "Cart 7",
+  "cart08": "Cart 8",
+  "chuckwagon000x": "Chuck Wagon 1",
+  "chuckwagon002x": "Chuck Wagon 2",
+  "gatchuck": "Gat Chuck 3",
+  "utilliwag": "Utillity Wagon 4",
+  "wagon02x": "Wagon 5",
+  "wagon03x": "Wagon 6",
+  "wagon04x": "Wagon 7",
+  "wagon05x": "Wagon 8",
+  "wagon06x": "Wagon 9",
+  "coach2": "Coach 1",
+  "coach3": "Coach 2",
+  "coach4": "Coach 3",
+  "coach5": "Coach 4",
+  "coach6": "Coach 5",
+  "coal_wagon": "Coal Wagon",
+  "logwagon": "Log Wagon 1",
+  "logwagon2": "Log Wagon 2",
+  "oilWagon01x": "Oil Wagon 1",
+  "oilWagon02x": "Oil Wagon 2",
+  "stagecoach001x": "Stage Coach 1",
+  "stagecoach002x": "Stage Coach 2",
+  "stagecoach003x": "Stage Coach 3",
+  "stagecoach004x": "Stage Coach 4",
+  "stagecoach005x": "Stage Coach 5",
+  "stagecoach006x": "Stage Coach 6",
+  "supplywagon": "Supply Wagon 1",
+  "supplywagon2": "Supply Wagon 2",
+  "wagonarmoured01x": "Armoured Wagon",
+  "wagonCircus01x": "Circus Wagon 1",
+  "wagonCircus02x": "Circus Wagon 2",
+  "wagondairy01x": "Dairy Wagon",
+  "wagondoc01x": "Doctor Wagon",
+  "wagonPrison01x": "Prison Wagon",
+  "wagontraveller01x": "Traveller Wagon",
+  "wagonwork01x": "Baker Wagon"
 }
