@@ -22,11 +22,15 @@
   "ConfirmBuyButtonDesc": "Buy horse",
   "CancelBuyButton": "Cancel purchase",
   "CancelBuyButtonDesc": "Go back",
+  
+  "ButtonCart": "{0} for {1}$",
 
   "StableIsFull": "Your stable is full, you can not buy it until you have a free slot",
 
   "InputNameButton": "Buy Horse",
   "InputNamePlaceholder": "Choose the name for your horse",
+  "InputCartNameButton": "Buy Carriage",
+  "InputCartNamePlaceholder": "Choose the name for your carriage",
 
   "SuccessfulBuyComp": "You have bought the complement for {0}$",
   "SuccessfulBuyHorse": "You have bought {0} for {1}$",
