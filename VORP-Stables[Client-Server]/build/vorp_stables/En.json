@@ -41,7 +41,7 @@
   "CartIsOcuppied": "Your carriage is being used by someone else",
 
   "SubMenuBuyComplements": "Complements Dealer",
-  "ButtonSetDefaultHorse": "Make it your main horse",
+  "ButtonSetDefaultHorse": "Set it to default",
   "PriceComplements": "Price: ",
   "BuyButtonComplements": "Yes, Buy - {0} for {1}$",
   "YouBuyedThisComp": "You already bought it",
