@@ -30,8 +30,8 @@
   "InputNameButton": "Comprar Caballo",
   "InputNamePlaceholder": "Escribe el nombre de tu caballo",
 
-  "InputCartNameButton": "Comprar Caballo",
-  "InputCartNamePlaceholder": "Escribe el nombre de tu caballo",
+  "InputCartNameButton": "Comprar Carro",
+  "InputCartNamePlaceholder": "Escribe el nombre de tu carro",
 
   "SuccessfulBuyComp": "Has comprado el complemento por {0}$",
   "SuccessfulBuyHorse": "Has comprado a {0} por {1}$",
