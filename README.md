@@ -2,7 +2,7 @@
 🐎 Stables &amp; Horses System Management
 
 ## Requirements
-- [VORP CORE](https://github.com/VORPCORE/VORP-Core/releases)
+- [VORP Core](https://github.com/VORPCORE/VORP-Core/releases)
 - [VORP Inputs](https://github.com/VORPCORE/VORP-Inputs/releases)
 - [VORP Character](https://github.com/VORPCORE/VORP-Character/releases)
 
