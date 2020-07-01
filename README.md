@@ -1,6 +1,9 @@
 # VORP-Stables
 🐎 Stables &amp; Horses System Management
 
+H - For calling your default horse
+J - For calling your default carriage
+
 ## Requirements
 - [VORP Core](https://github.com/VORPCORE/VORP-Core/releases)
 - [VORP Inputs](https://github.com/VORPCORE/VORP-Inputs/releases)
