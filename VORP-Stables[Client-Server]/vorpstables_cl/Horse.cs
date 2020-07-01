@@ -57,6 +57,11 @@ namespace vorpstables_cl
             deadTimeRest = time;
         }
 
+        public void deleteHorse(int index)
+        {
+            
+        }
+
         public int getHorseId()
         {
             return ID;

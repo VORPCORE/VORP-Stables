@@ -229,6 +229,12 @@ namespace vorpstables_cl
             };
             subMenuManagmentHorse.AddMenuItem(buttonSetDefaultHorse);
 
+            MenuItem buttonDeleteHorse = new MenuItem(GetConfig.Langs["ButtonDeletetHorse"], GetConfig.Langs["ButtonDeletetHorse"])
+            {
+                RightIcon = MenuItem.Icon.LOCK
+            };
+            subMenuManagmentHorse.AddMenuItem(buttonDeleteHorse);
+
             foreach (var mh in HorseManagment.MyHorses)
             {
                 var Icon = MenuItem.Icon.SADDLE;
@@ -739,6 +745,10 @@ namespace vorpstables_cl
                         break;
                     case 1:
                         HorseManagment.MyHorses[indexHorseSelected].setDefault(true);
+                        MenuController.CloseAllMenus();
+                        break;
+                    case 2:
+                        HorseManagment.MyHorses.deleteHorse(indexHorseSelected);
                         MenuController.CloseAllMenus();
                         break;
                 }
