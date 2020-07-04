@@ -35,8 +35,35 @@ namespace vorpstables_cl
             Name = name;
             HorseModel = horseModel;
             XP = xP;
-            Status = JObject.Parse(status);
-            Gear = JObject.Parse(jsonGear);
+
+            if (String.IsNullOrEmpty(status))
+            {
+                Status = new JObject();
+            }
+            else
+            {
+                Status = JObject.Parse(status);
+            }
+
+            if (String.IsNullOrEmpty(jsonGear))
+            {
+                JObject def = new JObject();
+                def.Add("saddle", -1);
+                def.Add("blanket", -1);
+                def.Add("mane", -1);
+                def.Add("tail", -1);
+                def.Add("bag", -1);
+                def.Add("bedroll", -1);
+                def.Add("stirrups", -1);
+                def.Add("horn", -1);
+
+                Gear = def;
+            }
+            else
+            {
+                Gear = JObject.Parse(jsonGear);
+            }
+
             isDefault = isdefault;
             isDead = isdead;
         }

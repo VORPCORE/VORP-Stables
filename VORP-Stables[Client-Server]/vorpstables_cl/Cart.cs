@@ -35,8 +35,8 @@ namespace vorpstables_cl
             Name = name;
             CartModel = cartModel;
             XP = xP;
-            Status = JObject.Parse(status);
-            Gear = JObject.Parse(jsonGear);
+            Status = new JObject();
+            Gear = new JObject();
             isDefault = isdefault;
             isDead = isdead;
         }
