@@ -46,6 +46,8 @@ namespace vorpstables_cl
             
         }
 
+        public JObject status { get => Status; set => Status = value; }
+
         public int getHorseDeadTime()
         {
             
@@ -55,11 +57,6 @@ namespace vorpstables_cl
         public void setHorseDead(int time)
         {
             deadTimeRest = time;
-        }
-
-        public void deleteHorse(int index)
-        {
-            
         }
 
         public int getHorseId()

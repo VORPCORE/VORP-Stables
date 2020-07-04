@@ -60,6 +60,12 @@
     <Compile Include="Horse.cs" />
     <Compile Include="HorseManagment.cs" />
     <Compile Include="InitStables.cs" />
+    <Compile Include="Menus\BuyCarriagesMenu.cs" />
+    <Compile Include="Menus\BuyHorseCompsMenu.cs" />
+    <Compile Include="Menus\BuyHorsesMenu.cs" />
+    <Compile Include="Menus\MainMenu.cs" />
+    <Compile Include="Menus\MyCarriagesMenu.cs" />
+    <Compile Include="Menus\MyHorsesMenu.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StablesShop.cs" />
   </ItemGroup>

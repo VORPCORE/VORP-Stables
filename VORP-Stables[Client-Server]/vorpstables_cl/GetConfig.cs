@@ -62,7 +62,6 @@ namespace vorpstables_cl
                
                 foreach (JProperty cart in carts.Properties())
                 {
-                    Debug.WriteLine("Carts: " + cart.Name);
                     CartLists.Add(cart.Name, cart.Value.ToObject<double>());
                 }
             }
@@ -88,7 +87,6 @@ namespace vorpstables_cl
 
                             hlist.Add(c.Name, hashes);
                             clist.Add(c.Name, double.Parse(c.Value[c.Value.Count() -1].ToString()));
-                            Debug.WriteLine(c.Value[c.Value.Count() -1].ToString());
                         }
 
                     }

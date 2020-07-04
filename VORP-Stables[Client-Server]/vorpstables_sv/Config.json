@@ -6,6 +6,64 @@
 
   "SecondsToRespawn": 120, // set max horses for each user
 
+  "ItemsBlacklist": [
+    "anything", 
+    "DoYoulike"
+  ],
+
+  "DefaultMaxWeight": 30, // Can store 30 Items by default
+
+  "CustomMaxWeight": [ // Custom values, add a horse or a carriage to be able to modify the weight limit
+    { "huntercart01": 100 },
+    { "ArmySupplyWagon": 100 },
+    { "buggy01": 100 },
+    { "buggy02": 100 },
+    { "buggy03": 100 },
+    { "cart01": 100 },
+    { "cart02": 100 },
+    { "cart03": 100 },
+    { "cart04": 100 },
+    { "cart05": 100 },
+    { "cart06": 100 },
+    { "cart07": 100 },
+    { "cart08": 100 },
+    { "chuckwagon000x": 100 },
+    { "chuckwagon002x": 100 },
+    { "gatchuck": 100 },
+    { "utilliwag": 100 },
+    { "wagon02x": 100 },
+    { "wagon03x": 100 },
+    { "wagon04x": 100 },
+    { "wagon05x": 100 },
+    { "wagon06x": 100 },
+    { "coach2": 100 },
+    { "coach3": 100 },
+    { "coach4": 100 },
+    { "coach5": 100 },
+    { "coach6": 100 },
+    { "coal_wagon": 100 },
+    { "logwagon": 100 },
+    { "logwagon2": 100 },
+    { "oilWagon01x": 100 },
+    { "oilWagon02x": 100 },
+    { "stagecoach001x": 100 },
+    { "stagecoach002x": 100 },
+    { "stagecoach003x": 100 },
+    { "stagecoach004x": 100 },
+    { "stagecoach005x": 100 },
+    { "stagecoach006x": 100 },
+    { "supplywagon": 100 },
+    { "supplywagon2": 100 },
+    { "wagonarmoured01x": 100 },
+    { "wagonCircus01x": 100 },
+    { "wagonCircus02x": 100 },
+    { "wagondairy01x": 100 },
+    { "wagondoc01x": 100 },
+    { "wagonPrison01x": 100 },
+    { "wagontraveller01x": 100 },
+    { "wagonwork01x": 100 }
+  ],
+
   "Complements": [
     {
       "Mantas": [

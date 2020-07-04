@@ -2,6 +2,8 @@
 
   "PressToOpen": "Press [~e~Space~q~] to access the stable",
 
+  "PlaceHolderInputName": "The name has to have a minimum of 3 letters",
+
   "TitleMenuStables": "Stables",
   "SubTitleMenuStables": "Choose an option",
 
@@ -22,8 +24,9 @@
   "ConfirmBuyButtonDesc": "Buy horse",
   "CancelBuyButton": "Cancel purchase",
   "CancelBuyButtonDesc": "Go back",
-  
+
   "ButtonCart": "{0} for {1}$",
+  "ConfirmBuyComplements": "Buy complements for {0}$",
 
   "StableIsFull": "Your stable is full, you can not buy it until you have a free slot",
 
@@ -40,6 +43,15 @@
   "HorseIsOcuppied": "Your horse is being used by someone else",
   "CartIsOcuppied": "Your carriage is being used by someone else",
 
+  "ButtonDeleteHorse": "Free Horse",
+  "DeleteConfirmation": "Write your Horse's name",
+  "HorseDeleted": "Horse is free",
+
+  "ButtonDeleteCart": "Delete Carriage",
+  "CartDeleted": "You have deleted the carriage",
+  "ItemInBlacklist": "This item can't be saved in the vehicle yet",
+
+
   "SubMenuBuyComplements": "Complements Dealer",
   "ButtonSetDefaultHorse": "Set it to default",
   "PriceComplements": "Price: ",
@@ -52,6 +64,10 @@
   "CartIsDead": "{0} has died recently, you need to wait {1} seconds",
   "CartDead": "{0} has died, you will need to wait {1} seconds to call it back",
 
+  "ErrorQuantity": "Wrong quantity",
+  "WeaponsNotAllowed": "The weapons can't be saved in the vehicle yet",
+
+  "MaxWeightQuantity": "You have overpassed the maximum weight {0}/{1}",
 
   //Horses
   "A_C_Horse_AmericanPaint_Greyovero": "Greyovero",
@@ -174,9 +190,9 @@
   "A_C_HorseMulePainted_01": "Zebra",
 
   "A_C_HorseMule_01": "Mule",
-  
+
   "A_C_Donkey_01": "Donkey",
-  
+
   // Carts
   "huntercart01": "Hunting cart",
   "ArmySupplyWagon": "Army Supply Wagon",
