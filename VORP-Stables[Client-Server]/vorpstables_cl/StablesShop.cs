@@ -842,7 +842,6 @@ namespace vorpstables_cl
         public static async Task BuyComp()
         {
             JObject newGear = HorseManagment.MyHorses[indexHorseSelected].getGear();
-            uint hashItem = GetConfig.CompsLists.ElementAt(indexCategory).Value.ElementAt(indexCategoryComp).Value[indexComp];
             
                     newGear["blanket"] = blanketsComp;
 
@@ -859,10 +858,7 @@ namespace vorpstables_cl
                     newGear["stirrups"] = stirrupsComp;
 
                     newGear["bedroll"] = bedrollsComp;
-                    Debug.WriteLine(newGear.ToString());
 
-            
-            
             if (costComps != 0)
             {
                 if (!HorseManagment.MyComps.Contains(blanketsComp) && blanketsComp != 0)

@@ -288,7 +288,12 @@ namespace vorpstables_sv
 
                                 int newcount = horseData[indexItem]["count"].ToObject<int>() - number;
 
-                                if (newcount == 0)
+                                if (newcount < 0)
+                                {
+                                    player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
+                                    return;
+                                }
+                                else if (newcount == 0)
                                 {
                                     horseData.RemoveAt(indexItem);
                                 }
@@ -518,7 +523,12 @@ namespace vorpstables_sv
 
                                 int newcount = horseData[indexItem]["count"].ToObject<int>() - number;
 
-                                if (newcount == 0)
+                                if (newcount < 0)
+                                {
+                                    player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
+                                    return;
+                                }
+                                else if (newcount == 0)
                                 {
                                     horseData.RemoveAt(indexItem);
                                 }
@@ -576,7 +586,6 @@ namespace vorpstables_sv
             TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
             {
                 double money = user.money;
-
 
                 if (cost <= money)
                 {

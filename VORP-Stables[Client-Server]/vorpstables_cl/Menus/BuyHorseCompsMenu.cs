@@ -65,8 +65,6 @@ namespace vorpstables_cl.Menus
             };
             buyCompsMenu.AddMenuItem(buttonBuyComplementsCatAlforjas);
             MenuController.BindMenuItem(buyCompsMenu, subMenuCatComplementsHorseAlforjas, buttonBuyComplementsCatAlforjas);
-
-
             
             
             MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseColas);
