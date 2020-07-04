@@ -129,7 +129,6 @@ namespace vorpstables_sv
                 }
             }
 
-
             if (number > count || number < 1)
             {
                 player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
