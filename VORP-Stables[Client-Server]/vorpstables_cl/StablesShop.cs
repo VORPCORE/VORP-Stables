@@ -238,6 +238,7 @@ namespace vorpstables_cl
                         if (!horseName.Equals("close"))
                         {
                             TriggerServerEvent("vorpstables:BuyNewHorse", horseName, tittle, horsemodel, horsecost);
+                            HorseManagment.isLoading = true;
                         }
                     }
                 }));
@@ -246,7 +247,7 @@ namespace vorpstables_cl
 
         public static async Task BuyComp()
         {
-            JObject newGear = HorseManagment.MyHorses[indexHorseSelected].getGear();
+            JObject newGear = new JObject();
             
                     newGear["blanket"] = blanketsComp;
 
@@ -266,44 +267,49 @@ namespace vorpstables_cl
 
             if (costComps != 0)
             {
+                List<uint> cacheList = HorseManagment.MyComps;
                 if (!HorseManagment.MyComps.Contains(blanketsComp) && blanketsComp != 0)
                 {
-                    HorseManagment.MyComps.Add(blanketsComp);
+                    cacheList.Add(blanketsComp);
                 }
                 if (!HorseManagment.MyComps.Contains(hornsComp) && hornsComp != 0)
                 {
-                    HorseManagment.MyComps.Add(hornsComp);
+                    cacheList.Add(hornsComp);
                 }
                 if (!HorseManagment.MyComps.Contains(saddlebagsComp) && saddlebagsComp != 0)
                 {
-                    HorseManagment.MyComps.Add(saddlebagsComp);
+                    cacheList.Add(saddlebagsComp);
                 }
                 if (!HorseManagment.MyComps.Contains(tailsComp) && tailsComp != 1 && tailsComp != 0)
                 {
-                    HorseManagment.MyComps.Add(tailsComp);
+                    cacheList.Add(tailsComp);
                 }
                 if (!HorseManagment.MyComps.Contains(manesComp) && manesComp != 1 && manesComp != 0)
                 {
-                    HorseManagment.MyComps.Add(manesComp);
+                    cacheList.Add(manesComp);
                 }
                 if (!HorseManagment.MyComps.Contains(saddlesComp) && saddlesComp != 0)
                 {
-                    HorseManagment.MyComps.Add(saddlesComp);
+                    cacheList.Add(saddlesComp);
                 }
                 if (!HorseManagment.MyComps.Contains(stirrupsComp) && stirrupsComp != 0)
                 {
-                    HorseManagment.MyComps.Add(stirrupsComp);
+                    cacheList.Add(stirrupsComp);
                 }
                 if (!HorseManagment.MyComps.Contains(bedrollsComp) && bedrollsComp != 0)
                 {
-                    HorseManagment.MyComps.Add(bedrollsComp);
+                    cacheList.Add(bedrollsComp);
                 }
-                string array = Newtonsoft.Json.JsonConvert.SerializeObject(HorseManagment.MyComps.ToArray());
+
+                string array = Newtonsoft.Json.JsonConvert.SerializeObject(cacheList);
+
                 TriggerServerEvent("vorpstables:BuyNewComp", array, costComps, newGear.ToString(), HorseManagment.MyHorses[indexHorseSelected].getHorseId());
+                HorseManagment.isLoading = true;
             }
             else
             {
                 TriggerServerEvent("vorpstables:UpdateComp", newGear.ToString(), HorseManagment.MyHorses[indexHorseSelected].getHorseId());
+                HorseManagment.isLoading = true;
             }
 
             ExitMyHorseMode();

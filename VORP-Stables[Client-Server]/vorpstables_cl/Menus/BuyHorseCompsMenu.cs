@@ -269,6 +269,17 @@ namespace vorpstables_cl.Menus
 
         public static void LoadMyComps()
         {
+
+            StablesShop.blanketsComp = 0;
+            StablesShop.hornsComp = 0;
+            StablesShop.saddlebagsComp = 0;
+            StablesShop.tailsComp = 0;
+            StablesShop.manesComp = 0;
+            StablesShop.saddlesComp = 0;
+            StablesShop.stirrupsComp = 0;
+            StablesShop.bedrollsComp = 0;
+
+
             //mantas
             subMenuCatComplementsHorseMantas.ClearMenuItems();
 

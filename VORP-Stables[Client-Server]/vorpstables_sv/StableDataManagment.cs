@@ -572,8 +572,7 @@ namespace vorpstables_sv
             Exports["ghmattimysql"].execute("UPDATE stables SET gear=? WHERE identifier=? AND id=?", new object[] { jgear, sid, horseId });
             Delay(2200);
             Debug.WriteLine("UpdateComp");
-            InitStables_Server IS = new InitStables_Server();
-            IS.LoadStablesDB(source);
+            ReLoadStables(source);
 
         }
 
@@ -584,6 +583,7 @@ namespace vorpstables_sv
             TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
             {
                 double money = user.money;
+
                 if (cost <= money)
                 {
                     TriggerEvent("vorp:removeMoney", _source, 0, cost);
@@ -699,7 +699,6 @@ namespace vorpstables_sv
                 else
                 {
                     source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
-
                 }
 
             }));
@@ -728,7 +727,6 @@ namespace vorpstables_sv
                 else
                 {
                     source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
-
                 }
 
             }));

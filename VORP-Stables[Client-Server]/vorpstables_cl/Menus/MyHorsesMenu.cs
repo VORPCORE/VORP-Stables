@@ -111,6 +111,7 @@ namespace vorpstables_cl.Menus
                 {
                     case 0:
                         StablesShop.MyhorseIsLoaded = true;
+                        BuyHorseCompsMenu.LoadMyComps();
                         break;
                     case 1:
                         HorseManagment.MyHorses[StablesShop.indexHorseSelected].setDefault(true);

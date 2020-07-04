@@ -94,18 +94,20 @@ namespace vorpstables_cl
             }
         }
 
+        public static bool isLoading = false;
+
         [Tick]
         private async Task onCallHorse()
         {
             int pedAiming = 0;
 
-            if (API.IsControlJustPressed(0, 0x24978A28))
+            if (API.IsControlJustPressed(0, 0x24978A28) && !isLoading)
             {
                 CallHorse();
                 await Delay(5000); // Anti Flood
             }
 
-            if (API.IsControlJustPressed(0, 0xF3830D8E))
+            if (API.IsControlJustPressed(0, 0xF3830D8E) && !isLoading)
             {
 
                 //Function.Call((Hash)0xCD181A959CFDD7F4, API.PlayerPedId(), spawnedHorse.Item1, -224471938, -118748546, 0);
@@ -512,12 +514,35 @@ namespace vorpstables_cl
             TriggerServerEvent("vorpstables:SetDefaultHorse", id);
         }
 
-        public static void DeleteDefaultHorse()
+        public async static Task DeleteDefaultHorse()
         {
-            if (spawnedHorse != null)
+            if (spawnedHorse != null && spawnedHorse.Item1 !=-1)
             {
+                int timeout = 0;
                 int horsePed = spawnedHorse.Item1;
-                API.DeletePed(ref horsePed);
+                API.NetworkRequestControlOfEntity(horsePed);
+                API.SetEntityAsMissionEntity(horsePed, true, true);
+
+                while (API.DoesEntityExist(horsePed) && timeout < 10)
+                {
+                    API.DeletePed(ref horsePed);
+                    API.DeleteEntity(ref horsePed);
+
+                    if (!API.DoesEntityExist(horsePed))
+                    {
+                        Debug.WriteLine("Horse despawn");
+                    }
+
+                    await Delay(500);
+
+                    timeout += 1;
+
+                    if (API.DoesEntityExist(horsePed) && timeout == 9)
+                    {
+                        Debug.WriteLine("Horse can't despawn");
+                    }
+
+                }
             }
             if (spawnedCart != null)
             {
@@ -536,8 +561,6 @@ namespace vorpstables_cl
 
         private void GetMyStables(List<dynamic> stableDB)
         {
-            Debug.WriteLine("Establos " + stableDB.Count.ToString());
-
             MyHorses.Clear();
             MyCarts.Clear();
 
@@ -575,6 +598,8 @@ namespace vorpstables_cl
                     }
                 }
             }
+
+            isLoading = false;
         }
     }
 }
