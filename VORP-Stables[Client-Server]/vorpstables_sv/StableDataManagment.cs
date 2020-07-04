@@ -582,11 +582,9 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + source.Identifiers["steam"];
             int _source = int.Parse(source.Handle);
-            Debug.WriteLine("BuyNewComp");
             TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
             {
                 double money = user.money;
-
                 if (cost <= money)
                 {
                     TriggerEvent("vorp:removeMoney", _source, 0, cost);
@@ -610,7 +608,7 @@ namespace vorpstables_sv
                 else
                 {
                     source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
-
+                    ReLoadStables(source);
                 }
 
             }));
