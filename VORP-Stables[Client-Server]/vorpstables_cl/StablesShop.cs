@@ -145,6 +145,38 @@ namespace vorpstables_cl
 
         }
 
+        public static void DeleteMyCart(int myCartId)
+        {
+            TriggerEvent("vorpinputs:getInput", GetConfig.Langs["ButtonDeleteHorse"], GetConfig.Langs["DeleteConfirmation"], new Action<dynamic>(async (cb) =>
+            {
+                string horseName = cb;
+
+                await Delay(1000);
+
+                if (!horseName.Equals("close"))
+                {
+                    if (horseName.ToLower().Equals(HorseManagment.MyCarts[myCartId].getHorseName().ToLower()))
+                    {
+                        TriggerServerEvent("vorpstables:RemoveHorse", HorseManagment.MyCarts[myCartId].getHorseId());
+                        if (HorseManagment.MyCarts[myCartId].IsDefault())
+                        {
+                            HorseManagment.spawnedCart = new Tuple<int, Cart>(-1, new Cart());
+                        }
+                        HorseManagment.MyCarts.RemoveAt(myCartId);
+                        TriggerEvent("vorp:TipRight", GetConfig.Langs["HorseDeleted"], 4000);
+                    }
+                    else
+                    {
+                        DeleteMyHorse(myCartId);
+                    }
+
+                }
+
+
+            }));
+
+        }
+
         public static async Task ExitBuyHorseMode()
         {
             await ExitBuyMode();

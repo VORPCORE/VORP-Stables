@@ -87,7 +87,7 @@ namespace vorpstables_cl
             }
             else
             {
-                for (int i = 0; i < HorseManagment.MyHorses.Count; i++)
+                for (int i = 0; i < HorseManagment.MyCarts.Count; i++)
                 {
                     if (HorseManagment.MyCarts[i].ID != this.ID)
                     {

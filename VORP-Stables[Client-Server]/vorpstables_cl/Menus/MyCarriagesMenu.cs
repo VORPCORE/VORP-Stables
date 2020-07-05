@@ -44,7 +44,7 @@ namespace vorpstables_cl.Menus
 
                 myCartsMenu.ClearMenuItems();
 
-                MenuController.AddSubmenu(myCartsMenu, subMenuManagmentCarts);
+                //MenuController.AddSubmenu(myCartsMenu, subMenuManagmentCarts);
 
                 foreach (var mh in HorseManagment.MyCarts)
                 {
@@ -54,13 +54,13 @@ namespace vorpstables_cl.Menus
                         Icon = MenuItem.Icon.TICK;
                     }
 
-
                     MenuItem buttonMyHorses = new MenuItem(mh.getHorseName(), GetConfig.Langs[mh.getHorseModel()])
                     {
 
                         RightIcon = Icon,
 
                     };
+
                     myCartsMenu.AddMenuItem(buttonMyHorses);
                     MenuController.BindMenuItem(myCartsMenu, subMenuManagmentCarts, buttonMyHorses);
 
@@ -88,6 +88,10 @@ namespace vorpstables_cl.Menus
                 {
                     case 0:
                         HorseManagment.MyCarts[StablesShop.indexCartSelected].setDefault(true);
+                        MenuController.CloseAllMenus();
+                        break;
+                    case 1:
+                        StablesShop.DeleteMyCart(StablesShop.indexCartSelected);
                         MenuController.CloseAllMenus();
                         break;
                 }
