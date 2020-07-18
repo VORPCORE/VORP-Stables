@@ -261,7 +261,7 @@ namespace vorpstables_sv
                 int itemc = mycount;
                 Debug.WriteLine(itemc.ToString());
 
-                if (limit < (itemc + number))
+                if (limit < (itemc + number) && limit != -1)
                 {
                     player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
                     return;
@@ -505,7 +505,7 @@ namespace vorpstables_sv
                 int itemc = mycount;
                 Debug.WriteLine(itemc.ToString());
 
-                if (limit < (itemc + number))
+                if (limit < (itemc + number) && limit != -1)
                 {
                     player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
                     return;
