@@ -254,6 +254,12 @@ namespace vorpstables_sv
             int limit = data["item"]["limit"].ToObject<int>();
             int number = data["number"].ToObject<int>();
 
+            if (number <= 0)
+            {
+                player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
+                return;
+            }
+
             Debug.WriteLine(name);
             Debug.WriteLine(player.Handle);
             TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<dynamic>((mycount) =>
@@ -497,6 +503,12 @@ namespace vorpstables_sv
             int count = data["item"]["count"].ToObject<int>();
             int limit = data["item"]["limit"].ToObject<int>();
             int number = data["number"].ToObject<int>();
+
+            if (number <= 0)
+            {
+                player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["ErrorQuantity"], 2500);
+                return;
+            }
 
             Debug.WriteLine(name);
             Debug.WriteLine(player.Handle);
