@@ -2,4 +2,3 @@ E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\build\vorp_stables\vorpst
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\build\vorp_stables\vorpstables_cl.net.pdb
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_cl\obj\Debug\vorpstables_cl.net.dll
 E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_cl\obj\Debug\vorpstables_cl.net.pdb
-E:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_cl\obj\Debug\vorpstables_cl.csprojAssemblyReference.cache

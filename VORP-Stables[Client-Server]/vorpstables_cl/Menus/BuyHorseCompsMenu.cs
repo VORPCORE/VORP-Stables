@@ -21,7 +21,8 @@ namespace vorpstables_cl.Menus
         private static Menu subMenuCatComplementsHorseMonturas = new Menu(GetConfig.CompsLists.ElementAt(5).Key, "");
         private static Menu subMenuCatComplementsHorseEstribos = new Menu(GetConfig.CompsLists.ElementAt(6).Key, "");
         private static Menu subMenuCatComplementsHorsePetates = new Menu(GetConfig.CompsLists.ElementAt(7).Key, "");
-
+        private static Menu subMenuCatComplementsHorseLantern = new Menu(GetConfig.CompsLists.ElementAt(8).Key, "");
+        private static Menu subMenuCatComplementsHorseMask = new Menu(GetConfig.CompsLists.ElementAt(9).Key, "");
 
         private static MenuItem confirmBuy = new MenuItem("", " ")
         {
@@ -68,7 +69,6 @@ namespace vorpstables_cl.Menus
             
             
             MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseColas);
-
             MenuItem buttonBuyComplementsCatColas = new MenuItem(GetConfig.CompsLists.ElementAt(3).Key, "")
             {
                 RightIcon = MenuItem.Icon.SADDLE
@@ -79,7 +79,6 @@ namespace vorpstables_cl.Menus
 
             
             MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseCrines);
-
             MenuItem buttonBuyComplementsCatCrines = new MenuItem(GetConfig.CompsLists.ElementAt(4).Key, "")
             {
                 RightIcon = MenuItem.Icon.SADDLE
@@ -90,7 +89,6 @@ namespace vorpstables_cl.Menus
 
             
             MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseMonturas);
-
             MenuItem buttonBuyComplementsCatMonturas = new MenuItem(GetConfig.CompsLists.ElementAt(5).Key, "")
             {
                 RightIcon = MenuItem.Icon.SADDLE
@@ -99,7 +97,6 @@ namespace vorpstables_cl.Menus
             MenuController.BindMenuItem(buyCompsMenu, subMenuCatComplementsHorseMonturas, buttonBuyComplementsCatMonturas);
 
             MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseEstribos);
-
             MenuItem buttonBuyComplementsCatEstribos = new MenuItem(GetConfig.CompsLists.ElementAt(6).Key, "")
             {
                 RightIcon = MenuItem.Icon.SADDLE
@@ -107,9 +104,7 @@ namespace vorpstables_cl.Menus
             buyCompsMenu.AddMenuItem(buttonBuyComplementsCatEstribos);
             MenuController.BindMenuItem(buyCompsMenu, subMenuCatComplementsHorseEstribos, buttonBuyComplementsCatEstribos);
            
-            
             MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorsePetates);
-
             MenuItem buttonBuyComplementsCatPetates = new MenuItem(GetConfig.CompsLists.ElementAt(7).Key, "")
             {
                 RightIcon = MenuItem.Icon.SADDLE
@@ -117,14 +112,29 @@ namespace vorpstables_cl.Menus
             buyCompsMenu.AddMenuItem(buttonBuyComplementsCatPetates);
             MenuController.BindMenuItem(buyCompsMenu, subMenuCatComplementsHorsePetates, buttonBuyComplementsCatPetates);
 
-            
+            MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseLantern);
+            MenuItem buttonBuyComplementsCatLantern = new MenuItem(GetConfig.CompsLists.ElementAt(8).Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            buyCompsMenu.AddMenuItem(buttonBuyComplementsCatLantern);
+            MenuController.BindMenuItem(buyCompsMenu, subMenuCatComplementsHorseLantern, buttonBuyComplementsCatLantern);
+
+            MenuController.AddSubmenu(buyCompsMenu, subMenuCatComplementsHorseMask);
+            MenuItem buttonBuyComplementsCatMask = new MenuItem(GetConfig.CompsLists.ElementAt(9).Key, "")
+            {
+                RightIcon = MenuItem.Icon.SADDLE
+            };
+            buyCompsMenu.AddMenuItem(buttonBuyComplementsCatMask);
+            MenuController.BindMenuItem(buyCompsMenu, subMenuCatComplementsHorseMask, buttonBuyComplementsCatMask);
+
             buyCompsMenu.AddMenuItem(confirmBuy);
 
             //Events
 
             buyCompsMenu.OnItemSelect += (_menu, _item, _index) =>
             {
-                if(_index == 8)
+                if(_index == 10)
                 {
                     StablesShop.BuyComp();
                 }
@@ -246,6 +256,32 @@ namespace vorpstables_cl.Menus
                 await StablesShop.LoadHorseCompsPreview(StablesShop.indexCategory, _itemIndex, _newIndex);
             };
 
+            subMenuCatComplementsHorseLantern.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+                foreach (MenuListItem algo in subMenuCatComplementsHorseLantern.GetMenuItems())
+                {
+                    if (algo.Index != _itemIndex)
+                    {
+                        algo.ListIndex = 0;
+                    }
+                }
+                await StablesShop.LoadHorseCompsPreview(StablesShop.indexCategory, _itemIndex, _newIndex);
+            };
+
+            subMenuCatComplementsHorseMask.OnListIndexChange += async (_menu, _listItem, _oldIndex, _newIndex, _itemIndex) =>
+            {
+                Debug.WriteLine($"OnListIndexChange: [{_menu}, {_listItem}, {_oldIndex}, {_newIndex}, {_itemIndex}]");
+                foreach (MenuListItem algo in subMenuCatComplementsHorseMask.GetMenuItems())
+                {
+                    if (algo.Index != _itemIndex)
+                    {
+                        algo.ListIndex = 0;
+                    }
+                }
+                await StablesShop.LoadHorseCompsPreview(StablesShop.indexCategory, _itemIndex, _newIndex);
+            };
+
             buyCompsMenu.OnMenuOpen += (_menu) => {
 
                 StablesShop.CalcPrice();
@@ -278,6 +314,8 @@ namespace vorpstables_cl.Menus
             StablesShop.saddlesComp = 0;
             StablesShop.stirrupsComp = 0;
             StablesShop.bedrollsComp = 0;
+            StablesShop.lanternComp = 0;
+            StablesShop.maskComp = 0;
 
 
             //mantas
@@ -509,6 +547,64 @@ namespace vorpstables_cl.Menus
 
                 MenuListItem compCategoriesPetates = new MenuListItem(cat.Key, clist, compindex, GetConfig.CompsLists.ElementAt(7).Key + " - " + cat.Key);
                 subMenuCatComplementsHorsePetates.AddMenuItem(compCategoriesPetates);
+            }
+            //end bedrolls
+
+            //Lamparas
+            subMenuCatComplementsHorseLantern.ClearMenuItems();
+
+            foreach (var cat in GetConfig.CompsLists.ElementAt(8).Value)
+            {
+                List<string> clist = new List<string>();
+
+                clist.Add(GetConfig.Langs["NoComplement"]);
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                int compindex = 0;
+                JObject mygear = HorseManagment.MyHorses[StablesShop.indexHorseSelected].getGear();
+                uint mycomp = HorseManagment.ConvertValue(mygear["lantern"].ToString());
+
+                if (cat.Value.IndexOf(mycomp) != -1)
+                {
+                    compindex = cat.Value.IndexOf(mycomp) + 1;
+                    StablesShop.lanternComp = mycomp;
+                }
+
+                MenuListItem compCategoriesLantern = new MenuListItem(cat.Key, clist, compindex, GetConfig.CompsLists.ElementAt(8).Key + " - " + cat.Key);
+                subMenuCatComplementsHorseLantern.AddMenuItem(compCategoriesLantern);
+            }
+            //end bedrolls
+
+            //Mask
+            subMenuCatComplementsHorseMask.ClearMenuItems();
+
+            foreach (var cat in GetConfig.CompsLists.ElementAt(9).Value)
+            {
+                List<string> clist = new List<string>();
+
+                clist.Add(GetConfig.Langs["NoComplement"]);
+
+                for (int i = 0; i < cat.Value.Count(); i++)
+                {
+                    clist.Add($"# {(i + 1).ToString()}");
+                }
+
+                int compindex = 0;
+                JObject mygear = HorseManagment.MyHorses[StablesShop.indexHorseSelected].getGear();
+                uint mycomp = HorseManagment.ConvertValue(mygear["mask"].ToString());
+
+                if (cat.Value.IndexOf(mycomp) != -1)
+                {
+                    compindex = cat.Value.IndexOf(mycomp) + 1;
+                    StablesShop.maskComp = mycomp;
+                }
+
+                MenuListItem compCategoriesMask = new MenuListItem(cat.Key, clist, compindex, GetConfig.CompsLists.ElementAt(9).Key + " - " + cat.Key);
+                subMenuCatComplementsHorseMask.AddMenuItem(compCategoriesMask);
             }
             //end bedrolls
 

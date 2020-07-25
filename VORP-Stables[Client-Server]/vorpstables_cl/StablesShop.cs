@@ -281,21 +281,25 @@ namespace vorpstables_cl
         {
             JObject newGear = new JObject();
             
-                    newGear["blanket"] = blanketsComp;
+            newGear["blanket"] = blanketsComp;
 
-                    newGear["horn"] = hornsComp;
+            newGear["horn"] = hornsComp;
 
-                    newGear["bag"] = saddlebagsComp;
+            newGear["bag"] = saddlebagsComp;
 
-                    newGear["tail"] = tailsComp;
+            newGear["tail"] = tailsComp;
 
-                    newGear["mane"] = manesComp;
+            newGear["mane"] = manesComp;
 
-                    newGear["saddle"] = saddlesComp;
+            newGear["saddle"] = saddlesComp;
 
-                    newGear["stirrups"] = stirrupsComp;
+            newGear["stirrups"] = stirrupsComp;
 
-                    newGear["bedroll"] = bedrollsComp;
+            newGear["bedroll"] = bedrollsComp;
+
+            newGear["lantern"] = lanternComp;
+
+            newGear["mask"] = maskComp;
 
             if (costComps != 0)
             {
@@ -331,6 +335,14 @@ namespace vorpstables_cl
                 if (!HorseManagment.MyComps.Contains(bedrollsComp) && bedrollsComp != 0)
                 {
                     cacheList.Add(bedrollsComp);
+                }
+                if (!HorseManagment.MyComps.Contains(lanternComp) && lanternComp != 0)
+                {
+                    cacheList.Add(lanternComp);
+                }
+                if (!HorseManagment.MyComps.Contains(maskComp) && maskComp != 0)
+                {
+                    cacheList.Add(maskComp);
                 }
 
                 string array = Newtonsoft.Json.JsonConvert.SerializeObject(cacheList);
@@ -409,6 +421,10 @@ namespace vorpstables_cl
         public static int stirrupsCat = 0;
         public static uint bedrollsComp = 0;
         public static int bedrollsCat = 0;
+        public static uint lanternComp = 0;
+        public static int lanternCat = 0;
+        public static uint maskComp = 0;
+        public static int maskCat = 0;
 
 
         public static async Task LoadHorseCompsPreview(int cat, int subcat, int index)
@@ -442,6 +458,12 @@ namespace vorpstables_cl
                         break;
                     case 7:
                         bedrollsComp = 0;
+                        break;
+                    case 8:
+                        lanternComp = 0;
+                        break;
+                    case 9:
+                        maskComp = 0;
                         break;
                 }
                 
@@ -498,6 +520,14 @@ namespace vorpstables_cl
                     case 7:
                         bedrollsComp = GetConfig.CompsLists.ElementAt(cat).Value.ElementAt(subcat).Value[index - 1];
                         bedrollsCat = subcat;
+                        break;
+                    case 8:
+                        lanternComp = GetConfig.CompsLists.ElementAt(cat).Value.ElementAt(subcat).Value[index - 1];
+                        lanternCat = subcat;
+                        break;
+                    case 9:
+                        maskComp = GetConfig.CompsLists.ElementAt(cat).Value.ElementAt(subcat).Value[index - 1];
+                        maskCat = subcat;
                         break;
                 }
             }
@@ -578,7 +608,26 @@ namespace vorpstables_cl
             else
             {
                 Function.Call((Hash)0xD710A5007C2AC539, HorsePed, 0xEFB31921, 0);
-            }            
+            }
+
+            if (lanternComp != 0)
+            {
+                Function.Call((Hash)0xD3A7B003ED343FD9, HorsePed, lanternComp, true, true, true);
+            }
+            else
+            {
+                Function.Call((Hash)0xD710A5007C2AC539, HorsePed, 0x1530BE1C, 0);
+            }
+            if (maskComp != 0)
+            {
+                Function.Call((Hash)0xD3A7B003ED343FD9, HorsePed, maskComp, true, true, true);
+            }
+            else
+            {
+                Function.Call((Hash)0xD710A5007C2AC539, HorsePed, 0xD3500E5D, 0);
+            }
+
+
             Function.Call((Hash)0xCC8CA3E88256E58F, HorsePed, 0, 1, 1, 1, 0);
 
         }
@@ -619,6 +668,14 @@ namespace vorpstables_cl
             if (!HorseManagment.MyComps.Contains(bedrollsComp) && bedrollsComp != 0)
             {
                 costComps += GetConfig.CompsPrices.ElementAt(7).Value.ElementAt(bedrollsCat).Value;
+            }
+            if (!HorseManagment.MyComps.Contains(lanternComp) && lanternComp != 0)
+            {
+                costComps += GetConfig.CompsPrices.ElementAt(8).Value.ElementAt(lanternCat).Value;
+            }
+            if (!HorseManagment.MyComps.Contains(maskComp) && maskComp != 0)
+            {
+                costComps += GetConfig.CompsPrices.ElementAt(9).Value.ElementAt(maskCat).Value;
             }
             Menus.BuyHorseCompsMenu.SetPriceButton(costComps);
         }

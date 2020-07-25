@@ -56,12 +56,23 @@ namespace vorpstables_cl
                 def.Add("bedroll", -1);
                 def.Add("stirrups", -1);
                 def.Add("horn", -1);
+                def.Add("lantern", -1);
+                def.Add("mask", -1);
 
                 Gear = def;
             }
             else
             {
                 Gear = JObject.Parse(jsonGear);
+
+                //New Update (mask, lantern)
+                if (!Gear.ContainsKey("lantern") || !Gear.ContainsKey("mask")) 
+                {
+                    Gear.Add("lantern", -1);
+                    Gear.Add("mask", -1);
+                }
+
+
             }
 
             isDefault = isdefault;

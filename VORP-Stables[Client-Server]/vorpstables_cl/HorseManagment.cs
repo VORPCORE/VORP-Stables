@@ -108,6 +108,23 @@ namespace vorpstables_cl
                 await Delay(5000); // Anti Flood
             }
 
+            if (API.IsControlPressed(0, 0xE16B9AAD))
+            {
+                if(API.IsControlPressed(0, 0xD9D0E1C0))
+                {
+                    Random rnd = new Random();
+                    if (rnd.Next(0, 100) > GetConfig.Config["HorseSkillPullUpFailPercent"].ToObject<int>())
+                    {
+                        Function.Call((Hash)0xA09CFD29100F06C3, API.GetMount(API.PlayerPedId()), 1, 0, 0);
+                    }
+                    else
+                    {
+                        Function.Call((Hash)0xA09CFD29100F06C3, API.GetMount(API.PlayerPedId()), 2, 0, 0);
+                    }
+                    await Delay(6000);
+                }
+            }
+
             if (API.IsControlJustPressed(0, 0xF3830D8E) && !isLoading)
             {
 
@@ -207,6 +224,22 @@ namespace vorpstables_cl
 
         }
 
+        public async Task<bool> GetControlOfEntity(int entity)
+        {
+            API.NetworkRequestControlOfEntity(entity);
+            API.SetEntityAsMissionEntity(entity, true, true);
+
+            int timeout = 2000;
+
+            while (timeout > 0 && !API.NetworkHasControlOfEntity(entity))
+            {
+                await Delay(100);
+                timeout -= 100;
+            }
+
+            return API.NetworkHasControlOfEntity(entity);
+        }
+
         private async Task CallHorse()
         {
             if (spawnedHorse != null)
@@ -215,22 +248,33 @@ namespace vorpstables_cl
                 {
                     if (Function.Call<bool>((Hash)0xAAB0FE202E9FC9F0, spawnedHorse.Item1, -1))
                     {
-                        if (getHorseDistance(spawnedHorse.Item1) < 30.0f)
+                        if (getHorseDistance(spawnedHorse.Item1) < GetConfig.Config["DistanceToTeleport"].ToObject<float>())
                         {
-
                             int pPID = API.PlayerPedId();
-                            API.NetworkRequestControlOfEntity(spawnedHorse.Item1);
-                            API.SetEntityAsMissionEntity(spawnedHorse.Item1, true, true);
-
+                            await GetControlOfEntity(spawnedHorse.Item1);
                             Function.Call((Hash)0x6A071245EB0D1882, spawnedHorse.Item1, pPID, -1, 5.0F, 2.0F, 0F, 0);
                         }
                         else
                         {
-                            API.NetworkRequestControlOfEntity(spawnedHorse.Item1);
-                            API.SetEntityAsMissionEntity(spawnedHorse.Item1, true, true);
-                            int hped = spawnedHorse.Item1;
-                            API.DeletePed(ref hped);
-                            await SpawnHorseDefault();
+                            await GetControlOfEntity(spawnedHorse.Item1);
+                            int pPID = API.PlayerPedId();
+                            Vector3 playerPos = API.GetEntityCoords(pPID, true, true);
+
+                            Vector3 spawnPos = Vector3.Zero;
+                            Vector3 spawnPos2 = Vector3.Zero;
+                            float spawnHeading = 0.0F;
+                            int unk1 = 0;
+
+                            API.GetClosestRoad(playerPos.X + 10.0f, playerPos.Y + 10.0f, playerPos.Z, 0.0f, 25, ref spawnPos, ref spawnPos2, ref unk1, ref unk1, ref spawnHeading, true);
+
+                            if (API.GetDistanceBetweenCoords(playerPos.X, playerPos.Y, playerPos.Z, spawnPos.X, spawnPos.Y, spawnPos.Z, false) > 25.0f)
+                            {
+                                spawnPos.X = playerPos.X + 10.0f;
+                                spawnPos.Y = playerPos.Y + 10.0f;
+                                spawnPos.Z = playerPos.Z + 1.5f;
+                            }
+
+                            API.SetEntityCoords(spawnedHorse.Item1, spawnPos.X, spawnPos.Y, spawnPos.Z, false, false, false, false);
                         }
                     }
                     else
@@ -357,6 +401,8 @@ namespace vorpstables_cl
             uint bedroll = ConvertValue(gear["bedroll"].ToString());
             uint stirrups = ConvertValue(gear["stirrups"].ToString());
             uint horn = ConvertValue(gear["horn"].ToString());
+            uint lantern = ConvertValue(gear["lantern"].ToString());
+            uint mask = ConvertValue(gear["mask"].ToString());
 
             if (blanket != -1)
                 Function.Call((Hash)0xD3A7B003ED343FD9, spawnedh, blanket, true, true, true);
@@ -374,7 +420,11 @@ namespace vorpstables_cl
                 Function.Call((Hash)0xD3A7B003ED343FD9, spawnedh, stirrups, true, true, true);
             if (horn != -1)
                 Function.Call((Hash)0xD3A7B003ED343FD9, spawnedh, horn, true, true, true);
-            
+            if (lantern != -1)
+                Function.Call((Hash)0xD3A7B003ED343FD9, spawnedh, lantern, true, true, true);
+            if (mask != -1)
+                Function.Call((Hash)0xD3A7B003ED343FD9, spawnedh, mask, true, true, true);
+
             //NoHair
             if (mane == 1)
                 Function.Call((Hash)0xD710A5007C2AC539, spawnedh, 0xAA0217AB, 0);
@@ -415,6 +465,8 @@ namespace vorpstables_cl
             Function.Call((Hash)0x9FF1E042FA597187, spawnedh, 25, false);
             Function.Call((Hash)0x9FF1E042FA597187, spawnedh, 24, false);
             Function.Call((Hash)0x9FF1E042FA597187, spawnedh, 48, false);
+
+            //Function.Call((Hash)0xA09CFD29100F06C3, spawnedh, 2, 0, 0);
 
             Function.Call((Hash)0xA691C10054275290, spawnedh, API.PlayerId(), 431);
 

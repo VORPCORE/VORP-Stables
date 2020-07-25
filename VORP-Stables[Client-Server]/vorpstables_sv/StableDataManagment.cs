@@ -387,103 +387,112 @@ namespace vorpstables_sv
                 return;
             }
 
-
-            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "horse" }, new Action<dynamic>((result) =>
-            {
-                if (result.Count == 0)
+            TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<int>((invcount) => {
+                if (invcount == count)
                 {
-                    Debug.WriteLine($"Error no horse default");
-                }
-                else
-                {
-                    string inv = result[0].inventory;
-                    string model = result[0].modelname;
-                    int horseId = result[0].id;
-                    if (!String.IsNullOrEmpty(inv))
+                    Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "horse" }, new Action<dynamic>((result) =>
                     {
-                        JArray horseData = JArray.Parse(inv);
-
-                        int totalWeight = 0;
-                        foreach (var hd in horseData)
+                        if (result.Count == 0)
                         {
-                            totalWeight += hd["count"].ToObject<int>();
-                        }
-
-                        int maxWeight = LoadConfig.Config["DefaultMaxWeight"].ToObject<int>();
-
-                        foreach (JObject c in LoadConfig.Config["CustomMaxWeight"].Children<JObject>())
-                        {
-                            foreach (JProperty comp in c.Properties())
-                            {
-                                if (comp.Name.Equals(model.Trim()))
-                                {
-                                    maxWeight = int.Parse(comp.Value.ToString());
-                                }
-                            }
-                        }
-
-                        if (maxWeight < (number + totalWeight))
-                        {
-                            player.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["MaxWeightQuantity"], totalWeight.ToString(), maxWeight.ToString()), 2500);
-                            return;
-                        }
-
-                        JToken itemFound = horseData.FirstOrDefault(x=>x["name"].ToString().Equals(name));
-
-                        if (itemFound != null)
-                        {
-                            int indexItem = horseData.IndexOf(itemFound);
-
-                            horseData[indexItem]["count"] = horseData[indexItem]["count"].ToObject<int>() + number;
-
-                            TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
-                            Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
-                            Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
-                            JObject items = new JObject();
-
-                            items.Add("itemList", horseData);
-                            items.Add("action", "setSecondInventoryItems");
-
-                            player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
-
+                            Debug.WriteLine($"Error no horse default");
                         }
                         else
                         {
-                            data["item"]["count"] = number;
-                            horseData.Add(data["item"]);
+                            string inv = result[0].inventory;
+                            string model = result[0].modelname;
+                            int horseId = result[0].id;
+                            if (!String.IsNullOrEmpty(inv))
+                            {
+                                JArray horseData = JArray.Parse(inv);
+
+                                int totalWeight = 0;
+                                foreach (var hd in horseData)
+                                {
+                                    totalWeight += hd["count"].ToObject<int>();
+                                }
+
+                                int maxWeight = LoadConfig.Config["DefaultMaxWeight"].ToObject<int>();
+
+                                foreach (JObject c in LoadConfig.Config["CustomMaxWeight"].Children<JObject>())
+                                {
+                                    foreach (JProperty comp in c.Properties())
+                                    {
+                                        if (comp.Name.Equals(model.Trim()))
+                                        {
+                                            maxWeight = int.Parse(comp.Value.ToString());
+                                        }
+                                    }
+                                }
+
+                                if (maxWeight < (number + totalWeight))
+                                {
+                                    player.TriggerEvent("vorp:TipBottom", string.Format(LoadConfig.Langs["MaxWeightQuantity"], totalWeight.ToString(), maxWeight.ToString()), 2500);
+                                    return;
+                                }
+
+                                JToken itemFound = horseData.FirstOrDefault(x=>x["name"].ToString().Equals(name));
 
 
-                            TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
-                            Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
+                                if (itemFound != null)
+                                {
+                                    int indexItem = horseData.IndexOf(itemFound);
 
-                            JObject items = new JObject();
+                                    horseData[indexItem]["count"] = horseData[indexItem]["count"].ToObject<int>() + number;
 
-                            items.Add("itemList", horseData);
-                            items.Add("action", "setSecondInventoryItems");
+                                    TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                    Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
+                                    Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
+                                    JObject items = new JObject();
 
-                            player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
+                                    items.Add("itemList", horseData);
+                                    items.Add("action", "setSecondInventoryItems");
+
+                                    player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
+
+                                }
+                                else
+                                {
+                                    data["item"]["count"] = number;
+                                    horseData.Add(data["item"]);
+
+                                    TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                    Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
+
+                                    JObject items = new JObject();
+
+                                    items.Add("itemList", horseData);
+                                    items.Add("action", "setSecondInventoryItems");
+
+                                    player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
+                                }
+                            }
+                            else
+                            {
+                                JArray horseData = new JArray();
+                                data["item"]["count"] = number;
+                                horseData.Add(data["item"]);
+
+
+                                TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
+
+                                JObject items = new JObject();
+
+                                items.Add("itemList", horseData);
+                                items.Add("action", "setSecondInventoryItems");
+
+                                player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
+                            }
+
                         }
-                    }
-                    else
-                    {
-                        JArray horseData = new JArray();
-                        data["item"]["count"] = number;
-                        horseData.Add(data["item"]);
 
-
-                        TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
-                        Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
-
-                        JObject items = new JObject();
-
-                        items.Add("itemList", horseData);
-                        items.Add("action", "setSecondInventoryItems");
-
-                        player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
-                    }
+                    }));
                 }
-
-            }));
+                else
+                {
+                    player.TriggerEvent("vorp:TipBottom", "No coincide el inventario", 10000);
+                }
+            }), name);
 
         }
 

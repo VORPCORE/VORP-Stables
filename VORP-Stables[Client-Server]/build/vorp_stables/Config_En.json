@@ -11,6 +11,9 @@
         "DoYoulike"
     ],
 
+    "HorseSkillPullUpFailPercent": 20, // 20% of fail and drop out from horse
+    "DistanceToTeleport": 100.0,
+
     "DefaultMaxWeight": 30, // Can store 30 Items by default
 
     "CustomMaxWeight": [ // Custom values, add a horse or a carriage to be able to modify the weight limit
@@ -144,6 +147,12 @@
             "Wool": ["0x12F0DF9F", "0x18BB6B30", "0x1B43F045", "0x55A0E4FE", "0x69B21ADD", "0x7B55D476", "0x8C9F7709", "0x9FD99D7D", "0xAC1F34C", "0xD8258E14", "0xFFB0391E", 50.0],
             "Canvas": ["0x27543EBB", "0x36BEDD90", "0x4B7E0712", "0x73D157B4", "0x841C784A", "0xA1FD8B43", "0xB4532FEE", "0xBC664014", "0xD020E789", 50.0],
             "Quilted wool": ["0x45FEA6D8", "0x69B29DC5", "0x72FCB059", "0x7C8A149A", "0x84E5AFA", "0x8DD7B735", "0x98214B1C", "0x9D868568", "0xA643680C", "0xD258EF10", 50.0]
+        }],
+        "Lantern": [{
+            "Normal": ["0x635E387C", 50.0]
+        }],
+        "Mask": [{
+            "Normal": ["0xFA5B72BB", "0xF606EC4A", "0xEEF65F11", "0xEC10D626", "0xE3278C28", "0xDDCDB9A0", "0xD70C73EA", "0xC907FCA9", "0xC70D8F40", "0xBD887906", "0xB567EBF5", "0xB395D1C5", "0xB0395F88", "0xA45049C6", "0x9DB125FC", "0x9A11B219", "0x9946F874", "0x90A62272", "0x8DCC1CBE", "0x8DB38601", "0x8C471684", "0x872A0C5A", "0x7BFA791B", "0x7A773AC1", "0x702A4AF3", "0x6B355791", "0x69CD996E", "0x68FB97DE", "0x68DB4FAD", "0x62C5B02A", "0x61BEAE08", "0x4E22622C", "0x4C8C83A4", "0x406FC6C7", "0x30044BAC", "0x226B2F76", "0x13AC6E51", "0x08A78F53", "0xF0ED62FF", "0xF17728C7", 50.0]
         }]
     }],
 
