@@ -1,5 +1,8 @@
 {
 
+    "ButtonTransferHorse": "Transferir Caballo",
+    "InputServerId": "ID de la persona",
+
     "PressToOpen": "Pulsa [~e~Espacio~q~] para acceder al establo",
 
     "PlaceHolderInputName": "El nombre tiene que tener un mínimo de 3 caracteres",

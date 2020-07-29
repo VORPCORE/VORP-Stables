@@ -113,6 +113,56 @@ namespace vorpstables_cl
             RenderScriptCams(true, true, 1000, true, true, 0);
         }
 
+        internal static void TransferMyHorse(int myHorseId)
+        {
+            TriggerEvent("vorpinputs:getInput", GetConfig.Langs["ButtonTransferHorse"], GetConfig.Langs["DeleteConfirmation"], new Action<dynamic>(async (cb) =>
+            {
+                string horseName = cb;
+
+                await Delay(1000);
+
+                if (!horseName.Equals("close"))
+                {
+                    if (horseName.ToLower().Equals(HorseManagment.MyHorses[myHorseId].getHorseName().ToLower()))
+                    {
+                        TriggerEvent("vorpinputs:getInput", GetConfig.Langs["ButtonTransferHorse"], GetConfig.Langs["InputServerId"], new Action<dynamic>(async (result) =>
+                        {
+                            int targetID; 
+
+                            if(int.TryParse(result, out targetID))
+                            {
+                                int target = API.GetPlayerFromServerId(targetID);
+                                foreach(int pl in API.GetActivePlayers())
+                                {
+                                    if (target == pl)
+                                    {
+                                        TriggerServerEvent("vorpstables:TransferHorse", HorseManagment.MyHorses[myHorseId].getHorseId(), targetID);
+                                        if (HorseManagment.MyHorses[myHorseId].IsDefault())
+                                        {
+                                            HorseManagment.spawnedHorse = new Tuple<int, Horse>(-1, new Horse());
+                                        }
+                                        HorseManagment.MyHorses.RemoveAt(myHorseId);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                TransferMyHorse(myHorseId);
+                            }
+
+                        }));
+                    }
+                    else
+                    {
+                        TransferMyHorse(myHorseId);
+                    }
+
+                }
+
+
+                }));
+        }
+
         public static void DeleteMyHorse(int myHorseId)
         {
             TriggerEvent("vorpinputs:getInput", GetConfig.Langs["ButtonDeleteHorse"], GetConfig.Langs["DeleteConfirmation"], new Action<dynamic>(async (cb) =>

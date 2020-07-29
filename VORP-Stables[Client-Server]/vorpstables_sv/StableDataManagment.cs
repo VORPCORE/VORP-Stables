@@ -19,6 +19,7 @@ namespace vorpstables_sv
             EventHandlers["vorpstables:UpdateComp"] += new Action<Player, string, int>(UpdateComp);
             EventHandlers["vorpstables:SetDefaultHorse"] += new Action<Player, int>(SetDefaultHorse);
             EventHandlers["vorpstables:RemoveHorse"] += new Action<Player, int>(RemoveHorse);
+            EventHandlers["vorpstables:TransferHorse"] += new Action<Player, int, int>(TransferHorse);
             EventHandlers["vorpstables:SetDefaultCart"] += new Action<Player, int>(SetDefaultCart);
 
             //Inventory
@@ -33,6 +34,20 @@ namespace vorpstables_sv
 
             EventHandlers["vorp_stables:UpdateInventoryCart"] += new Action<Player>(UpdateInventoryCart);
 
+        }
+
+        private void TransferHorse([FromSource]Player source, int HorseId, int TargetId)
+        {
+            PlayerList pl = new PlayerList();
+            Player target = pl[TargetId];
+
+            string sid = "steam:" + target.Identifiers["steam"];
+
+            Exports["ghmattimysql"].execute("UPDATE stables SET identifier=? WHERE id=?", new object[] { sid, HorseId });
+
+            Delay(2200);
+
+            ReLoadStables(target);
         }
 
         private void UpdateInventoryHorse([FromSource]Player player)

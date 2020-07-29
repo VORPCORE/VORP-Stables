@@ -1,4 +1,6 @@
 {
+    "ButtonTransferHorse": "Transfer Horse",
+    "InputServerId": "ServerID of user for transfer",
 
     "PressToOpen": "Press [~e~Space~q~] to access the stable",
 

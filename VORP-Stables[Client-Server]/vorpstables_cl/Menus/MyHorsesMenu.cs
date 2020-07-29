@@ -44,6 +44,12 @@ namespace vorpstables_cl.Menus
             };
             subMenuManagmentHorse.AddMenuItem(buttonSetDefaultHorse);
 
+            MenuItem buttonTransferHorse = new MenuItem(GetConfig.Langs["ButtonTransferHorse"], GetConfig.Langs["ButtonTransferHorse"])
+            {
+                RightIcon = MenuItem.Icon.STAR
+            };
+            subMenuManagmentHorse.AddMenuItem(buttonTransferHorse);
+
             MenuItem buttonDeleteHorse = new MenuItem(GetConfig.Langs["ButtonDeleteHorse"], GetConfig.Langs["ButtonDeleteHorse"])
             {
                 RightIcon = MenuItem.Icon.LOCK
@@ -118,6 +124,10 @@ namespace vorpstables_cl.Menus
                         MenuController.CloseAllMenus();
                         break;
                     case 2:
+                        StablesShop.TransferMyHorse(StablesShop.indexHorseSelected);
+                        MenuController.CloseAllMenus();
+                        break;
+                    case 3:
                         StablesShop.DeleteMyHorse(StablesShop.indexHorseSelected);
                         MenuController.CloseAllMenus();
                         break;
