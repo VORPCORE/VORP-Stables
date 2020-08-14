@@ -43,9 +43,9 @@ namespace vorpstables_sv
 
             string sid = "steam:" + target.Identifiers["steam"];
 
-            Exports["ghmattimysql"].execute("UPDATE stables SET identifier=? WHERE id=?", new object[] { sid, HorseId });
+            Exports["ghmattimysql"].execute("UPDATE stables SET identifier=?, isDefault=0 WHERE id=?", new object[] { sid, HorseId });
 
-            Delay(2200);
+            BaseScript.Delay(2200);
 
             ReLoadStables(target);
         }
