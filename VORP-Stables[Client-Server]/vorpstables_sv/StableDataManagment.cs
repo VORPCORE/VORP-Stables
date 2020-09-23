@@ -11,6 +11,8 @@ namespace vorpstables_sv
 {
     public class StableDataManagment : BaseScript
     {
+        public static dynamic VORPCORE;
+
         public StableDataManagment()
         {
             EventHandlers["vorpstables:BuyNewHorse"] += new Action<Player, string, string, string, double>(BuyNewHorse);
@@ -34,6 +36,10 @@ namespace vorpstables_sv
 
             EventHandlers["vorp_stables:UpdateInventoryCart"] += new Action<Player>(UpdateInventoryCart);
 
+            TriggerEvent("getCore", new Action<dynamic>((dic) =>
+            {
+                VORPCORE = dic;
+            }));
         }
 
         private void TransferHorse([FromSource]Player source, int HorseId, int TargetId)
@@ -42,18 +48,23 @@ namespace vorpstables_sv
             Player target = pl[TargetId];
 
             string sid = "steam:" + target.Identifiers["steam"];
+            dynamic UserCharacter = VORPCORE.getUser(TargetId).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
 
-            Exports["ghmattimysql"].execute("UPDATE stables SET identifier=?, isDefault=0 WHERE id=?", new object[] { sid, HorseId });
+            Exports["ghmattimysql"].execute("UPDATE stables SET identifier=?, charidentifier=?, isDefault=0 WHERE id=?", new object[] { sid, charIdentifier, HorseId });
 
-            BaseScript.Delay(2200);
+            BaseScript.Delay(2000);
 
             ReLoadStables(target);
         }
 
-        private void UpdateInventoryHorse([FromSource]Player player)
+        private void UpdateInventoryHorse([FromSource]Player source)
         {
-            string sid = "steam:" + player.Identifiers["steam"];
-            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "horse" }, new Action<dynamic>((result) =>
+            string sid = "steam:" + source.Identifiers["steam"];
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
+            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "horse", charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count != 0)
                 {
@@ -65,7 +76,7 @@ namespace vorpstables_sv
                         items.Add("itemList", "[]");
                         items.Add("action", "setSecondInventoryItems");
 
-                        player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
+                        source.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
                     }
                     else
                     { 
@@ -73,18 +84,20 @@ namespace vorpstables_sv
                         items.Add("itemList", data);
                         items.Add("action", "setSecondInventoryItems");
 
-                        player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
+                        source.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
                     }
                 }
 
             }));
         }
 
-        private void UpdateInventoryCart([FromSource]Player player)
+        private void UpdateInventoryCart([FromSource]Player source)
         {
-            string sid = "steam:" + player.Identifiers["steam"];
+            string sid = "steam:" + source.Identifiers["steam"];
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
 
-            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "cart" }, new Action<dynamic>((result) =>
+            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "cart", charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count != 0)
                 {
@@ -97,7 +110,7 @@ namespace vorpstables_sv
                         items.Add("itemList", "[]");
                         items.Add("action", "setSecondInventoryItems");
 
-                        player.TriggerEvent("vorp_inventory:ReloadCartInventory", items.ToString());
+                        source.TriggerEvent("vorp_inventory:ReloadCartInventory", items.ToString());
                     }
                     else
                     {
@@ -105,7 +118,7 @@ namespace vorpstables_sv
                         items.Add("itemList", data);
                         items.Add("action", "setSecondInventoryItems");
 
-                        player.TriggerEvent("vorp_inventory:ReloadCartInventory", items.ToString());
+                        source.TriggerEvent("vorp_inventory:ReloadCartInventory", items.ToString());
                     }
                 }
 
@@ -115,6 +128,9 @@ namespace vorpstables_sv
         private async void MoveToCart([FromSource]Player player, string jsondata)
         {
             string sid = "steam:" + player.Identifiers["steam"];
+
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(player.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
 
             JObject data = JObject.Parse(jsondata);
 
@@ -153,7 +169,7 @@ namespace vorpstables_sv
             }
 
 
-            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "cart" }, new Action<dynamic>((result) =>
+            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "cart", charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count == 0)
                 {
@@ -256,6 +272,9 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + player.Identifiers["steam"];
 
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(player.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
             JObject data = JObject.Parse(jsondata);
 
             if (String.IsNullOrEmpty(data["number"].ToString()))
@@ -275,12 +294,9 @@ namespace vorpstables_sv
                 return;
             }
 
-            Debug.WriteLine(name);
-            Debug.WriteLine(player.Handle);
             TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<dynamic>((mycount) =>
             {
                 int itemc = mycount;
-                Debug.WriteLine(itemc.ToString());
 
                 if (limit < (itemc + number) && limit != -1)
                 {
@@ -288,7 +304,7 @@ namespace vorpstables_sv
                     return;
                 }
 
-                Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "cart" }, new Action<dynamic>((result) =>
+                Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "cart", charIdentifier }, new Action<dynamic>((result) =>
                 {
                     if (result.Count == 0)
                     {
@@ -335,7 +351,6 @@ namespace vorpstables_sv
 
                                     TriggerEvent("vorpCore:addItem", int.Parse(player.Handle), name, number);
                                     Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
-                                    Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
                                     JObject items = new JObject();
 
                                     items.Add("itemList", horseData);
@@ -366,6 +381,9 @@ namespace vorpstables_sv
         private async void MoveToHorse([FromSource]Player player, string jsondata)
         {
             string sid = "steam:" + player.Identifiers["steam"];
+
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(player.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
 
             JObject data = JObject.Parse(jsondata);
 
@@ -405,7 +423,7 @@ namespace vorpstables_sv
             TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<int>((invcount) => {
                 if (invcount == count)
                 {
-                    Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "horse" }, new Action<dynamic>((result) =>
+                    Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "horse", charIdentifier }, new Action<dynamic>((result) =>
                     {
                         if (result.Count == 0)
                         {
@@ -515,6 +533,9 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + player.Identifiers["steam"];
 
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(player.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
             JObject data = JObject.Parse(jsondata);
 
             if (String.IsNullOrEmpty(data["number"].ToString()))
@@ -534,8 +555,6 @@ namespace vorpstables_sv
                 return;
             }
 
-            Debug.WriteLine(name);
-            Debug.WriteLine(player.Handle);
             TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<dynamic>((mycount) =>
             {
                 int itemc = mycount;
@@ -547,7 +566,7 @@ namespace vorpstables_sv
                     return;
                 }
 
-                Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=?", new[] { sid, "horse" }, new Action<dynamic>((result) =>
+                Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "horse", charIdentifier }, new Action<dynamic>((result) =>
                 {
                     if (result.Count == 0)
                     {
@@ -637,6 +656,10 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + source.Identifiers["steam"];
             int _source = int.Parse(source.Handle);
+
+            dynamic UserCharacter = VORPCORE.getUser(_source).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
             TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
             {
                 double money = user.money;
@@ -644,16 +667,16 @@ namespace vorpstables_sv
                 if (cost <= money)
                 {
                     TriggerEvent("vorp:removeMoney", _source, 0, cost);
-                    Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+                    Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE identifier=? AND charidentifier=?", new object[] { sid, charIdentifier }, new Action<dynamic>((result) =>
                     {
                         if (result.Count == 0)
                         {
-                            Exports["ghmattimysql"].execute("INSERT INTO horse_complements (`identifier`, `complements`) VALUES (?, ?)", new object[] { sid, jcomps });
+                            Exports["ghmattimysql"].execute("INSERT INTO horse_complements (`identifier`, `charidentifier`, `complements`) VALUES (?, ?, ?)", new object[] { sid, charIdentifier, jcomps });
                             Exports["ghmattimysql"].execute("UPDATE stables SET gear=? WHERE identifier=? AND id=?", new object[] { jgear, sid, horseId });
                         }
                         else
                         {
-                            Exports["ghmattimysql"].execute("UPDATE horse_complements SET complements=? WHERE identifier=?", new object[] { jcomps, sid });
+                            Exports["ghmattimysql"].execute("UPDATE horse_complements SET complements=? WHERE identifier=? AND charidentifier=?", new object[] { jcomps, sid, charIdentifier });
                             Exports["ghmattimysql"].execute("UPDATE stables SET gear=? WHERE identifier=? AND id=?", new object[] { jgear, sid, horseId });
                         }
 
@@ -675,8 +698,12 @@ namespace vorpstables_sv
         private async Task ReLoadStables(Player source)
         {
             string sid = "steam:" + source.Identifiers["steam"];
+
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
             await Delay(4000);
-            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND charidentifier=?", new object[] { sid, charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count == 0)
                 {
@@ -696,7 +723,7 @@ namespace vorpstables_sv
 
             }));
 
-            Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+            Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE identifier=? AND charidentifier=?", new object[] { sid, charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count == 0)
                 {
@@ -714,7 +741,10 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + source.Identifiers["steam"];
 
-            Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=0 WHERE identifier=? AND NOT id=? AND type=?", new object[] { sid, horseId, "horse" });
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
+            Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=0 WHERE identifier=? AND NOT id=? AND type=? AND charidentifier=?", new object[] { sid, horseId, "horse", charIdentifier });
             Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=1 WHERE identifier=? AND id=?", new object[] { sid, horseId });
         }
 
@@ -729,7 +759,10 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + source.Identifiers["steam"];
 
-            Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=0 WHERE identifier=? AND NOT id=? AND type=?", new object[] { sid, horseId, "cart" });
+            dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
+            Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=0 WHERE identifier=? AND NOT id=? AND type=? AND charidentifier=?", new object[] { sid, horseId, "cart", charIdentifier });
             Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=1 WHERE identifier=? AND id=?", new object[] { sid, horseId });
         }
 
@@ -739,26 +772,24 @@ namespace vorpstables_sv
 
             string sid = "steam:" + source.Identifiers["steam"];
 
-            TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
+            dynamic UserCharacter = VORPCORE.getUser(_source).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+          
+            double money = UserCharacter.money;
+
+            if (cost <= money)
             {
-                double money = user.money;
+                UserCharacter.removeCurrency(0, cost);
+                Exports["ghmattimysql"].execute("INSERT INTO stables (`identifier`, `charidentifier`, `name`, `type`, `modelname`) VALUES (?, ?, ?, ?, ?)", new object[] { sid, charIdentifier, name, "horse", model });
+                source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
+                Delay(2200);
+                ReLoadStables(source);
+            }
+            else
+            {
+                source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
+            }
 
-
-                if (cost <= money)
-                {
-                    TriggerEvent("vorp:removeMoney", _source, 0, cost);
-                    Exports["ghmattimysql"].execute("INSERT INTO stables (`identifier`, `name`, `type`, `modelname`) VALUES (?, ?, ?, ?)", new object[] { sid, name, "horse", model });
-                    source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
-                    Delay(2200);
-                    InitStables_Server IS = new InitStables_Server();
-                    ReLoadStables(source);
-                }
-                else
-                {
-                    source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
-                }
-
-            }));
         }
 
         private void BuyNewCart([FromSource]Player source, string name, string model, double cost)
@@ -767,26 +798,24 @@ namespace vorpstables_sv
 
             string sid = "steam:" + source.Identifiers["steam"];
 
-            TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
+            dynamic UserCharacter = VORPCORE.getUser(_source).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
+            double money = UserCharacter.money;
+             
+            if (cost <= money)
             {
-                double money = user.money;
+                UserCharacter.removeCurrency(0, cost);
+                Exports["ghmattimysql"].execute("INSERT INTO stables (`identifier`, `charidentifier`, `name`, `type`, `modelname`) VALUES (?, ?, ?, ?, ?)", new object[] { sid, charIdentifier, name, "cart", model });
+                source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
+                Delay(2200); 
+                ReLoadStables(source);
+            }
+            else
+            {
+                source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
+            }
 
-
-                if (cost <= money)
-                {
-                    TriggerEvent("vorp:removeMoney", _source, 0, cost);
-                    Exports["ghmattimysql"].execute("INSERT INTO stables (`identifier`, `name`, `type`, `modelname`) VALUES (?, ?, ?, ?)", new object[] { sid, name, "cart", model });
-                    source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
-                    Delay(2200);
-                    InitStables_Server IS = new InitStables_Server();
-                    ReLoadStables(source);
-                }
-                else
-                {
-                    source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
-                }
-
-            }));
         }
     }
 }
