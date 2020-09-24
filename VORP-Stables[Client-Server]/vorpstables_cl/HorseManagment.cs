@@ -24,7 +24,9 @@ namespace vorpstables_cl
         {
             EventHandlers["vorpstables:GetMyStables"] += new Action<List<dynamic>>(GetMyStables);
             EventHandlers["vorpstables:GetMyComplements"] += new Action<string>(GetMyComplements);
-            TriggerServerEvent("vorpstables:LoadMyStables");
+
+            EventHandlers["vorp:SelectedCharacter"] += new Action<int>((charId) => { TriggerServerEvent("vorpstables:LoadMyStables"); });
+            
             Tick += onCallHorse;
             Tick += onHorseDead;
             Tick += timeToRespawn;

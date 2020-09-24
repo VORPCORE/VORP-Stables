@@ -18,7 +18,10 @@ namespace vorpstables_sv
         {
             string sid = "steam:" + source.Identifiers["steam"];
 
-            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+            dynamic UserCharacter = StableDataManagment.VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
+            int charIdentifier = UserCharacter.charIdentifier;
+
+            Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE `identifier`=? AND `charidentifier`=?", new object[] { sid, charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count == 0)
                 {
@@ -38,7 +41,7 @@ namespace vorpstables_sv
 
             }));
 
-            Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE identifier=?", new[] { sid }, new Action<dynamic>((result) =>
+            Exports["ghmattimysql"].execute("SELECT * FROM horse_complements WHERE `identifier`=? AND `charidentifier`=?", new object[] { sid, charIdentifier }, new Action<dynamic>((result) =>
             {
                 if (result.Count == 0)
                 {
