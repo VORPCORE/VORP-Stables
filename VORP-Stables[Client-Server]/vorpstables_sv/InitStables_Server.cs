@@ -23,13 +23,14 @@ namespace vorpstables_sv
 
             Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE `identifier`=? AND `charidentifier`=?", new object[] { sid, charIdentifier }, new Action<dynamic>((result) =>
             {
+                List<dynamic> stable = new List<dynamic>();
                 if (result.Count == 0)
                 {
                     Debug.WriteLine($"{source.Name} has no horses");
+                    source.TriggerEvent("vorpstables:GetMyStables", stable);
                 }
                 else
                 {
-                    List<dynamic> stable = new List<dynamic>();
                     foreach (var h in result)
                     {
                         stable.Add(h);
@@ -46,6 +47,7 @@ namespace vorpstables_sv
                 if (result.Count == 0)
                 {
                     Debug.WriteLine($"{source.Name} has no complements");
+                    source.TriggerEvent("vorpstables:GetMyComplements", "[]");
                 }
                 else
                 {
