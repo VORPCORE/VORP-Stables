@@ -346,6 +346,16 @@
             "A_C_Horse_Breton_Sorrel": 100,
             "A_C_Horse_Breton_RedRoan": 100
         }],
+        "Norfolk Roadster": [
+            {
+              "A_C_HORSE_NORFOLKROADSTER_BLACK": 100,
+              "A_C_HORSE_NORFOLKROADSTER_SPECKLEDGREY": 100,
+              "A_C_HORSE_NORFOLKROADSTER_PIEBALDROAN": 100,
+              "A_C_HORSE_NORFOLKROADSTER_ROSEGREY": 100,
+              "A_C_HORSE_NORFOLKROADSTER_DAPPLEDBUCKSKIN": 100,
+              "A_C_HORSE_NORFOLKROADSTER_SPOTTEDTRICOLOR": 100
+            }
+        ],
         "Zebra": [{ "A_C_HorseMulePainted_01": 100 }],
         "Mule": [{ "A_C_HorseMule_01": 100 }],
         "Donkey": [{ "A_C_Donkey_01": 100 }]
