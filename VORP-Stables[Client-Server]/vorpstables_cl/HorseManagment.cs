@@ -434,9 +434,11 @@ namespace vorpstables_cl
                 Function.Call((Hash)0xD710A5007C2AC539, spawnedh, 0xA63CAE10, 0);
 
             //Create Tag
-            MPTagHorse = Function.Call<int>((Hash)0xE961BF23EAB76B12, spawnedh, def.getHorseName());//Function.Call<int>((Hash)0x53CB4B502E1C57EA, spawnedh, def.getHorseName(), false, false, "", 0);
-            Function.Call((Hash)0x5F57522BC1EB9D9D, MPTagHorse, API.GetHashKey("PLAYER_HORSE"));
-            Function.Call((Hash)0xA0D7CE5F83259663, MPTagHorse, " ");
+            if (GetConfig.Config["ShowTagsOnHorses"].ToObject<bool>()) {
+                MPTagHorse = Function.Call<int>((Hash)0xE961BF23EAB76B12, spawnedh, def.getHorseName());//Function.Call<int>((Hash)0x53CB4B502E1C57EA, spawnedh, def.getHorseName(), false, false, "", 0);
+                Function.Call((Hash)0x5F57522BC1EB9D9D, MPTagHorse, API.GetHashKey("PLAYER_HORSE"));
+                Function.Call((Hash)0xA0D7CE5F83259663, MPTagHorse, " ");
+            }
             spawnedHorse = new Tuple<int, Horse>(spawnedh, def);
 
             Function.Call((Hash)0xFE26E4609B1C3772, spawnedh, "HorseCompanion", true);

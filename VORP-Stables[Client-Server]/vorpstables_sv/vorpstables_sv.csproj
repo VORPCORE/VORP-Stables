@@ -31,9 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CitizenFX.Core">
-      <HintPath>C:\Referencias\server\CitizenFX.Core.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="CitizenFX.Core.Server">
+      <HintPath>..\..\..\VORP-Core\packages\CitizenFX.Core.Server.1.0.5235\lib\net45\CitizenFX.Core.Server.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

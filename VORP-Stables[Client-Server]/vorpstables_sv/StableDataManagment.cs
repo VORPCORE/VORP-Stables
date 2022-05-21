@@ -44,7 +44,7 @@ namespace vorpstables_sv
 
         private void TransferHorse([FromSource]Player source, int HorseId, int TargetId)
         {
-            PlayerList pl = new PlayerList();
+            PlayerList pl = Players;
             Player target = pl[TargetId];
 
             string sid = "steam:" + target.Identifiers["steam"];
