@@ -11,3 +11,11 @@ D:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\
 D:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.csproj.CoreCompileInputs.cache
 D:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.net.dll
 D:\VORP-Repos\VORP-Stables\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.net.pdb
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.csproj.AssemblyReference.cache
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.csproj.CoreCompileInputs.cache
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.net.dll
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.net.pdb
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\build\vorp_stables\Config.json
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\build\vorp_stables\vorpstables_sv.net.dll
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\build\vorp_stables\vorpstables_sv.net.pdb
+D:\Projects\VORP-Stables-x1\VORP-Stables[Client-Server]\vorpstables_sv\obj\Debug\vorpstables_sv.csproj.CopyComplete
