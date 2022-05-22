@@ -3,11 +3,11 @@ fx_version 'adamant'
 rdr3_warning 'I acknowledge that this is a prerelease build of RedM, and I am aware my resources *will* become incompatible once RedM ships.'
 
 client_scripts {
-  'vorpstables_cl.net.dll'
+  'VORP.Stables.Client.net.dll'
 }
 
 server_scripts {
-  'vorpstables_sv.net.dll'
+  'VORP.Stables.Server.net.dll'
 }
 
 files {
