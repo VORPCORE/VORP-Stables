@@ -42,7 +42,7 @@ namespace vorpstables_sv
             }));
         }
 
-        private void TransferHorse([FromSource]Player source, int HorseId, int TargetId)
+        private void TransferHorse([FromSource] Player source, int HorseId, int TargetId)
         {
             PlayerList pl = Players;
             Player target = pl[TargetId];
@@ -58,7 +58,7 @@ namespace vorpstables_sv
             ReLoadStables(target);
         }
 
-        private void UpdateInventoryHorse([FromSource]Player source)
+        private void UpdateInventoryHorse([FromSource] Player source)
         {
             string sid = "steam:" + source.Identifiers["steam"];
             dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
@@ -71,7 +71,7 @@ namespace vorpstables_sv
                     JObject items = new JObject();
 
                     string inv = result[0].inventory;
-                    if(String.IsNullOrEmpty(inv))
+                    if (String.IsNullOrEmpty(inv))
                     {
                         items.Add("itemList", "[]");
                         items.Add("action", "setSecondInventoryItems");
@@ -79,7 +79,7 @@ namespace vorpstables_sv
                         source.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
                     }
                     else
-                    { 
+                    {
                         JArray data = JArray.Parse(inv);
                         items.Add("itemList", data);
                         items.Add("action", "setSecondInventoryItems");
@@ -91,7 +91,7 @@ namespace vorpstables_sv
             }));
         }
 
-        private void UpdateInventoryCart([FromSource]Player source)
+        private void UpdateInventoryCart([FromSource] Player source)
         {
             string sid = "steam:" + source.Identifiers["steam"];
             dynamic UserCharacter = VORPCORE.getUser(int.Parse(source.Handle)).getUsedCharacter;
@@ -125,7 +125,7 @@ namespace vorpstables_sv
             }));
         }
 
-        private async void MoveToCart([FromSource]Player player, string jsondata)
+        private async void MoveToCart([FromSource] Player player, string jsondata)
         {
             string sid = "steam:" + player.Identifiers["steam"];
 
@@ -139,18 +139,18 @@ namespace vorpstables_sv
                 return;
             }
 
-            string type = data["item"]["type"].ToString();
-            if (type.Contains("item_weapon"))
-            {
-                player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["WeaponsNotAllowed"], 2500);
-                return;
-            }
-
             string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
+            int itemid = data["item"]["id"].ToObject<int>();
 
             int count = data["item"]["count"].ToObject<int>();
             int number = data["number"].ToObject<int>();
+
+            string type = data["item"]["type"].ToString();
+            if (type.Contains("item_weapon"))
+            {
+                count = 1;
+            }
 
             JArray itemBlackList = JArray.Parse(LoadConfig.Config["ItemsBlacklist"].ToString());
             foreach (var ibl in itemBlackList)
@@ -217,7 +217,14 @@ namespace vorpstables_sv
 
                             horseData[indexItem]["count"] = horseData[indexItem]["count"].ToObject<int>() + number;
 
-                            TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                            if (!type.Contains("item_weapon"))
+                            {
+                                TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                            }
+                            else
+                            {
+                                TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                            }
                             Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
                             Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
                             JObject items = new JObject();
@@ -233,8 +240,14 @@ namespace vorpstables_sv
                             data["item"]["count"] = number;
                             horseData.Add(data["item"]);
 
-
-                            TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                            if (!type.Contains("item_weapon"))
+                            {
+                                TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                            }
+                            else
+                            {
+                                TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                            }
                             Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
                             JObject items = new JObject();
@@ -251,8 +264,14 @@ namespace vorpstables_sv
                         data["item"]["count"] = number;
                         horseData.Add(data["item"]);
 
-
-                        TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                        if (!type.Contains("item_weapon"))
+                        {
+                            TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                        }
+                        else
+                        {
+                            TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                        }
                         Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
                         JObject items = new JObject();
@@ -268,7 +287,7 @@ namespace vorpstables_sv
 
         }
 
-        private async void TakeFromCart([FromSource]Player player, string jsondata)
+        private async void TakeFromCart([FromSource] Player player, string jsondata)
         {
             string sid = "steam:" + player.Identifiers["steam"];
 
@@ -284,6 +303,8 @@ namespace vorpstables_sv
 
             string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
+            int itemid = data["item"]["id"].ToObject<int>();
+            string type = data["item"]["type"].ToString();
             int count = data["item"]["count"].ToObject<int>();
             int limit = data["item"]["limit"].ToObject<int>();
             int number = data["number"].ToObject<int>();
@@ -349,7 +370,15 @@ namespace vorpstables_sv
                                         horseData[indexItem]["count"] = horseData[indexItem]["count"].ToObject<int>() - number;
                                     }
 
-                                    TriggerEvent("vorpCore:addItem", int.Parse(player.Handle), name, number);
+                                    if (!type.Contains("item_weapon"))
+                                    {
+                                        TriggerEvent("vorpCore:addItem", int.Parse(player.Handle), name, number);
+                                    }
+                                    else
+                                    {
+                                        TriggerEvent("vorpCore:giveWeapon", int.Parse(player.Handle), itemid, 0);
+                                    }
+
                                     Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
                                     JObject items = new JObject();
 
@@ -378,7 +407,7 @@ namespace vorpstables_sv
             //Debug.WriteLine(data["number"].ToString());
         }
 
-        private async void MoveToHorse([FromSource]Player player, string jsondata)
+        private async void MoveToHorse([FromSource] Player player, string jsondata)
         {
             string sid = "steam:" + player.Identifiers["steam"];
 
@@ -392,18 +421,19 @@ namespace vorpstables_sv
                 return;
             }
 
+            string label = data["item"]["label"].ToString();
+            string name = data["item"]["name"].ToString();
+            string itemid = data["item"]["id"].ToString();
+
+            int count = data["item"]["count"].ToObject<int>();
+            int number = data["number"].ToObject<int>();
+
             string type = data["item"]["type"].ToString();
             if (type.Contains("item_weapon"))
             {
-                player.TriggerEvent("vorp:TipBottom", LoadConfig.Langs["WeaponsNotAllowed"], 2500);
-                return;
+                count = 1;
             }
 
-            string label = data["item"]["label"].ToString();
-            string name = data["item"]["name"].ToString();
-           
-            int count = data["item"]["count"].ToObject<int>();
-            int number = data["number"].ToObject<int>();
             JArray itemBlackList = JArray.Parse(LoadConfig.Config["ItemsBlacklist"].ToString());
             foreach (var ibl in itemBlackList)
             {
@@ -421,7 +451,7 @@ namespace vorpstables_sv
             }
 
             TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<int>((invcount) => {
-                if (invcount == count)
+                if (invcount == count || type.Contains("item_weapon"))
                 {
                     Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "horse", charIdentifier }, new Action<dynamic>((result) =>
                     {
@@ -463,8 +493,7 @@ namespace vorpstables_sv
                                     return;
                                 }
 
-                                JToken itemFound = horseData.FirstOrDefault(x=>x["name"].ToString().Equals(name));
-
+                                JToken itemFound = horseData.FirstOrDefault(x => x["name"].ToString().Equals(name));
 
                                 if (itemFound != null)
                                 {
@@ -472,7 +501,14 @@ namespace vorpstables_sv
 
                                     horseData[indexItem]["count"] = horseData[indexItem]["count"].ToObject<int>() + number;
 
-                                    TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                    if (!type.Contains("item_weapon"))
+                                    {
+                                        TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                    }
+                                    else
+                                    {
+                                        TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                    }
                                     Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
                                     Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
                                     JObject items = new JObject();
@@ -488,7 +524,14 @@ namespace vorpstables_sv
                                     data["item"]["count"] = number;
                                     horseData.Add(data["item"]);
 
-                                    TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                    if (!type.Contains("item_weapon"))
+                                    {
+                                        TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                    }
+                                    else
+                                    {
+                                        TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                    }
                                     Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
                                     JObject items = new JObject();
@@ -506,7 +549,14 @@ namespace vorpstables_sv
                                 horseData.Add(data["item"]);
 
 
-                                TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                if (!type.Contains("item_weapon"))
+                                {
+                                    TriggerEvent("vorpCore:subItem", int.Parse(player.Handle), name, number);
+                                }
+                                else
+                                {
+                                    TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                }
                                 Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
                                 JObject items = new JObject();
@@ -529,7 +579,7 @@ namespace vorpstables_sv
 
         }
 
-        private async void TakeFromHorse([FromSource]Player player, string jsondata)
+        private async void TakeFromHorse([FromSource] Player player, string jsondata)
         {
             string sid = "steam:" + player.Identifiers["steam"];
 
@@ -545,6 +595,8 @@ namespace vorpstables_sv
 
             string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
+            int itemid = data["item"]["id"].ToObject<int>();
+            string type = data["item"]["type"].ToString();
             int count = data["item"]["count"].ToObject<int>();
             int limit = data["item"]["limit"].ToObject<int>();
             int number = data["number"].ToObject<int>();
@@ -611,7 +663,15 @@ namespace vorpstables_sv
                                         horseData[indexItem]["count"] = horseData[indexItem]["count"].ToObject<int>() - number;
                                     }
 
-                                    TriggerEvent("vorpCore:addItem", int.Parse(player.Handle), name, number);
+                                    if (!type.Contains("item_weapon"))
+                                    {
+                                        TriggerEvent("vorpCore:addItem", int.Parse(player.Handle), name, number);
+                                    }
+                                    else
+                                    {
+                                        TriggerEvent("vorpCore:giveWeapon", int.Parse(player.Handle), itemid, 0);
+                                    }
+
                                     Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
                                     Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
                                     JObject items = new JObject();
@@ -642,7 +702,7 @@ namespace vorpstables_sv
             //Debug.WriteLine(data["number"].ToString());
         }
 
-        private void UpdateComp([FromSource]Player source, string jgear, int horseId)
+        private void UpdateComp([FromSource] Player source, string jgear, int horseId)
         {
             string sid = "steam:" + source.Identifiers["steam"];
             Exports["ghmattimysql"].execute("UPDATE stables SET gear=? WHERE identifier=? AND id=?", new object[] { jgear, sid, horseId });
@@ -652,7 +712,7 @@ namespace vorpstables_sv
 
         }
 
-        private void BuyNewComp([FromSource]Player source, string jcomps, double cost, string jgear, int horseId)
+        private void BuyNewComp([FromSource] Player source, string jcomps, double cost, string jgear, int horseId)
         {
             string sid = "steam:" + source.Identifiers["steam"];
             int _source = int.Parse(source.Handle);
@@ -737,7 +797,7 @@ namespace vorpstables_sv
             }));
         }
 
-        private void SetDefaultHorse([FromSource]Player source, int horseId)
+        private void SetDefaultHorse([FromSource] Player source, int horseId)
         {
             string sid = "steam:" + source.Identifiers["steam"];
 
@@ -748,14 +808,14 @@ namespace vorpstables_sv
             Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=1 WHERE identifier=? AND id=?", new object[] { sid, horseId });
         }
 
-        private void RemoveHorse([FromSource]Player source, int horseId)
+        private void RemoveHorse([FromSource] Player source, int horseId)
         {
             string sid = "steam:" + source.Identifiers["steam"];
 
             Exports["ghmattimysql"].execute("DELETE FROM stables WHERE identifier=? AND id=?", new object[] { sid, horseId });
         }
 
-        private void SetDefaultCart([FromSource]Player source, int horseId)
+        private void SetDefaultCart([FromSource] Player source, int horseId)
         {
             string sid = "steam:" + source.Identifiers["steam"];
 
@@ -766,7 +826,7 @@ namespace vorpstables_sv
             Exports["ghmattimysql"].execute("UPDATE stables SET isDefault=1 WHERE identifier=? AND id=?", new object[] { sid, horseId });
         }
 
-        private void BuyNewHorse([FromSource]Player source, string name, string race, string model, double cost)
+        private void BuyNewHorse([FromSource] Player source, string name, string race, string model, double cost)
         {
             int _source = int.Parse(source.Handle);
 
@@ -774,7 +834,7 @@ namespace vorpstables_sv
 
             dynamic UserCharacter = VORPCORE.getUser(_source).getUsedCharacter;
             int charIdentifier = UserCharacter.charIdentifier;
-          
+
             double money = UserCharacter.money;
 
             if (cost <= money)
@@ -792,7 +852,7 @@ namespace vorpstables_sv
 
         }
 
-        private void BuyNewCart([FromSource]Player source, string name, string model, double cost)
+        private void BuyNewCart([FromSource] Player source, string name, string model, double cost)
         {
             int _source = int.Parse(source.Handle);
 
@@ -802,13 +862,13 @@ namespace vorpstables_sv
             int charIdentifier = UserCharacter.charIdentifier;
 
             double money = UserCharacter.money;
-             
+
             if (cost <= money)
             {
                 UserCharacter.removeCurrency(0, cost);
                 Exports["ghmattimysql"].execute("INSERT INTO stables (`identifier`, `charidentifier`, `name`, `type`, `modelname`) VALUES (?, ?, ?, ?, ?)", new object[] { sid, charIdentifier, name, "cart", model });
                 source.TriggerEvent("vorp:TipRight", string.Format(LoadConfig.Langs["SuccessfulBuyHorse"], name, cost.ToString()), 4000);
-                Delay(2200); 
+                Delay(2200);
                 ReLoadStables(source);
             }
             else
