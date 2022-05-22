@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="CitizenFX.Core">
       <HintPath>..\dependancies\RedM\CitizenFX.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="MenuAPI">
       <HintPath>..\..\..\VORP-Character\VORP-Character[Client-Server]\build\vorp_character\MenuAPI.dll</HintPath>
