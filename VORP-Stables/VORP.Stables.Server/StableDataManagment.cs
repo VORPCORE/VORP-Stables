@@ -1,4 +1,4 @@
-﻿using CitizenFX.Core;
+using CitizenFX.Core;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -137,16 +137,17 @@ namespace VORP.Stables.Server
                 return;
             }
 
-            string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
-            int itemid = data["item"]["id"].ToObject<int>();
+            
 
             int count = data["item"]["count"].ToObject<int>();
             int number = data["number"].ToObject<int>();
 
+            int itemid = 0;
             string type = data["item"]["type"].ToString();
             if (type.Contains("item_weapon"))
             {
+                itemid = data["item"]["id"].ToObject<int>();
                 count = 1;
             }
 
@@ -222,6 +223,7 @@ namespace VORP.Stables.Server
                             else
                             {
                                 TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                TriggerClientEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
                             }
                             Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
                             Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
@@ -245,6 +247,7 @@ namespace VORP.Stables.Server
                             else
                             {
                                 TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                TriggerClientEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
                             }
                             Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
@@ -269,6 +272,7 @@ namespace VORP.Stables.Server
                         else
                         {
                             TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                            TriggerClientEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
                         }
                         Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
@@ -299,9 +303,7 @@ namespace VORP.Stables.Server
                 return;
             }
 
-            string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
-            int itemid = data["item"]["id"].ToObject<int>();
             string type = data["item"]["type"].ToString();
             int count = data["item"]["count"].ToObject<int>();
             int limit = data["item"]["limit"].ToObject<int>();
@@ -374,6 +376,7 @@ namespace VORP.Stables.Server
                                     }
                                     else
                                     {
+                                        int itemid = data["item"]["id"].ToObject<int>();
                                         TriggerEvent("vorpCore:giveWeapon", int.Parse(player.Handle), itemid, 0);
                                     }
 
@@ -401,8 +404,6 @@ namespace VORP.Stables.Server
 
             }), name.Trim());
 
-            //Debug.WriteLine(data["item"]["label"].ToString());
-            //Debug.WriteLine(data["number"].ToString());
         }
 
         private async void MoveToHorse([FromSource] Player player, string jsondata)
@@ -419,17 +420,15 @@ namespace VORP.Stables.Server
                 return;
             }
 
-            string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
-            string itemid = data["item"]["id"].ToString();
-
             int count = data["item"]["count"].ToObject<int>();
             int number = data["number"].ToObject<int>();
-
             string type = data["item"]["type"].ToString();
+            int itemid = 0;
             if (type.Contains("item_weapon"))
             {
                 count = 1;
+                itemid = data["item"]["id"].ToObject<int>();
             }
 
             JArray itemBlackList = JArray.Parse(LoadConfig.Config["ItemsBlacklist"].ToString());
@@ -507,6 +506,7 @@ namespace VORP.Stables.Server
                               else
                               {
                                   TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                  TriggerClientEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
                               }
                               Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
                               Debug.WriteLine(horseData.ToString().Replace(Environment.NewLine, " "));
@@ -516,7 +516,6 @@ namespace VORP.Stables.Server
                               items.Add("action", "setSecondInventoryItems");
 
                               player.TriggerEvent("vorp_inventory:ReloadHorseInventory", items.ToString());
-
                           }
                           else
                           {
@@ -530,6 +529,7 @@ namespace VORP.Stables.Server
                               else
                               {
                                   TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                                  TriggerClientEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
                               }
                               Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
@@ -555,6 +555,7 @@ namespace VORP.Stables.Server
                           else
                           {
                               TriggerEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
+                              TriggerClientEvent("vorpCore:subWeapon", int.Parse(player.Handle), itemid);
                           }
                           Exports["ghmattimysql"].execute("UPDATE stables SET inventory=? WHERE identifier=? AND id=?", new object[] { horseData.ToString().Replace(Environment.NewLine, " "), sid, horseId });
 
@@ -592,9 +593,7 @@ namespace VORP.Stables.Server
                 return;
             }
 
-            string label = data["item"]["label"].ToString();
             string name = data["item"]["name"].ToString();
-            int itemid = data["item"]["id"].ToObject<int>();
             string type = data["item"]["type"].ToString();
             int count = data["item"]["count"].ToObject<int>();
             int limit = data["item"]["limit"].ToObject<int>();
@@ -668,6 +667,7 @@ namespace VORP.Stables.Server
                                     }
                                     else
                                     {
+                                        int itemid = data["item"]["id"].ToObject<int>();
                                         TriggerEvent("vorpCore:giveWeapon", int.Parse(player.Handle), itemid, 0);
                                     }
 
@@ -697,8 +697,6 @@ namespace VORP.Stables.Server
 
             }), name.Trim());
 
-            //Debug.WriteLine(data["item"]["label"].ToString());
-            //Debug.WriteLine(data["number"].ToString());
         }
 
         private void UpdateComp([FromSource] Player source, string jgear, int horseId)
