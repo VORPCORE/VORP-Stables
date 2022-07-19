@@ -402,3 +402,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+VORP-Stables/build/vorp_stables/CitizenFX.Core.dll
