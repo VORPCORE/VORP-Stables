@@ -1,0 +1,254 @@
+{
+    "ButtonTransferHorse": "Übertrage dein Pferd",
+    "InputServerId": "Reisepass ID der Person eintragen",
+
+    "PressToOpen": "Drücke [~e~Leertaste~q~] um den Pferdehändler anzusprechen",
+
+    "PlaceHolderInputName": "Der Name muss mindestens aus 3 Buchstaben bestehen",
+
+    "TitleMenuStables": "Pferdehändler",
+    "SubTitleMenuStables": "Wähle eine Option",
+
+    "TitleMenuBuyHorses": "Pferd kaufen",
+    "SubTitleMenuBuyHorses": "Kaufe ein Pferd!",
+
+    "TitleMenuHorses": "Pferdeausstatter",
+    "SubTitleMenuHorses": "Passe dein Pferd an!",
+
+    "TitleMenuBuyCarts": "Kutsche kaufen",
+    "SubTitleMenuBuyCarts": "Kaufe eine Kutsche!",
+
+    "TitleMenuCarts": "Kutschenausstatter",
+    "SubTitleMenuCarts": "Passe deine Kutsche an!",
+
+    "subTitleConfirmBuy": "Der Preis für {0} beträgt {1}$",
+    "ConfirmBuyButton": "Kaufe ein für {0}$",
+    "ConfirmBuyButtonDesc": "Kaufe bestätigen",
+    "CancelBuyButton": "Kauf abbrechen",
+    "CancelBuyButtonDesc": "zurück",
+
+    "ButtonCart": "{0} für {1}$",
+    "ConfirmBuyComplements": "Kaufe ein für {0}$",
+
+    "StableIsFull": "Dein Stall ist voll, du besitzt zu viele Pferde.",
+
+    "InputNameButton": "Kaufe Pferd!",
+    "InputNamePlaceholder": "Wähle einen Namen für dein Pferd!",
+    "InputCartNameButton": "Kaufe Kutsche!",
+    "InputCartNamePlaceholder": "Wähle einen Namen für deine Kutsche!",
+
+    "SuccessfulBuyComp": "Du hast den Gegenstand für {0}$ gekauft",
+    "SuccessfulBuyHorse": "Du hast den Gegenstand {0} für {1}$ gekauft",
+    "NoMoney": "Du hast nicht genug Geld!",
+    "NoDefaultHorses": "Du hast kein Pferd ausgewählt",
+    "NoDefaultCarts": "Du hast keine Kutsche ausgewählt",
+    "HorseIsOcuppied": "Dein Pferd wird von einer fremden Person geritten",
+    "CartIsOcuppied": "Deine Kutsche wird von einer fremden Person genutzt",
+
+    "ButtonDeleteHorse": "Lasse dein Pferd frei!",
+    "DeleteConfirmation": "Schreibe den Namen von deinem Pferd!",
+    "HorseDeleted": "Du hast dein Pferd in die Freiheit entlassen!",
+
+    "ButtonDeleteCart": "Verschrotte deine Kutsche!",
+    "CartDeleted": "Deine Kutsche wurde zum Schrotthändler gebracht!",
+    "ItemInBlacklist": "Dieser Gegenstand kann nicht in einem Pferd oder einer Kutsche untergebracht werden!",
+
+    "NoComplement": "Keine Ausstattung",
+    "SubMenuBuyComplements": "Ausstattungsverkäufer",
+    "ButtonSetDefaultHorse": "Standart gesetzt",
+    "PriceComplements": "Preis: ",
+    "BuyButtonComplements": "Ja, kaufen - {0} für {1}$",
+    "YouBuyedThisComp": "Du hast es bereits gekauft",
+    "SetThisComp": "Rüste {0} auf diesem Pferd aus",
+
+    "HorseIsDead": "{0} ist küzlich gestorben, du musst {1} Sekunden warten",
+    "HorseDead": "{0} ist gestorben, du musst {1} Sekunden warten um dein Pferd zu rufen",
+    "CartIsDead": "{0} ist küzlich kaputt gegangen und muss {1} Sekunden auf die Reperatur warten",
+    "CartDead": "{0} wurde zerstört, du musst {1} Sekunden warten auf die Reperatur",
+
+    "ErrorQuantity": "Falsche Anzahl",
+    "WeaponsNotAllowed": "Waffen können nicht im Pferd oder der Kutsche gelagert werden",
+
+    "MaxWeightQuantity": "Du hast das Maximalgewicht überschritten {0}/{1}",
+
+    //Horses
+    "A_C_Horse_AmericanPaint_Greyovero": "Greyovero",
+    "A_C_Horse_AmericanPaint_Overo": "Overo",
+    "A_C_Horse_AmericanPaint_SplashedWhite": "gespränkelt Weiß",
+    "A_C_Horse_AmericanPaint_Tobiano": "Tobiano",
+
+    "A_C_Horse_AmericanStandardbred_Black": "Dunkel",
+    "A_C_Horse_AmericanStandardbred_Buckskin": "Aufgehellt",
+    "A_C_Horse_AmericanStandardbred_PalominoDapple": "Palomino Dapple",
+    "A_C_Horse_AmericanStandardbred_SilverTailBuckskin": "Silberrücken aufgehellt",
+
+    "A_C_Horse_Andalusian_DarkBay": "Dunkler Bay",
+    "A_C_Horse_Andalusian_Perlino": "Perlino",
+    "A_C_Horse_Andalusian_RoseGray": "Rose Gray",
+
+    "A_C_Horse_Appaloosa_BlackSnowflake": "Schwarze Schneeflocke",
+    "A_C_Horse_Appaloosa_Blanket": "Blanket",
+    "A_C_Horse_Appaloosa_BrownLeopard": "Brauner Leopard",
+    "A_C_Horse_Appaloosa_FewSpotted_PC": "Leicht gespränkelt",
+    "A_C_Horse_Appaloosa_Leopard": "Leopardo",
+    "A_C_Horse_Appaloosa_LeopardBlanket": "Leopard Blanket",
+
+    "A_C_Horse_Arabian_Black": "Dunkler Araber",
+    "A_C_Horse_Arabian_Grey": "Grauer Araber",
+    "A_C_Horse_Arabian_RedChestnut": "Roter Araber",
+    "A_C_Horse_Arabian_RoseGreyBay": "Grauer Araber",
+    "A_C_Horse_Arabian_WarpedBrindle_PC": "Warped Brindle",
+    "A_C_Horse_Arabian_White": "Weißer Araber",
+
+    "A_C_Horse_Ardennes_BayRoan": "Bay Roan",
+    "A_C_Horse_Ardennes_IronGreyRoan": "Eisengrauer Roan",
+    "A_C_Horse_Ardennes_StrawberryRoan": "Erdbeer Roan",
+
+    "A_C_Horse_Belgian_BlondChestnut": "Blonder Chestnut",
+    "A_C_Horse_Belgian_MealyChestnut": "Mealy Chestnut",
+
+    "A_C_Horse_DutchWarmblood_ChocolateRoan": "Schoko Roan",
+    "A_C_Horse_DutchWarmblood_SealBrown": "Seal Brown",
+    "A_C_Horse_DutchWarmblood_SootyBuckskin": "Sooty Buckskin",
+
+    "A_C_Horse_HungarianHalfbred_DarkDappleGrey": "Dunkler Dapple Grey",
+    "A_C_Horse_HungarianHalfbred_FlaxenChestnut": "Flaxen Chestnut",
+    "A_C_Horse_HungarianHalfbred_LiverChestnut": "Liver Chestnut",
+    "A_C_Horse_HungarianHalfbred_PiebaldTobiano": "Piebald Tobiano",
+
+    "A_C_Horse_KentuckySaddle_Black": "Dunkler Saddler",
+    "A_C_Horse_KentuckySaddle_ButterMilkBuckskin_PC": "Buttermilch Saddler",
+    "A_C_Horse_KentuckySaddle_ChestnutPinto": "Chestnut Saddler",
+    "A_C_Horse_KentuckySaddle_Grey": "Grauer Saddler",
+    "A_C_Horse_KentuckySaddle_SilverBay": "Silber Bay Saddler",
+
+    "A_C_Horse_Kladruber_Black": "Dunkler Kladruber",
+    "A_C_Horse_Kladruber_Silver": "Silber Kladruber",
+    "A_C_Horse_Kladruber_Cremello": "Kremfarbender Kladruber",
+    "A_C_Horse_Kladruber_Grey": "Grauer Kladruber",
+    "A_C_Horse_Kladruber_DappleRoseGrey": "Dapple Rose grauer Kladruber",
+    "A_C_Horse_Kladruber_White": "Weißer Kladruber",
+
+    "A_C_Horse_MissouriFoxTrotter_AmberChampagne": "Amber Champagne",
+    "A_C_Horse_MissouriFoxTrotter_SableChampagne": "Sable Champagne",
+    "A_C_Horse_MissouriFoxTrotter_SilverDapplePinto": "Silber Dapple Pinto",
+
+    "A_C_Horse_Morgan_Bay": "Bay Morgan",
+    "A_C_Horse_Morgan_BayRoan": "Bay Roan Morgan",
+    "A_C_Horse_Morgan_FlaxenChestnut": "Flaxen Chestnut Morgan",
+    "A_C_Horse_Morgan_LiverChestnut_PC": "Liver Chestnut Morgan",
+    "A_C_Horse_Morgan_Palomino": "Palomino Morgan",
+
+    "A_C_Horse_MP_Mangy_Backup": "Alter Penco",
+
+    "A_C_Horse_Mustang_GoldenDun": "Goldener Dun",
+    "A_C_Horse_Mustang_GrulloDun": "Grullo Dun",
+    "A_C_Horse_Mustang_TigerStripedBay": "Tigerstreifen Bay",
+    "A_C_Horse_Mustang_WildBay": "Wilder Bay",
+
+    "A_C_Horse_Nokota_BlueRoan": "Blauer Roan",
+    "A_C_Horse_Nokota_ReverseDappleRoan": "Reverse Dapple Roan",
+    "A_C_Horse_Nokota_WhiteRoan": "Weißer Roan",
+
+    "A_C_Horse_Shire_DarkBay": "Dunkler Bay",
+    "A_C_Horse_Shire_LightGrey": "Helles Grau",
+    "A_C_Horse_Shire_RavenBlack": "Raben Schwarz",
+
+    "A_C_Horse_SuffolkPunch_RedChestnut": "Red Chestnut",
+    "A_C_Horse_SuffolkPunch_Sorrel": "Sorrel",
+
+    "A_C_Horse_TennesseeWalker_BlackRabicano": "Schwarzer Rabicano",
+    "A_C_Horse_TennesseeWalker_Chestnut": "Chestnut",
+    "A_C_Horse_TennesseeWalker_DappleBay": "Dapple Bay",
+    "A_C_Horse_TennesseeWalker_FlaxenRoan": "Flaxen Roan",
+    "A_C_Horse_TennesseeWalker_MahoganyBay": "Mahogany Bay",
+    "A_C_Horse_TennesseeWalker_RedRoan": "Red Roan",
+    "A_C_Horse_TennesseeWalker_GoldPalomino_PC": "Gold Palomino",
+
+    "A_C_Horse_Thoroughbred_BlackChestnut": "Black Chestnut",
+    "A_C_Horse_Thoroughbred_BloodBay": "Blood Bay",
+    "A_C_Horse_Thoroughbred_Brindle": "Brindle",
+    "A_C_Horse_Thoroughbred_DappleGrey": "Dapple Grey",
+    "A_C_Horse_Thoroughbred_ReverseDappleBlack": "Reverse Dapple Black",
+
+    "A_C_Horse_Turkoman_DarkBay": "Dunkler Bay Turkomane",
+    "A_C_Horse_Turkoman_Gold": "Goldener Turkomane",
+    "A_C_Horse_Turkoman_Silver": "Silberner Turkomane",
+
+    "A_C_Horse_Criollo_Dun": "Dun",
+    "A_C_Horse_Criollo_MarbleSabino": "Marble Sabino",
+    "A_C_Horse_Criollo_BayFrameOvero": "Bay Frame Overo",
+    "A_C_Horse_Criollo_BayBrindle": "Bay Brindle",
+    "A_C_Horse_Criollo_SorrelOvero": "Sorrel Overo",
+    "A_C_Horse_Criollo_BlueRoanOvero": "Blauer Roan Overo",
+
+    "A_C_Horse_Breton_SteelGrey": "Stahlgrauer Breton",
+    "A_C_Horse_Breton_MealyDapple": "Mealy Dapple",
+    "A_C_Horse_Breton_SealBrown": "Seal Brown",
+    "A_C_Horse_Breton_GrulloDun": "Grullo Dun",
+    "A_C_Horse_Breton_Sorrel": "Sorrel",
+    "A_C_Horse_Breton_RedRoan": "Roter Roan",
+
+    "A_C_HORSE_NORFOLKROADSTER_BLACK": "Schwarzer",
+    "A_C_HORSE_NORFOLKROADSTER_SPECKLEDGREY": "Grau gesprenkelt",
+    "A_C_HORSE_NORFOLKROADSTER_PIEBALDROAN": "Pieblad Roan",
+    "A_C_HORSE_NORFOLKROADSTER_ROSEGREY": "Rose Grey",
+    "A_C_HORSE_NORFOLKROADSTER_DAPPLEDBUCKSKIN": "Dapple Buckskin",
+    "A_C_HORSE_NORFOLKROADSTER_SPOTTEDTRICOLOR": "Spotted Tricolor",
+
+    "A_C_HorseMulePainted_01": "Zebra",
+
+    "A_C_HorseMule_01": "Maultier",
+
+    "A_C_Donkey_01": "Packesel",
+
+    // Carts
+    "huntercart01": "Jägerkarren",
+    "ArmySupplyWagon": "Armeewagen",
+    "buggy01": "offene Kutsche",
+    "buggy02": "offene Kutsche mit Dach",
+    "buggy03": "edlere Kutsche mit Dach",
+    "cart01": "Bretter Karren",
+    "cart02": "Karren vom Schreiner",
+    "cart03": "Rollende Kiste",
+    "cart04": "schicke Karre",
+    "cart05": "Bierkarre",
+    "cart06": "großer Pferdekarren",
+    "cart07": "kleiner Pferdekarren",
+    "cart08": "Luxusschlitten",
+    "chuckwagon000x": "überdachter geschlossener Wagen",
+    "chuckwagon002x": "schicker überdachter geschlossener Wagen",
+    "gatchuck": "sehr guter überdachter geschlossener Wagen",
+    "utilliwag": "Werkzeugwagen",
+    "wagon02x": "großer Wagen",
+    "wagon03x": "lager Kutsche",
+    "wagon04x": "Bretter Kutsche",
+    "wagon05x": "offene Kutsche ohne Dach",
+    "wagon06x": "Kutsche des Händlers",
+    "coach2": "Kutsche des Herren",
+    "coach3": "Kutsche des Totengräbers",
+    "coach4": "Kutsche des Fährmannes",
+    "coach5": "Kutsche des Boten",
+    "coach6": "Kutsche des Hasenjägers",
+    "coal_wagon": "Kohlenwagen",
+    "logwagon": "entgleister Schlepper",
+    "logwagon2": "kleiner entgleister Schlepper",
+    "oilWagon01x": "Karren des Öllieferanten",
+    "oilWagon02x": "Kutsche des Öllieferanten",
+    "stagecoach001x": "Kutsche des Lords",
+    "stagecoach002x": "Kutsche des Fürsten",
+    "stagecoach003x": "Kutsche des Arbeiters",
+    "stagecoach004x": "Kutsche des Fremden",
+    "stagecoach005x": "schwarze Kutsche",
+    "stagecoach006x": "große braune Kutsche",
+    "supplywagon": "Kutsche des Großhändlers",
+    "supplywagon2": "Kutsche für den Nachschub",
+    "wagonarmoured01x": "Gepanzerte Kutsche",
+    "wagonCircus01x": "Zirkus Wagen 1",
+    "wagonCircus02x": "Zirkus Wagen 2",
+    "wagondairy01x": "Milchwagen",
+    "wagondoc01x": "Kutsche des Mediziners",
+    "wagonPrison01x": "Kutsche mit Gittern",
+    "wagontraveller01x": "Wagen des Reisenden",
+    "wagonwork01x": "Bäckerei auf Rädern"
+}
