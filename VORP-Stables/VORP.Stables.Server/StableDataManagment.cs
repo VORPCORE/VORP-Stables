@@ -35,6 +35,9 @@ namespace VORP.Stables.Server
 
             EventHandlers["vorp_stables:UpdateInventoryCart"] += new Action<Player>(UpdateInventoryCart);
 
+            //MartensMalsero
+            EventHandlers["vorp_stables:GetCharJob"] += new Action<Player>(GetCharJob);
+
             TriggerEvent("getCore", new Action<dynamic>((dic) =>
             {
                 VORPCORE = dic;
@@ -875,6 +878,16 @@ namespace VORP.Stables.Server
                 source.TriggerEvent("vorp:TipRight", LoadConfig.Langs["NoMoney"], 4000);
             }
 
+        }
+
+        private void GetCharJob([FromSource] Player source)
+        {
+            int _source = int.Parse(source.Handle);
+
+            TriggerEvent("vorp:getCharacter", _source, new Action<dynamic>((user) =>
+            {
+                source.TriggerEvent("vorp_stables:OpenMenu", user.job);
+            }));
         }
     }
 }

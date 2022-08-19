@@ -1,86 +1,114 @@
 ﻿using CitizenFX.Core;
 using MenuAPI;
+using System;
 
 namespace VORP.Stables.Client.Menus
 {
     class MainMenu
     {
-        private static Menu mainMenu = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
-        private static bool setupDone = false;
-        private static void SetupMenu()
+        private static void SetupMenu(Menu mainMenu, string CharJob)
         {
-            if (setupDone) return;
-            setupDone = true;
             MenuController.AddMenu(mainMenu);
 
             MenuController.EnableMenuToggleKeyOnController = false;
             MenuController.MenuToggleKey = (Control)0;
 
-            // Buy Horses Menu
-            MenuController.AddSubmenu(mainMenu, BuyHorsesMenu.GetMenu());
+            #region Buy Horses Menu
+            if (CharJob != null)
+            {
+                if ((CharJob == Convert.ToString(GetConfig.Config["JobForHorseDealer"]) || CharJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"]))
+                    && !Convert.ToBoolean(GetConfig.Config["DisableBuyOptions"]))
+                {
+                    int MenuItemDesign = Convert.ToInt16(GetConfig.Config["MenuItemDesign"]);
+                    switch (MenuItemDesign)
+                    {
+                        case 0:
+                            AddSubMenu(mainMenu, BuyHorsesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
+                            break;
 
-            MenuItem subMenuBuyHorses = new MenuItem(GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"])
+                        case 1:
+                            AddSubMenu(mainMenu, BuyHorsesMenu_MenuItem.GetMenu(), GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
+                            break;
+                    }
+                }
+            }
+
+            else
+            {
+                int MenuItemDesign = Convert.ToInt16(GetConfig.Config["MenuItemDesign"]);
+                switch (MenuItemDesign)
+                {
+                    case 0:
+                        AddSubMenu(mainMenu, BuyHorsesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
+                        break;
+
+                    case 1:
+                        AddSubMenu(mainMenu, BuyHorsesMenu_MenuItem.GetMenu(), GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
+                        break;
+                }
+            }
+            #endregion
+
+            #region My Horses Menu
+            AddSubMenu(mainMenu, MyHorsesMenu.GetMenu(), GetConfig.Langs["TitleMenuHorses"], GetConfig.Langs["SubTitleMenuHorses"]);
+            #endregion
+
+            #region Buy Carriages Menu
+
+            if (CharJob != null)
+            {
+                if ((CharJob == Convert.ToString(GetConfig.Config["JobForCarriagesDealer"]) || CharJob == Convert.ToString(GetConfig.Config["JobForHorseAndCarriagesDealer"])) 
+                    && !Convert.ToBoolean(GetConfig.Config["DisableBuyOptions"]))
+                {
+                    AddSubMenu(mainMenu, BuyCarriagesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyCarts"], GetConfig.Langs["SubTitleMenuBuyCarts"]);
+                }
+            }
+
+            else
+            {
+                AddSubMenu(mainMenu, BuyCarriagesMenu.GetMenu(), GetConfig.Langs["TitleMenuBuyCarts"], GetConfig.Langs["SubTitleMenuBuyCarts"]);
+            }
+            #endregion
+
+            #region My Carriages Menu
+            AddSubMenu(mainMenu, MyCarriagesMenu.GetMenu(), GetConfig.Langs["TitleMenuCarts"], GetConfig.Langs["SubTitleMenuCarts"]);
+            #endregion
+
+            #region OnMenuOpen
+            mainMenu.OnMenuOpen += (_menu) =>
+            {
+
+            };
+            #endregion
+
+            #region OnMenuClose
+            mainMenu.OnMenuClose += (_menu) =>
+            {
+
+            };
+            #endregion
+
+        }
+
+        private static void AddSubMenu(Menu mainMenu, Menu GetMenu, string Title, string SubTitle)
+        {
+            MenuController.AddSubmenu(mainMenu, GetMenu);
+
+            MenuItem subMenuBuyHorses = new MenuItem(Title, SubTitle)
             {
                 RightIcon = MenuItem.Icon.ARROW_RIGHT
             };
 
             mainMenu.AddMenuItem(subMenuBuyHorses);
-            MenuController.BindMenuItem(mainMenu, BuyHorsesMenu.GetMenu(), subMenuBuyHorses);
-
-            // My Horses Menu
-            MenuController.AddSubmenu(mainMenu, MyHorsesMenu.GetMenu());
-
-            MenuItem subMenuMyHorses = new MenuItem(GetConfig.Langs["TitleMenuHorses"], GetConfig.Langs["SubTitleMenuHorses"])
-            {
-                RightIcon = MenuItem.Icon.ARROW_RIGHT
-            };
-
-            mainMenu.AddMenuItem(subMenuMyHorses);
-            MenuController.BindMenuItem(mainMenu, MyHorsesMenu.GetMenu(), subMenuMyHorses);
-
-            // Buy Carriages Menu
-            MenuController.AddSubmenu(mainMenu, BuyCarriagesMenu.GetMenu());
-
-            MenuItem subMenuBuyCarriages = new MenuItem(GetConfig.Langs["TitleMenuBuyCarts"], GetConfig.Langs["SubTitleMenuBuyCarts"])
-            {
-                RightIcon = MenuItem.Icon.ARROW_RIGHT
-            };
-
-            mainMenu.AddMenuItem(subMenuBuyCarriages);
-            MenuController.BindMenuItem(mainMenu, BuyCarriagesMenu.GetMenu(), subMenuBuyCarriages);
-
-            // My Carriages Menu
-            MenuController.AddSubmenu(mainMenu, MyCarriagesMenu.GetMenu());
-
-            MenuItem subMenuMyCarriages = new MenuItem(GetConfig.Langs["TitleMenuCarts"], GetConfig.Langs["SubTitleMenuCarts"])
-            {
-                RightIcon = MenuItem.Icon.ARROW_RIGHT
-            };
-
-            mainMenu.AddMenuItem(subMenuMyCarriages);
-            MenuController.BindMenuItem(mainMenu, MyCarriagesMenu.GetMenu(), subMenuMyCarriages);
-
-            //Nico Nico Ni nanananoe
-
-            mainMenu.OnMenuOpen += (_menu) =>
-            {
-
-            };
-
-            mainMenu.OnMenuClose += (_menu) =>
-            {
-
-            };
-
+            MenuController.BindMenuItem(mainMenu, GetMenu, subMenuBuyHorses);
         }
 
-
-
-        public static Menu GetMenu()
+        public static Menu GetMenu(string CharJob)
         {
-            SetupMenu();
+            Menu mainMenu = new Menu(GetConfig.Langs["TitleMenuStables"], GetConfig.Langs["SubTitleMenuStables"]);
+
+            SetupMenu(mainMenu, CharJob);
             return mainMenu;
         }
-
     }
 }

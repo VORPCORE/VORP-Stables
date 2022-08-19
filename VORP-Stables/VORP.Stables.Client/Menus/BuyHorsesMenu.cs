@@ -1,5 +1,6 @@
 ﻿using CitizenFX.Core;
 using MenuAPI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -8,12 +9,14 @@ namespace VORP.Stables.Client.Menus
     class BuyHorsesMenu
     {
         private static Menu buyHorsesMenu = new Menu(GetConfig.Langs["TitleMenuBuyHorses"], GetConfig.Langs["SubTitleMenuBuyHorses"]);
-        private static Menu subMenuConfirmBuy = new Menu("Confirm Purcharse", "");
+        private static Menu subMenuConfirmBuy = new Menu(GetConfig.Langs["SubMenuConfirmBuy"], "");
         private static bool setupDone = false;
         private static void SetupMenu()
         {
             if (setupDone) return;
             setupDone = true;
+
+            
             MenuController.AddMenu(buyHorsesMenu);
 
             MenuController.EnableMenuToggleKeyOnController = false;
@@ -37,13 +40,18 @@ namespace VORP.Stables.Client.Menus
             foreach (var cat in GetConfig.HorseLists)
             {
                 List<string> hlist = new List<string>();
+                List<string> pricing = new List<string>();
+                int pricing_counter = 0;
 
                 foreach (var h in cat.Value)
                 {
-                    hlist.Add(GetConfig.Langs[h.Key]);
+                    hlist.Add(GetConfig.Langs[h.Key] + " - $" + Convert.ToString(h.Value));
+                    pricing.Add(Convert.ToString(h.Value));
                 }
 
-                MenuListItem horseCategories = new MenuListItem(cat.Key, hlist, 0, "Horses");
+                //To display the price in the description for this function, a major change in the MenuAPI is required.
+                MenuListItem horseCategories = new MenuListItem(cat.Key, hlist, 0, "");
+
                 buyHorsesMenu.AddMenuItem(horseCategories);
                 MenuController.BindMenuItem(buyHorsesMenu, subMenuConfirmBuy, horseCategories);
             }
@@ -107,9 +115,7 @@ namespace VORP.Stables.Client.Menus
                     await StablesShop.LoadHorsePreview(_itemIndex, _newIndex, StablesShop.HorsePed);
                 }
             };
-
         }
-
 
 
         public static Menu GetMenu()

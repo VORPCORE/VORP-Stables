@@ -1,8 +1,19 @@
 ﻿{
 
-  "defaultlang": "Es", // set your language
+  "defaultlang": "En", // set your language
 
   "StableSlots": 5, // set max horses for each user
+
+  "JobRequired": true, //set to false, if no job should be necessary
+
+  "DisableBuyOptions": false, //set this to true, if you want to disable the buy options.
+  //Just do this if your using a carriages build script and a wild horse stable script
+
+  "JobForHorseDealer": "Horsedealer", //Job name for the horse dealer if DisabledBuyOptions is set to false
+  "JobForCarriagesDealer": "Carriagesdealer", //Job name for the carriages dealer if DisabledBuyOptions is set to false
+  "JobForHorseAndCarriagesDealer": "HorseAndCarriagesdealer", //Job name for the carriages dealer if DisabledBuyOptions is set to false
+
+  "MenuItemDesign": 1, //set this to 1 if you want to use MenuItems instead of MenuListItems
 
   "SecondsToRespawn": 120, // set max horses for each user
 
