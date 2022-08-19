@@ -24,6 +24,9 @@ namespace VORP.Stables.Client
             EventHandlers["vorpstables:GetMyStables"] += new Action<List<dynamic>>(GetMyStables);
             EventHandlers["vorpstables:GetMyComplements"] += new Action<string>(GetMyComplements);
 
+            //MartensMalsero
+            EventHandlers["vorp_stables:OpenMenu"] += new Action<string>(OpenMenu);
+
             EventHandlers["vorp:SelectedCharacter"] += new Action<int>((charId) => { TriggerServerEvent("vorpstables:LoadMyStables"); });
 
             Tick += onCallHorse;
@@ -658,6 +661,17 @@ namespace VORP.Stables.Client
             }
 
             isLoading = false;
+        }
+
+        private void OpenMenu(string CharJob)
+        {
+            if (CharJob != null || CharJob != "") {
+                Menus.MainMenu.GetMenu(CharJob).OpenMenu();
+            }
+
+            else {
+                Menus.MainMenu.GetMenu(null).OpenMenu();
+            }
         }
     }
 }

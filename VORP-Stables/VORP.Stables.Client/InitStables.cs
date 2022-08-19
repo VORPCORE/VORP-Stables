@@ -1,5 +1,6 @@
 ﻿using CitizenFX.Core;
 using CitizenFX.Core.Native;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -98,7 +99,18 @@ namespace VORP.Stables.Client
                     {
                         StablesShop.stableId = i;
                         HorseManagment.DeleteDefaultHorse();
-                        Menus.MainMenu.GetMenu().OpenMenu();
+
+                        //Request CharJob
+                        if (Convert.ToBoolean(GetConfig.Config["JobRequired"]))
+                        {
+                            TriggerServerEvent("vorp_stables:GetCharJob");
+                        }
+                        
+                        else
+                        {
+                            Menus.MainMenu.GetMenu(null).OpenMenu();
+                        }
+
                         await Delay(1000);
                     }
                 }
