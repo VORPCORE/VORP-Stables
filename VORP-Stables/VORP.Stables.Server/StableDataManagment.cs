@@ -425,6 +425,11 @@ namespace VORP.Stables.Server
 
             JObject data = JObject.Parse(jsondata);
 
+            Debug.WriteLine("----------------------------------");
+            Debug.WriteLine("Method: MoveToHorse");
+            Debug.WriteLine(jsondata);
+            Debug.WriteLine("----------------------------------");
+
             if (String.IsNullOrEmpty(data["number"].ToString()))
             {
                 return;
@@ -478,6 +483,11 @@ namespace VORP.Stables.Server
                             if (!String.IsNullOrEmpty(inv))
                             {
                                 JArray horseData = JArray.Parse(inv);
+
+                                Debug.WriteLine("----------------------------------");
+                                Debug.WriteLine("Method: MoveToHorse (horseData)");
+                                Debug.WriteLine(inv);
+                                Debug.WriteLine("----------------------------------");
 
                                 int totalWeight = 0;
                                 foreach (var hd in horseData)
