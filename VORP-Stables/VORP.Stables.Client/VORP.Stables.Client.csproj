@@ -36,9 +36,9 @@
       <HintPath>..\dependancies\RedM\CitizenFX.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="MenuAPI">
-      <HintPath>..\..\..\VORP-Character\VORP-Character[Client-Server]\build\vorp_character\MenuAPI.dll</HintPath>
-      <Private>False</Private>
+    <Reference Include="MenuAPI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\dependancies\MenuAPI.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
