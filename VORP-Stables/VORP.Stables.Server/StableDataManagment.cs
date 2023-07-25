@@ -150,10 +150,12 @@ namespace VORP.Stables.Server
 
             int itemid = 0;
             string type = data["item"]["type"].ToString();
-            if (type.Contains("item_weapon"))
+            bool isWeapon = type.Contains("item_weapon");
+            string metadata = data["item"]["metadata"].ToString();
+            if (isWeapon)
             {
                 itemid = data["item"]["id"].ToObject<int>();
-                // count = 1;
+                count = data["number"].ToObject<int>();
             }
 
             JArray itemBlackList = JArray.Parse(LoadConfig.Config["ItemsBlacklist"].ToString());
@@ -213,7 +215,10 @@ namespace VORP.Stables.Server
                             return;
                         }
 
-                        JToken itemFound = horseData.FirstOrDefault(x => x["name"].ToString().Equals(name));
+                        JToken itemFound = horseData.FirstOrDefault(x => x["id"].ToString().Equals(itemid) && x["metadata"].ToString().Equals(metadata));
+
+                        if (!isWeapon)
+                            itemFound = horseData.FirstOrDefault(x => x["name"].ToString().Equals(name) && x["metadata"].ToString().Equals(metadata));
 
                         if (itemFound != null)
                         {
@@ -420,6 +425,11 @@ namespace VORP.Stables.Server
 
             JObject data = JObject.Parse(jsondata);
 
+            Debug.WriteLine("----------------------------------");
+            Debug.WriteLine("Method: MoveToHorse");
+            Debug.WriteLine(jsondata);
+            Debug.WriteLine("----------------------------------");
+
             if (String.IsNullOrEmpty(data["number"].ToString()))
             {
                 return;
@@ -429,10 +439,13 @@ namespace VORP.Stables.Server
             int count = data["item"]["count"].ToObject<int>();
             int number = data["number"].ToObject<int>();
             string type = data["item"]["type"].ToString();
+            bool isWeapon = type.Contains("item_weapon");
+            string metadata = data["item"]["metadata"].ToString();
             int itemid = 0;
-            if (type.Contains("item_weapon"))
+
+            if (isWeapon)
             {
-                // count = 1;
+                count = data["number"].ToObject<int>();
                 itemid = data["item"]["id"].ToObject<int>();
             }
 
@@ -454,7 +467,7 @@ namespace VORP.Stables.Server
 
             TriggerEvent("vorpCore:getItemCount", int.Parse(player.Handle), new Action<int>((invcount) =>
             {
-                if (invcount == count || type.Contains("item_weapon"))
+                if (invcount == count || isWeapon)
                 {
                     Exports["ghmattimysql"].execute("SELECT * FROM stables WHERE identifier=? AND isDefault=1 AND type=? AND charidentifier=?", new object[] { sid, "horse", charIdentifier }, new Action<dynamic>((result) =>
                     {
@@ -470,6 +483,11 @@ namespace VORP.Stables.Server
                             if (!String.IsNullOrEmpty(inv))
                             {
                                 JArray horseData = JArray.Parse(inv);
+
+                                Debug.WriteLine("----------------------------------");
+                                Debug.WriteLine("Method: MoveToHorse (horseData)");
+                                Debug.WriteLine(inv);
+                                Debug.WriteLine("----------------------------------");
 
                                 int totalWeight = 0;
                                 foreach (var hd in horseData)
@@ -496,7 +514,10 @@ namespace VORP.Stables.Server
                                     return;
                                 }
 
-                                JToken itemFound = horseData.FirstOrDefault(x => x["name"].ToString().Equals(name));
+                                JToken itemFound = horseData.FirstOrDefault(x => x["id"].ToString().Equals(itemid) && x["metadata"].ToString().Equals(metadata));
+
+                                if (!isWeapon)
+                                    itemFound = horseData.FirstOrDefault(x => x["name"].ToString().Equals(name) && x["metadata"].ToString().Equals(metadata));
 
                                 if (itemFound != null)
                                 {
