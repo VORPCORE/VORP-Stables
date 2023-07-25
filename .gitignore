@@ -3,9 +3,6 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/main/VisualStudio.gitignore
 
-# Ignore build output folder, we do not want these in the commit history
-[Bb]uild/*
-
 # User-specific files
 *.rsuser
 *.suo
