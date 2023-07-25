@@ -77,9 +77,9 @@ namespace VORP.Stables.Server
                     {
                         items.Add("itemList", new JArray());
                         items.Add("action", "setSecondInventoryItems");
-                        
+
                         source.TriggerEvent("vorp_inventory:ReloadHorseInventory", JsonConvert.SerializeObject(items));
-                       
+
                     }
                     else
                     {
@@ -153,7 +153,7 @@ namespace VORP.Stables.Server
             if (type.Contains("item_weapon"))
             {
                 itemid = data["item"]["id"].ToObject<int>();
-                count = 1;
+                // count = 1;
             }
 
             JArray itemBlackList = JArray.Parse(LoadConfig.Config["ItemsBlacklist"].ToString());
@@ -432,7 +432,7 @@ namespace VORP.Stables.Server
             int itemid = 0;
             if (type.Contains("item_weapon"))
             {
-                count = 1;
+                // count = 1;
                 itemid = data["item"]["id"].ToObject<int>();
             }
 
