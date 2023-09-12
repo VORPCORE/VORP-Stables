@@ -4,7 +4,7 @@
 
   "StableSlots": 5, // set max horses for each user
 
-  "JobRequired": true, //set to false, if no job should be necessary
+  "JobRequired": false, //set to false, if no job should be necessary
 
   "DisableBuyOptions": false, //set this to true, if you want to disable the buy options.
   //Just do this if your using a carriages build script and a wild horse stable script
